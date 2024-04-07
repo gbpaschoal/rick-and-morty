@@ -19,12 +19,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    
+
     "paths": {
       "@/*": ["./src/*"]
-    },
+    }
   },
-  "include": ["src"],
+  "include": ["src", "src/services/rick-and-morty.api/.tsx"],
 
   "references": [{ "path": "./tsconfig.node.json" }]
 }

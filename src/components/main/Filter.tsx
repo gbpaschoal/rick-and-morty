@@ -166,7 +166,7 @@ export default function Filter() {
 
   return (
     <div
-      className="relative sm:max-w-[80%] order-2 flex w-full gap-4
+      className="relative max-w-[80%] order-2 flex w-full gap-4
       lg:order-1">
       <button
         className={`${

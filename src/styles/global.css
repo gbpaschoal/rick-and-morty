@@ -4,17 +4,25 @@
 
 :root {
   --header-height: 6rem;
-  --responsive-title: clamp(2rem, 5vw, 4rem);
+  --background: theme('colors.gray.900');
 }
 
 * {
   scroll-behavior: smooth;
 }
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
 body {
-  @apply w-full bg-gray-900;
   min-height: 100dvh;
   font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--background);
+}
+
+svg {
+  @apply fill-light-300 hover:fill-light-100;
 }
 
 input[type='checkbox'] {
@@ -25,19 +33,26 @@ li {
   list-style: none;
 }
 
-*::-webkit-scrollbar {
-  display: none;
-}
-
-@keyframes border-light {
+@keyframes border-pulse {
   0% {
-    border: 2px solid theme('colors.gray.300');
-    /* filter: drop-shadow(0px 8px 20px theme('colors.primary.300')); */
+    border-color: theme('colors.gray.300');
   }
 
   100% {
-    border: 2px solid theme('colors.primary.100');
+    border-color: theme('colors.primary.100');
     filter: drop-shadow(0px 4px 10px theme('colors.primary.100'));
+  }
+}
+
+@keyframes in {
+}
+
+@keyframes out {
+  75% {
+    opacity: 75;
+  }
+  100% {
+    opacity: 0;
   }
 }
 
@@ -57,14 +72,9 @@ li {
     font-weight: 600;
     color: theme('colors.light.100');
     border-radius: 5px;
-    animation: border-light 3s cubic-bezier(0.12, 0.98, 0.77, 0.98) alternate
+    border: 2px solid;
+    animation: border-pulse 3s cubic-bezier(0.12, 0.98, 0.77, 0.98) alternate
       infinite;
-  }
-
-  .motion-opacity {
-    transition-duration: 0.2s;
-    transition-timing-function: linear;
-    transition-property: opacity, color, background;
   }
 
   .motion-transform {
@@ -79,5 +89,17 @@ li {
 
   .card-character {
     animation: first-view 0.4s cubic-bezier(0.12, 1, 0.2, 1);
+  }
+}
+
+@layer utilities {
+  .motion-opacity {
+    transition-duration: 200ms;
+    transition-timing-function: linear;
+    transition-property: opacity, color, background, fill;
+  }
+
+  .animated-background.active {
+    animation: in 1s 300ms cubic-bezier(0.12, 1, 0.2, 1) forwards;
   }
 }

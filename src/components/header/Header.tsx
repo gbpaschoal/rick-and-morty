@@ -1,22 +1,36 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
+import Icon from '@/assets/icons';
+import SearchModal from '../SearchModal/SearchModal';
 
 export default function Header() {
+  const [isOpen, setIsOpen] = React.useState(false);
+
   return (
     <header
-      className="fixed top-0 flex items-center justify-between
-    w-full px-5 py-4 bg-gray-900 z-5">
-      <Link
-        to={'characters'}
-        className="font-semibold hover:text-light-100 text-light-400
-        text-large">
-        Rick and Morty
+      className="fixed top-0 left-0 z-3 bg-[--background] flex items-center
+      justify-between w-full">
+      {isOpen && <SearchModal onClose={() => setIsOpen(false)} />}
+      <Link to={'/characters'}>
+        <Icon.Logo
+          className="fill-light-300/80 hover:fill-light-100
+          motion-opacity sm:size-[52px]"
+        />
       </Link>
       <Link
-        to={'favorites'}
-        className="btn motion-linear
-      hover:bg-primary-100">
+        to={'/favorites'}
+        className="hidden sm:inline-flex btn hover:bg-primary-100
+        transition-opacity duration-100 ease-linear">
         Favorites
       </Link>
+      <div className="flex gap-x-4 sm:hidden">
+        <button onClick={() => setIsOpen(true)}>
+          <Icon.Search />
+        </button>
+        <Link to={'/favorites'}>
+          <Icon.Fav />
+        </Link>
+      </div>
     </header>
   );
 }

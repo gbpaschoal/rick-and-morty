@@ -1,4 +1,4 @@
-function CloseSVG({ className }) {
+export function Close({ className }: { className?: string }) {
   return (
     <svg
       className={className}
@@ -10,5 +10,3 @@ function CloseSVG({ className }) {
     </svg>
   );
 }
-
-export default CloseSVG;

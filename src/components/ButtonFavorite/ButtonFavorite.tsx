@@ -1,5 +1,5 @@
-import { FavSVG } from '@/assets/icons/main/FavSVG';
 import { useFavorites } from '@/contexts/favorites.context';
+import Icon from '@/assets/icons';
 
 export default function ButtonFavorite({ data }) {
   const { favorites, setFavorites } = useFavorites();
@@ -14,17 +14,16 @@ export default function ButtonFavorite({ data }) {
 
     setFavorites((prev) => [...prev, data]);
   };
-
   return (
     <div
       onClick={() => addToFavorites()}
       className={`fav-btn relative top-[-10%] group-hover/overlay:top-0 cursor-pointer
-       ml-auto w-max p-3 rounded-full
+       ml-auto p-3 rounded-full
     ${
-      isInFavorites ? 'bg-red' : 'bg-gray-300/80'
-    } grid place-items-center motion-transform
+      isInFavorites ? 'bg-red' : 'bg-gray-500'
+    } w-max grid place-items-center motion-transform
       backdrop-blur-[50px] box-shadow`}>
-      <FavSVG className="fill-light-100 size-8" />
+      <Icon.Fav className="size-8" />
     </div>
   );
 }
