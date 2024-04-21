@@ -10,8 +10,10 @@ export default function Header() {
     <header
       className="fixed top-0 left-0 z-3 bg-[--background] flex items-center
       justify-between w-full">
-      {isOpen && <SearchModal onClose={() => setIsOpen(false)} />}
-      <Link to={'/characters'}>
+      {isOpen && (
+        <SearchModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      )}
+      <Link to={'/'}>
         <Icon.Logo
           className="fill-light-300/80 hover:fill-light-100
           motion-opacity sm:size-[52px]"
@@ -24,7 +26,11 @@ export default function Header() {
         Favorites
       </Link>
       <div className="flex gap-x-4 sm:hidden">
-        <button onClick={() => setIsOpen(true)}>
+        <button
+          onClick={() => setIsOpen(true)}
+          role="button"
+          aria-label="Open Search Modal"
+          aria-controls="search-modal">
           <Icon.Search />
         </button>
         <Link to={'/favorites'}>

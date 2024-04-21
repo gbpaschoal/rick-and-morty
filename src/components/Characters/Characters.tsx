@@ -9,16 +9,14 @@ export default function Characters() {
   const {
     results: characters,
     totalCharacters,
-    setLastOne,
+    setObserverRef,
     isLoading,
   } = useInfiniteScroll(getAllCharacters);
   const [isOpen, setIsOpen] = React.useState(false);
 
   const onClose = (e) => {
     e.preventDefault();
-    if (!e.target.closest('.search-modal') || e.target.closest('.close-btn')) {
-      setIsOpen(false);
-    }
+    setIsOpen(false);
   };
 
   return (
@@ -28,7 +26,7 @@ export default function Characters() {
          text-[clamp(2rem,_7vw,_3.6rem)] leading-none tracking-tight">
         Rick and Morty <br /> Characters
       </h1>
-      {isOpen && <SearchModal onClose={onClose} />}
+      {isOpen && <SearchModal isOpen={isOpen} onClose={onClose} />}
       <nav className="hidden sm:block mt-5 mb-10 w-full">
         <div
           onClick={() => setIsOpen(true)}
@@ -56,6 +54,7 @@ export default function Characters() {
             Loading...
           </div>
         )}
+
         <ul
           className="gap-1 grid grid-cols-2 sm:grid-cols-3
         md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 w-full">
@@ -64,7 +63,7 @@ export default function Characters() {
 
             if (isTheLastOne) {
               return (
-                <li key={character.id} ref={(node) => setLastOne(node)}>
+                <li key={character.id} ref={setObserverRef}>
                   <CardCharacter data={character} />
                 </li>
               );
@@ -77,7 +76,7 @@ export default function Characters() {
           })}
         </ul>
         {totalCharacters === characters.length && !isLoading && (
-          <div className="mx-auto text-center text-light-300/60 mt-10">
+          <div className="mx-auto text-center text-light-300/60 my-10">
             No more
           </div>
         )}

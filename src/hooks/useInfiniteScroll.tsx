@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ICharacter, IResultList } from '@/types/Characters';
+import _ from 'lodash';
 
 export function useInfiniteScroll(
   cb: (url: string, signal?: AbortSignal) => Promise<IResultList>
@@ -9,15 +10,15 @@ export function useInfiniteScroll(
   const [page, setPage] = React.useState(2);
   const [totalCharacters, setTotalCharacters] = React.useState(0);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [lastOne, setLastOne] = React.useState<Element | null>(null);
+  const [observerRef, setObserverRef] = React.useState<Element | null>(null);
   const [searchParams] = useSearchParams();
-
   const controllerRef = React.useRef<AbortController | null>(null);
 
   const fetchNewPage = async () => {
     if (isLoading) return;
 
     controllerRef.current && controllerRef.current.abort();
+
     setIsLoading(true);
 
     const controller = new AbortController();
@@ -29,40 +30,54 @@ export function useInfiniteScroll(
         controller.signal
       );
 
-      setResults((prev) => [...prev, ...data.results]);
-      setTotalCharacters(data.info.count);
-      setPage((prev) => prev + 1);
-      setIsLoading(false);
+      if (data) {
+        setResults((prev) => _.uniqBy([...prev, ...data.results], 'id'));
+        setTotalCharacters(data.info.count);
+        setPage((prev) => prev + 1);
+        setIsLoading(false);
+      }
     } catch (error) {
-      console.log(error);
+      console.log('');
       setIsLoading(false);
     }
   };
 
   React.useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !isLoading) {
-            fetchNewPage();
+      async ([entry]) => {
+        if (entry.isIntersecting) {
+          let retries = 0;
+          while (retries <= 3) {
+            try {
+              setIsLoading(true);
+              await fetchNewPage();
+              setIsLoading(false);
+
+              break;
+            } catch (error) {
+              console.log('tentando novamente', retries);
+              retries++;
+            }
           }
-        });
+        }
       },
       { rootMargin: '200px' }
     );
 
-    if (lastOne) {
-      observer.observe(lastOne);
+    if (observerRef) {
+      observer.observe(observerRef);
     }
 
     return () => {
-      if (lastOne) {
-        observer.unobserve(lastOne);
+      if (observerRef) {
+        observer.unobserve(observerRef);
       }
     };
-  }, [lastOne]);
+  }, [observerRef]);
 
   React.useEffect(() => {
+    controllerRef.current && controllerRef.current.abort();
+
     setIsLoading(true);
     setResults([]);
     setPage(2);
@@ -94,7 +109,7 @@ export function useInfiniteScroll(
 
   return {
     results,
-    setLastOne,
+    setObserverRef,
     isLoading,
     totalCharacters,
   };

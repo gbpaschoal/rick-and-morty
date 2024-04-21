@@ -12,16 +12,16 @@ export default function CardCharacter({ data }: { data: ICharacter }) {
     }
   };
 
-  const onClose = (e) => {
-    if (!e.target.closest('.character-modal')) {
-      setIsOpen(false);
-    }
-  };
   return (
     <>
-      {isOpen && <CardCharacterDetails data={data} onClose={onClose} />}
+      {isOpen && (
+        <CardCharacterDetails
+          data={data}
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+        />
+      )}
       <div className="w-full" onClick={open}>
-        {/* {isOpen && <div className="text-light-100">Oi</div>} */}
         <div
           className="group/overlay relative overflow-hidden
         rounded-xl">
@@ -36,7 +36,7 @@ export default function CardCharacter({ data }: { data: ICharacter }) {
               <div
                 className="relative overflow-y-scroll -left-full
                 w-full group-hover/overlay:left-0 transition-position
-                duration-100 delay-100 ease-linear">
+                duration-100 delay-350 ease-linear">
                 <h2
                   className="text-light-100 font-extrabold
                 text-2xl">

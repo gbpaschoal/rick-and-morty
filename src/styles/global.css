@@ -33,6 +33,22 @@ li {
   list-style: none;
 }
 
+.overlay {
+  transition-delay: 200ms;
+  transition-timing-function: ease;
+  animation: mousehandle;
+}
+
+@keyframes mousehandle {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 100;
+  }
+}
+
 @keyframes border-pulse {
   0% {
     border-color: theme('colors.gray.300');

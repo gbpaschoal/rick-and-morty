@@ -13,13 +13,13 @@ export default function SearchCardCharacter({ data }) {
 
   const onClose = (e: React.MouseEvent<Element>) => {
     e.preventDefault();
-    if (!e.target.closest('.character-modal')) {
-      setIsOpen(false);
-    }
+    setIsOpen(false);
   };
   return (
     <li>
-      {isOpen && <CardCharacterDetails data={data} onClose={onClose} />}
+      {isOpen && (
+        <CardCharacterDetails data={data} isOpen={isOpen} onClose={onClose} />
+      )}
       <div
         onClick={open}
         className="w-full bg-gray-700 rounded-[10px] flex

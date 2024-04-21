@@ -22,7 +22,9 @@ export default function ButtonFavorite({ data }) {
     ${
       isInFavorites ? 'bg-red' : 'bg-gray-500'
     } w-max grid place-items-center motion-transform
-      backdrop-blur-[50px] box-shadow`}>
+      backdrop-blur-[50px] box-shadow `}
+      role="button"
+      aria-label="Add Character in you list of Favorites">
       <Icon.Fav className="size-8" />
     </div>
   );

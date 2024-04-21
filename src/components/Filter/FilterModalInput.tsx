@@ -1,14 +1,12 @@
-import { useSearchParams } from 'react-router-dom';
-
 export default function FilterModalInput({
   field: { group, value },
   handleFilters,
+  checked,
 }: {
   field: { group: string; value: string };
   handleFilters: (group: string, value: string) => void;
+  checked: boolean;
 }) {
-  const [searchParams] = useSearchParams();
-
   return (
     <label
       className="w-full flex justify-between
@@ -20,7 +18,7 @@ export default function FilterModalInput({
         type="checkbox"
         name={group}
         value={value}
-        checked={searchParams.get(group) === value}
+        checked={checked}
         onChange={() => handleFilters(group, value)}
       />
     </label>

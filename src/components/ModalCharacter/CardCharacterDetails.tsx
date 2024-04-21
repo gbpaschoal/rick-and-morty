@@ -1,29 +1,47 @@
 import React from 'react';
 import Icon from '@/assets/icons';
 import ButtonFavorite from '../ButtonFavorite/ButtonFavorite';
+import OverlayModal from '../OverlayModal';
 import { ICharacter } from '@/types/Characters';
 
 type CardCharacterModalProps = {
   data: ICharacter;
+  isOpen: boolean;
   onClose: (e: React.MouseEvent) => void;
 };
 
 export default function CardCharacterDetails({
+  isOpen,
   onClose,
   data: character,
 }: CardCharacterModalProps) {
+  React.useEffect(() => {
+    const isAlreadyOpen = document.body.style.overflowY === 'hidden';
+
+    if (!isAlreadyOpen) document.body.style.overflowY = 'hidden';
+
+    return () => {
+      if (!isAlreadyOpen) {
+        document.body.style.overflowY = '';
+      }
+    };
+  }, [isOpen]);
   return (
-    <div
-      onClick={onClose}
-      className="fixed z-5 inset-0 backdrop-blur-md grid
-            place-items-center bg-gray-950/20">
-      <button
-        className="absolute top-0 right-0 grid
-        place-items-center z-3 p-4">
-        <Icon.Close />
-      </button>
+    <OverlayModal>
       <div
-        className="character-modal bg-gray-700 rounded-[10px] max-w-[300px]
+        onClick={onClose}
+        className="absolute -z-1 backdrop-blur-2xl w-full h-screen"
+        aria-expanded={isOpen}>
+        <div>
+          <button
+            className="ml-auto grid
+        place-items-center z-3 p-4">
+            <Icon.Close />
+          </button>
+        </div>
+      </div>
+      <div
+        className="mt-[15vh] bg-gray-700 rounded-[10px] w-[50vw] min-w-[250px] max-w-[300px]
           h-auto flex flex-col items-center py-4 px-5">
         <div
           className="relative top-0 overflow-hidden rounded-[10px] h-auto
@@ -74,6 +92,11 @@ export default function CardCharacterDetails({
           </span>
         </div>
       </div>
-    </div>
+    </OverlayModal>
+    // <div
+    //   onClick={onClose}
+    //   className="fixed z-5 inset-0 backdrop-blur-md grid
+    //         place-items-center bg-gray-950/20">
+    // </div>
   );
 }

@@ -2,17 +2,12 @@ import React from 'react';
 import Icon from '@/assets/icons';
 import FilterModal from '@/components/Filter/FilterModal';
 import { Outlet } from 'react-router-dom';
-// import { MainModal } from '../Modal';
 import { useLocation } from 'react-router-dom';
 
 export default function Main() {
   const [isOpen, setIsOpen] = React.useState(false);
   const location = useLocation();
   const scrollButtonRef = React.useRef<null | HTMLButtonElement>(null);
-
-  const scrollToTop = () => {
-    window.scrollTo(0, 0);
-  };
 
   React.useEffect(() => {
     const verifyScrollHeight = () => {
@@ -33,7 +28,6 @@ export default function Main() {
     <main
       className="mt-[--header-height] w-full relative
     flex flex-col items-center">
-      {/* <MainModal /> */}
       <React.Suspense
         fallback={
           <div className="mx-auto text-center text-light-100">Loading</div>
@@ -45,7 +39,7 @@ export default function Main() {
           {isOpen && location.pathname === '/' && <FilterModal />}
           <button
             ref={scrollButtonRef}
-            onClick={scrollToTop}
+            onClick={() => window.scrollTo(0, 0)}
             className="motion-transform grid place-items-center
         relative opacity-0 mx-auto p-4 rounded-full
         bg-gray-500 hover:bg-gray-400">
