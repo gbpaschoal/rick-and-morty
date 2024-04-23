@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchResults from './SearchResults';
 import OverlayModal from '../OverlayModal';
-import Icon from '@/assets/icons';
+import * as Icon from '@/assets/icons';
 import { getAllCharacters } from '@/services/rick-and-morty.api';
 
 export default function SearchModal({ onClose, isOpen }) {

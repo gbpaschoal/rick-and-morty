@@ -1,7 +1,7 @@
 import React from 'react';
 import CardCharacter from '@/components/CardCharacter/CardCharacter';
 import SearchModal from '@/components/SearchModal/SearchModal';
-import Icon from '@/assets/icons';
+import * as Icon from '@/assets/icons';
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 import { getAllCharacters } from '@/services/rick-and-morty.api';
 
@@ -20,26 +20,26 @@ export default function Characters() {
   };
 
   return (
-    <>
-      <h1
-        className="mb-10 sm:mb-0 font-extrabold text-center text-light-300
+    <div>
+      <div className="flex flex-col gap-y-3 mb-12">
+        {isOpen && <SearchModal isOpen={isOpen} onClose={onClose} />}
+        <h1
+          className="mb-10 sm:mb-0 font-extrabold text-center text-light-300
          text-[clamp(2rem,_7vw,_3.6rem)] leading-none tracking-tight">
-        Rick and Morty <br /> Characters
-      </h1>
-      {isOpen && <SearchModal isOpen={isOpen} onClose={onClose} />}
-      <nav className="hidden sm:block mt-5 mb-10 w-full">
+          Rick and Morty <br /> Characters
+        </h1>
         <div
           onClick={() => setIsOpen(true)}
           className="w-full max-w-xl mx-auto
-          bg-gray-800 rounded-xl px-4 border-[1px] border-gray-600
-          cursor-pointer">
+          bg-gray-800 rounded-xl px-4 border-1 border-gray-600
+          hover:bg-gray-700 cursor-pointer transition-opacity">
           <form>
             <div className="flex items-center">
               <div className="w-full flex items-center gap-x-2">
-                <Icon.Search className="mt-[1px] fill-light-300/60" />
+                <Icon.Search className="mt-[1px] fill-light-100/60" />
                 <input
                   className="w-full h-12 outline-none border-none bg-transparent
-                   flex-1 text-light-100 placeholder:text-light-300/60 cursor-pointer"
+                   flex-1 text-light-100 placeholder:text-light-100/60 cursor-pointer"
                   type="text"
                   placeholder="Search Characters"
                 />
@@ -47,7 +47,7 @@ export default function Characters() {
             </div>
           </form>
         </div>
-      </nav>
+      </div>
       <div>
         {isLoading && totalCharacters === 0 && (
           <div className="mx-auto text-center text-light-300/60">
@@ -81,6 +81,6 @@ export default function Characters() {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }

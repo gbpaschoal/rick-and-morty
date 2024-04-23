@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '@/assets/icons';
+import * as Icon from '@/assets/icons';
 import CardCharacter from '@/components/CardCharacter/CardCharacter';
 import { useFavorites } from '@/contexts/favorites.context';
 import { useNavigate } from 'react-router-dom';

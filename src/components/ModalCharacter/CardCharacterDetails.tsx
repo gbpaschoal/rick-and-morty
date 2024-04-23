@@ -1,5 +1,6 @@
 import React from 'react';
-import Icon from '@/assets/icons';
+import * as Icon from '@/assets/icons';
+
 import ButtonFavorite from '../ButtonFavorite/ButtonFavorite';
 import OverlayModal from '../OverlayModal';
 import { ICharacter } from '@/types/Characters';

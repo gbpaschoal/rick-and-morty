@@ -1,4 +1,4 @@
-export function Fav({ className }: { className: string }) {
+export function Fav({ className }: { className?: string }) {
   return (
     <svg
       className={className}

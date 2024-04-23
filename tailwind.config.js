@@ -49,6 +49,9 @@ export default {
         opacity: 'opacity, color, background, fill',
         position: 'top, left, bottom, right',
       },
+      borderWidth: {
+        1: '1px',
+      },
     },
   },
   plugins: [],

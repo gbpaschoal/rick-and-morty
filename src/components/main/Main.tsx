@@ -1,22 +1,21 @@
 import React from 'react';
-import Icon from '@/assets/icons';
+import * as Icon from '@/assets/icons';
+
 import FilterModal from '@/components/Filter/FilterModal';
 import { Outlet } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 export default function Main() {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isVisible, setIsVisible] = React.useState(false);
   const location = useLocation();
-  const scrollButtonRef = React.useRef<null | HTMLButtonElement>(null);
 
   React.useEffect(() => {
     const verifyScrollHeight = () => {
       if (window.scrollY > 200) {
-        scrollButtonRef.current?.classList.remove('opacity-0');
-        scrollButtonRef.current?.classList.add('opacity-100');
+        setIsVisible(true);
       } else {
-        scrollButtonRef.current?.classList.remove('opacity-100');
-        scrollButtonRef.current?.classList.add('opacity-0');
+        setIsVisible(false);
       }
     };
 
@@ -34,15 +33,16 @@ export default function Main() {
         }>
         <Outlet />
       </React.Suspense>
-      <nav className="fixed bottom-4 z-2 w-full flex justify-end px-6">
+      <nav
+        className="fixed bottom-0 z-2 w-full flex justify-end px-6 pb-6 pt-12s
+      bg-[linear-gradient(180deg,#0000,#0000004d)] drop-shadow-2xl">
         <div className="w-max flex gap-x-2">
           {isOpen && location.pathname === '/' && <FilterModal />}
           <button
-            ref={scrollButtonRef}
             onClick={() => window.scrollTo(0, 0)}
-            className="motion-transform grid place-items-center
-        relative opacity-0 mx-auto p-4 rounded-full
-        bg-gray-500 hover:bg-gray-400">
+            className={`motion-transform grid place-items-center
+        relative ${isVisible ? 'opacity-100' : 'opa'} mx-auto p-4 rounded-full
+        bg-gray-500 hover:bg-gray-400`}>
             <Icon.ArrowToUp />
           </button>
           {location.pathname === '/' && (

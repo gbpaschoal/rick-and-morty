@@ -21,33 +21,13 @@ body {
   background-color: var(--background);
 }
 
-svg {
-  @apply fill-light-300 hover:fill-light-100;
-}
-
 input[type='checkbox'] {
   display: none;
 }
 
-li {
+/* li {
   list-style: none;
-}
-
-.overlay {
-  transition-delay: 200ms;
-  transition-timing-function: ease;
-  animation: mousehandle;
-}
-
-@keyframes mousehandle {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 100;
-  }
-}
+} */
 
 @keyframes border-pulse {
   0% {
@@ -55,67 +35,10 @@ li {
   }
 
   100% {
-    border-color: theme('colors.primary.100');
-    filter: drop-shadow(0px 4px 10px theme('colors.primary.100'));
-  }
-}
-
-@keyframes in {
-}
-
-@keyframes out {
-  75% {
-    opacity: 75;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes first-view {
-  0% {
-    scale: 0.9;
-  }
-  100% {
-    scale: 1;
-  }
-}
-
-@layer components {
-  .btn {
-    padding-inline: 1rem;
-    padding-block: 0.54rem;
-    font-weight: 600;
-    color: theme('colors.light.100');
-    border-radius: 5px;
-    border: 2px solid;
-    animation: border-pulse 3s cubic-bezier(0.12, 0.98, 0.77, 0.98) alternate
-      infinite;
-  }
-
-  .motion-transform {
-    transition-duration: 0.2s;
-    transition-timing-function: cubic-bezier(0.92, 1, 0.92, 1);
-    transition-property: top, left, bottom, right;
-  }
-
-  .box-shadow {
-    box-shadow: 0 4px 4px #00000040;
-  }
-
-  .card-character {
-    animation: first-view 0.4s cubic-bezier(0.12, 1, 0.2, 1);
+    border-color: theme('colors.primary.300');
+    filter: drop-shadow(0px 4px 10px theme('colors.primary.300'));
   }
 }
 
 @layer utilities {
-  .motion-opacity {
-    transition-duration: 200ms;
-    transition-timing-function: linear;
-    transition-property: opacity, color, background, fill;
-  }
-
-  .animated-background.active {
-    animation: in 1s 300ms cubic-bezier(0.12, 1, 0.2, 1) forwards;
-  }
 }

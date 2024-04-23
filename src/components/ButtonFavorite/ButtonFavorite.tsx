@@ -1,5 +1,5 @@
 import { useFavorites } from '@/contexts/favorites.context';
-import Icon from '@/assets/icons';
+import * as Icon from '@/assets/icons';
 
 export default function ButtonFavorite({ data }) {
   const { favorites, setFavorites } = useFavorites();
