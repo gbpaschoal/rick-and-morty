@@ -1,11 +1,11 @@
 import React from 'react';
-import * as Icon from '@/assets/icons';
-import CardCharacter from '@/components/CardCharacter/CardCharacter';
-import { useFavorites } from '@/contexts/favorites.context';
+import * as Icon from './../assets/icons';
+import CardCharacter from './CardCharacter';
+import { FavoriteContext } from './../App';
 import { useNavigate } from 'react-router-dom';
 
 export default function Favorites() {
-  const { favorites } = useFavorites();
+  const { favorites } = React.useContext(FavoriteContext);
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -22,7 +22,7 @@ export default function Favorites() {
           onClick={() => navigate(-1)}
           className="motion-opacity p-3 bg-gray-700 hover:bg-gray-600
         rounded-full justify-self-start">
-          <Icon.ArrowToLeft className="size-8" />
+          <Icon.ArrowToLeft className="size-8 fill-light-100" />
         </button>
         <h2
           className="font-extrabold
@@ -33,7 +33,7 @@ export default function Favorites() {
         </h2>
       </div>
       <div className="w-full flex flex-col justify-center">
-        {Object.entries(favorites).length === 0 && (
+        {favorites.length === 0 && (
           <div className="mx-auto text-center">
             <span className="text-light-100/60 "> There is nothing yet </span>
           </div>

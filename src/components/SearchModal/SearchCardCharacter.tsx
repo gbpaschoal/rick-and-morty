@@ -1,6 +1,6 @@
 import React from 'react';
-import ButtonFavorite from '../ButtonFavorite/ButtonFavorite';
-import CardCharacterDetails from '../ModalCharacter/CardCharacterDetails';
+import ButtonFavorite from '../ButtonFavorite';
+import CardCharacterDetails from '../CardCharacterDetails';
 
 export default function SearchCardCharacter({ data }) {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -22,7 +22,7 @@ export default function SearchCardCharacter({ data }) {
       )}
       <div
         onClick={open}
-        className="w-full bg-gray-700 rounded-[10px] flex
+        className="w-full bg-gray-700 hover:bg-gray-600 rounded-[10px] flex
        p-2 items-center">
         <div className="flex-1 flex gap-x-2">
           <div className="w-full max-w-20 flex-shrink-0 rounded-[10px] overflow-hidden">

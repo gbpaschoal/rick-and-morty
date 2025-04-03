@@ -1,17 +1,39 @@
-import Header from './components/Header/Header';
-import Main from '@/components/Main/Main';
-import { FavoritesContextProvider } from './contexts/favorites.context';
+import * as React from 'react';
+import Header from './components/Header';
+import Main from './components/Main';
+import { ICharacter } from './types/Characters';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-export default function App() {
+type TFavoriteContext = {
+  favorites: ICharacter[];
+  setFavorites: React.Dispatch<React.SetStateAction<ICharacter[]>>;
+};
+
+export const FavoriteContext = React.createContext<TFavoriteContext>({
+  favorites: [],
+  setFavorites: () => {},
+});
+
+function FavoriteContextProvider({ children }: { children: React.ReactNode }) {
+  const [favorites, setFavorites] = React.useState<ICharacter[]>([]);
+
+  console.log(favorites);
   return (
-    <div
-      className="[*:where(&>*)]:mx-auto [*:where(&>*)]:px-4
-    [*:where(&>*)]:py-3 [*:where(&>*)]:xl:px-6 [*:where(&>*)]:xl:py-4
-    bg-gray-900">
-      <FavoritesContextProvider>
-        <Header />
-        <Main />
-      </FavoritesContextProvider>
-    </div>
+    <FavoriteContext.Provider value={{ favorites, setFavorites }}>
+      {children}
+    </FavoriteContext.Provider>
+  );
+}
+export default function App() {
+  const queryClient = new QueryClient();
+  return (
+    <>
+      <QueryClientProvider client={queryClient}>
+        <FavoriteContextProvider>
+          <Header />
+          <Main />
+        </FavoriteContextProvider>
+      </QueryClientProvider>
+    </>
   );
 }
