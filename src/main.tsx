@@ -1,27 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './global.css';
+import './styles/global.css';
 import {
   createBrowserRouter,
   RouterProvider,
-  createRoutesFromElements,
-  Route,
 } from 'react-router-dom';
-import App from './App';
-import Characters from './components/Characters';
-import Favorites from './components/Favorites';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import FavoriteProvider from './components/Favorites';
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<App />}>
-      <Route index element={<Characters />} />
-      <Route path="/favorites" element={<Favorites />} />
-    </Route>
-  )
+import App from './App';
+import FavoritesLayout from './components/FavoritesLayout.tsx';
+
+const queryClient = new QueryClient();
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App/>,
+    // children: [
+    //   {
+    //     path: 'fav',
+    //     element: <FavoritesLayout/>
+    //   }
+    // ]
+  },
+
+]
 );
+
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <FavoriteProvider>
+        <RouterProvider router={router} />
+      </FavoriteProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );
