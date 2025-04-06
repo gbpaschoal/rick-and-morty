@@ -112,40 +112,30 @@ export default function Characters() {
 
   return (
     <>
-      <div className="w-full flex flex-col gap-y-3 mb-5 sm:mb-10">
-        {isOpen && (
-          <SearchModal isOpen={isOpen} onClose={() => setIsOpen(!isOpen)} />
-        )}
-        <h1
-          className="font-extrabold text-center text-light-300
-         text-[clamp(2rem,_7vw,_3.6rem)] leading-none tracking-tight">
-          Rick and Morty <br /> Characters
-        </h1>
-        <div
-          onClick={() => setIsOpen(true)}
-          className="hidden sm:block w-full max-w-xl mx-auto
-          bg-gray-800 rounded-xl px-4 border-1 border-gray-600
-          hover:bg-gray-700 cursor-pointer transition-opacity">
-          <div className="flex items-center">
-            <div className="w-full flex items-center gap-x-2">
-              <Icon.Search className="mt-[1px] fill-light-100/60" />
-              <input
-                className="w-full h-12 outline-none border-none bg-transparent
-                   flex-1 text-light-100 placeholder:text-light-100/60 cursor-pointer"
-                type="text"
-                placeholder="Search Characters"
-              />
+      <div className='mt-16 flex flex-col gap-y-6'>
+        <div>
+          <h1
+            className="font-extrabold text-center text-light-300
+          text-[clamp(2rem,_7vw,_3.6rem)] leading-none tracking-tight">
+            Rick and Morty <br /> Characters
+          </h1>
+          <div
+            className="hidden sm:block w-full max-w-xl mx-auto
+            bg-[#121212] rounded-xl px-4 border-1 border-gray-600
+            hover:bg-gray-700 cursor-pointer transition-opacity">
+            <div className="flex items-center">
+              <div className="w-full flex items-center gap-x-2">
+                <Icon.Search className="mt-[1px] fill-light-100/60" />
+                <input
+                  className="w-full h-12 outline-none border-none bg-transparent
+                    flex-1 text-light-100 placeholder:text-light-100/60 cursor-pointer"
+                  type="text"
+                  placeholder="Search Characters"
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div>
-        {isLoading && (
-          <div className="mx-auto text-center text-light-300/60">
-            Loading...
-          </div>
-        )}
-
         <ul
           className="gap-1 grid grid-cols-2 sm:grid-cols-3
         md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 w-full">

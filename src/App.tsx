@@ -1,13 +1,14 @@
 import * as React from 'react';
 import Header from './components/Header';
-import Main from './components/Main';
+import Characters from './components/Characters';
 
 export default function App() {
-  console.log('esta ai?')
   return (
-    <div>
-      <Header />
-      <h1>Bom dia</h1>
+    <div className='w-full'>
+      <div className='fixed top-0 left-0 z-3 w-full'>
+        <Header/>
+      </div>
+      <Characters/>
     </div>
 
   );

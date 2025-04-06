@@ -9,15 +9,17 @@ html {
 
 :root {
   --header-height: 6rem;
-  --hover-alpha: .8;
 
   --carbon: #0A0A0A;
+  --carbon-hover: rgb(14, 14, 14);
   --silver-mist: #D5D5D5;
   --emerald-flash: #0DA612;
 
-  --carbon-hover: rgba(10, 10, 10, var(var(--hover-alpha)));
+  --bg-main: var(--carbon);
 
-  --bg-main: var(var(--carbon))
+
+
+
 }
 
 
