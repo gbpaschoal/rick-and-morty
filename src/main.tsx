@@ -6,10 +6,10 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import FavoriteProvider from './components/Favorites';
+import FavoriteProvider from './components/FavoriteProvider';
 
 import App from './App';
-import FavoritesLayout from './components/FavoritesLayout.tsx';
+// import FavoritesLayout from './components/FavoritesLayout.tsx';
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([

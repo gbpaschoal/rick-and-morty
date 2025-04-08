@@ -1,20 +1,20 @@
 import React from 'react';
 import { clsx } from 'clsx';
 import * as Icon from './../assets/icons';
-import { FavoriteContext } from './Favorites';
+import { FavoriteContext } from './FavoriteProvider';
 import { ICharacter } from './../types/Characters';
 
 export default function ButtonFavorite({ data }: { data: ICharacter }) {
-  const { favorites, updateFavorites } = React.useContext(FavoriteContext);
+  const { favorites, setFavorites } = React.useContext(FavoriteContext);
   const isInFavorites = favorites.some((elem) => elem.id === data.id);
 
   const addToFavorites = () => {
     if (isInFavorites) {
-      // updateFavorites(favorites.filter((elem) => elem.id !== data.id));
+      // setFavorites(favorites.filter((elem) => elem.id !== data.id));
       console.log('oi')
       return;
     }
-    updateFavorites(data);
+    setFavorites(data);
   };
   return (
     <button

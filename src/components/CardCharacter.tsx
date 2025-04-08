@@ -1,11 +1,10 @@
-import ButtonFavorite from './ButtonFavorite';
 import { ICharacter } from '../types/Characters';
 
 export default function CardCharacter({ data }: { data: ICharacter }) {
   return (
     <>
-      <div className="w-full bg-[#121212] rounded-xl flex flex-col gap-y-2
-       pb-8 p-2 hover:bg-[#202020]">
+      <div className="w-full bg-[var(--dark-100)] rounded-xl flex flex-col gap-y-2
+       pb-8 p-2 hover:bg-[var(--dark-200)]">
         <div className="relative overflow-hidden rounded-xl cursor-pointer">
           <div className="absolute inset-0 opacity-100">
             <div className="flex flex-col justify-end h-full p-2">

@@ -9,16 +9,27 @@ html {
 
 :root {
   --header-height: 6rem;
+  --gutter: .5rem;
 
-  --carbon: #0A0A0A;
-  --carbon-hover: rgb(14, 14, 14);
-  --silver-mist: #D5D5D5;
-  --emerald-flash: #0DA612;
+  --dark: #000;
+  --dark-50: #0a0a0a;
+  --dark-100: #171717;
+  --dark-200: #262626;
+  --dark-300: #373737;
+  --dark-400: #525252;
+  --dark-500: #8a8a8a;
+  --dark-600: #a3a3a3;
 
-  --bg-main: var(--carbon);
+  --light: #fff;
+  --light-50: #fafafa;
+  --light-100: #f5f5f5;
+  --light-200: #e5e5e5;
+  --light-300: #d4d4d4;
+  --light-400: #737373;
 
+  --primary: #1B56FD;
 
-
+  --bg-main: var(--dark-50)
 
 }
 

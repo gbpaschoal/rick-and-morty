@@ -11,12 +11,6 @@ export default {
         4: '4',
         5: '5',
       },
-      colors: {
-        "carbon": "#0A0A0A",
-        "silver": "#D5D5D5 ",
-        "emerald-flash": "#0DA612",
-        "carbon-light": ''
-      },
       borderWidth: {
         1: '1px',
       },
