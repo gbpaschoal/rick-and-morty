@@ -24,7 +24,7 @@ export default function Header() {
           </svg>
         </div>
         <div>
-          <Router.Link to={'/'}>
+          <Router.Link to={'fav'}>
             <Button>
               Favorites
             </Button>

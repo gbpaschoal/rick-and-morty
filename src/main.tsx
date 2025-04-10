@@ -9,19 +9,24 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import FavoriteProvider from './components/FavoriteProvider';
 
 import App from './App';
-// import FavoritesLayout from './components/FavoritesLayout.tsx';
+import Favorites from './components/Favorites';
+import Characters from './components/Characters';
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App/>,
-    // children: [
-    //   {
-    //     path: 'fav',
-    //     element: <FavoritesLayout/>
-    //   }
-    // ]
+    children: [
+      {
+        index: true,
+        element: <Characters/>
+      },
+      {
+        path: 'fav',
+        element: <Favorites/>
+      }
+    ]
   },
 
 ]

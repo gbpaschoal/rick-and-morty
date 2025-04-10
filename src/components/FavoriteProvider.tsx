@@ -5,10 +5,12 @@ import { ICharacter } from '../types/Characters';
 
 export const FavoriteContext = React.createContext<{
   favorites: ICharacter[];
-  setFavorites: (fav: ICharacter) => void
+  isInFavorites: (character: ICharacter) => boolean;
+  toggleCharactersInFavorites: (character: ICharacter) => void
 }>({
   favorites: [],
-  setFavorites: () => {}
+  isInFavorites: () => false,
+  toggleCharactersInFavorites: () => {}
 });
 
 export default function FavoriteProvider({
@@ -17,10 +19,22 @@ export default function FavoriteProvider({
    children: React.ReactNode
   }) {
   const [favorites, setFavorites] = React.useState<ICharacter[]>([]);
+  const isInFavorites = React.useCallback((character: ICharacter) => favorites.some(
+    (elem) => elem.id === character.id
+  ), [favorites]);
+
+  const toggleCharactersInFavorites = React.useCallback((character: ICharacter) => {
+    if (isInFavorites(character)) {
+      setFavorites(prev => prev.filter((elem) => elem.id !== character.id))
+      return
+    }
+
+    setFavorites(prev => [...prev, character])
+  }, [favorites])
 
   const favoriteState = React.useMemo(() => ({
-    favorites, setFavorites
-  }), favorites)
+    favorites, isInFavorites, toggleCharactersInFavorites
+  }), [favorites])
 
   return (
     //@ts-ignore

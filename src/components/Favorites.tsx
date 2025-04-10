@@ -20,9 +20,12 @@ export default function Favorites() {
       ">
         <button
           onClick={() => navigate(-1)}
-          className="motion-opacity p-3 bg-gray-700 hover:bg-gray-600
-        rounded-full justify-self-start">
-          <Icon.ArrowToLeft className="size-8 fill-light-100" />
+          className="p-3 bg-[var(--light)] hover:bg-[var(--dark-300)]
+          group transition-colors ease-linear
+          *:transition-colors *:ease-linear
+          rounded-full justify-self-start">
+          <Icon.ArrowToLeft className="size-8 text-[var(--dark)]
+          group-hover:fill-[var(--light)]"/>
         </button>
         <h2
           className="font-extrabold
