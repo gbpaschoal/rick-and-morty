@@ -9,7 +9,7 @@ html {
 
 :root {
   --header-height: 6rem;
-  --gutter: .5rem;
+  --gutter: .8rem;
 
   --dark: #000;
   --dark-50: #0a0a0a;
@@ -44,3 +44,35 @@ input[type='checkbox'] {
   display: none;
 }
 
+.bg-special {
+  background: linear-gradient(180deg, #0000, #0000004d);
+  filter: drop-shadow(0px 8px 16px rgba(0, 0, 0, .25));;
+}
+
+.checkmark {
+  position: relative;
+}
+
+label input:checked + .checkmark::before {
+  content: '';
+  background: var(--light);
+  width: 8px;
+  height: 2px;
+  position: absolute;
+  top: 10px;
+  left: 2px;
+  border-radius: 2222px;
+  transform: rotate(40deg);
+}
+
+label input:checked + .checkmark::after {
+  content: '';
+  background: var(--light);
+  width: 13px;
+  height: 2px;
+  position: absolute;
+  top: 7px;
+  left: 6px;
+  border-radius: 2222px;
+  transform: rotate(-55deg);
+}

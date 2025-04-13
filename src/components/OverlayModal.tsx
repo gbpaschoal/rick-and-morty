@@ -32,7 +32,7 @@ export default function OverlayModal({
       id="modal">
       <div
         onClick={onClose}
-        className="absolute -z-1 backdrop-blur-2xl w-full h-screen"
+        className="absolute -z-1 bg-slate-800/40 backdrop-blur-md w-full h-screen"
         aria-expanded={isOpen}>
         <button
           className="ml-auto grid

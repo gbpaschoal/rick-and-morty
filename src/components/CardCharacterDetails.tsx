@@ -1,6 +1,4 @@
-// import React from 'react';
-import clsx from 'clsx';
-import ButtonFavorite from './ButtonFavorite';
+import React from 'react';
 import OverlayModal from './OverlayModal';
 import { ICharacter } from './../types/Characters';
 
@@ -18,51 +16,57 @@ export default function CardCharacterDetails({
   return (
     <OverlayModal isOpen={isOpen} onClose={onClose}>
       <div
-        className="mt-[15vh] bg-gray-700 rounded-[10px] w-[50vw] min-w-[250px] max-w-[300px]
-          h-auto flex flex-col items-center py-4 px-5">
+        className="mt-[20vh] bg-[var(--dark-100)] rounded-lg w-[50vw] min-w-[250px] max-w-[600px]
+        grid grid-cols-[1fr_,300px] items-start gap-x-4 py-4 px-5">
         <div
-          className="relative top-0 overflow-hidden rounded-[10px] h-auto
+          className="relative top-0 overflow-hidden rounded-lg
           mb-3">
-          <div className="absolute top-0 w-full z-1 p-2">
+          {/* <div className="absolute bg-green-600 top-0 w-full z-1 p-2">
             <ButtonFavorite data={character} />
-          </div>
+          </div> */}
           <img src={character.image} alt={character.name} />
         </div>
-        <div className="w-full">
-          <div className="w-full flex flex-wrap gap-2 justify-between items-center mb-2">
-            <h2
-              className="inline-block text-light-100 font-extrabold
-                text-2xl leading-[28px]">
+        <div className="flex flex-col h-full gap-y-2 p-2">
+          <div className="w-full mb-2">
+            <h2 className="text-[var(--light)] font-extrabold
+              text-2xl leading-7">
               {character.name}
             </h2>
+          </div>
+          <div className="w-full grid grid-cols-2 grid-rows-2">
             <span
-              className={clsx(
-                'text-sm text-light-100 font-semibold backdrop-blur-md px-3 py-1 rounded-full border-2',
-                character.status === 'Alive'
-                  ? 'border-primary-100/80'
-                  : character.status === 'Dead'
-                    ? 'border-red/80'
-                    : 'border-gray-200/80'
-              )}>
-              {character.status}
+              className="text-base text-light-100/80
+                  font-medium">
+              Status:&nbsp;
+              <span
+                className="text-base text-light-100
+                    font-semibold">
+                {character.status}
+              </span>
+            </span>
+            <span
+              className="text-base text-light-100/80
+                  font-medium">
+              Specie:&nbsp;
+              <span
+                className="text-base text-light-100
+                    font-semibold">
+                {character.species}
+              </span>
+            </span>
+            <span
+              className="text-base text-light-100/80
+                  font-medium">
+              First seen in:&nbsp;
+              <span
+                className="text-base text-light-100
+                    font-semibold">
+                {character.firstEpisode}
+              </span>
             </span>
           </div>
-          <span
-            className="text-base text-light-100/80
-                font-medium">
-            {character.species}
-          </span>
-          <br />
-          <span
-            className="text-base text-light-100/80
-                font-medium">
-            First seen in:&nbsp;
-            <span
-              className="text-base text-light-100
-                  font-semibold">
-              {character.firstEpisode}
-            </span>
-          </span>
+          <div className='mt-auto mb-[4px] cursor-pointer rounded-full py-1 text-center text-base font-semibold
+          bg-[var(--primary)]'>Add to Favorites</div>
         </div>
       </div>
     </OverlayModal>

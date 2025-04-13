@@ -1,6 +1,8 @@
 import * as React from 'react';
 import Header from './components/Header';
 import * as Router from 'react-router-dom';
+import * as Icon from './assets/icons'
+import Filter from './components/Filter';
 
 export default function App() {
   return (
@@ -10,6 +12,15 @@ export default function App() {
       </div>
       <div className="my-[8rem]">
         <Router.Outlet/>
+      </div>
+      <div className="bg-special z-3 fixed bottom-0 w-full pointer-events-none px-[var(--gutter)]
+      flex gap-x-2 justify-end py-5 *:pointer-events-auto">
+        <button
+          className="p-5 bg-[var(--primary)]
+          rounded-full justify-self-start">
+          <Icon.ArrowToUp className="size-7 fill-[var(--light)]"/>
+        </button>
+        <Filter/>
       </div>
     </div>
 

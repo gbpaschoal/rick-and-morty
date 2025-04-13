@@ -74,7 +74,7 @@ function SearchBar() {
       <div className={clsx(
         "bg-[var(--dark-200)] absolute top-14 left-0",
         open && q && charactersList.length > 0 ? "block" : "hidden",
-        "w-full z-3 rounded-xl overflow-y-scroll"
+        "w-full z-3 rounded-xl"
         )}>
           <ul className="w-full max-h-[22rem] flex flex-col *:w-full *:flex
             *:justify-start p-2">

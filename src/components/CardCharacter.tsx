@@ -1,16 +1,20 @@
+import React from 'react';
 import { ICharacter } from '../types/Characters';
 import ButtonFavorite from './ButtonFavorite';
+import CardCharacterDetails from './CardCharacterDetails';
 
 export default function CardCharacter({ data }: { data: ICharacter }) {
+  const [isOpen, setIsOpen] = React.useState(false)
   return (
     <div className="group w-full bg-[var(--dark-100)] rounded-xl flex flex-col gap-y-2
-    pb-8 p-2 hover:bg-[var(--dark-200)]">
+    pb-8 p-2 hover:bg-[var(--dark-200)]"
+    onClick={() => setIsOpen(prev => !prev)}>
+      {isOpen && <CardCharacterDetails isOpen={true} onClose={() =>{}} data={data}/>}
       <div className="relative overflow-hidden rounded-xl">
         <div className="absolute inset-0">
           <div className="flex flex-col justify-start h-full ">
             <div className="w-full p-1 relative top-[-100%] group-hover:top-0
-            transition-all duration-300
-            ">
+            transition-all duration-300">
               <ButtonFavorite data={data} />
             </div>
           </div>
