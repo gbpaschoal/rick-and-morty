@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as Router from "react-router-dom"
 import Button from './Button'
+import { SearchBar } from "./Search";
 
 export default function Header() {
   return (
@@ -23,6 +24,7 @@ export default function Header() {
             </path>
           </svg>
         </div>
+        {/* <SearchBar/> */}
         <div>
           <Router.Link to={'fav'}>
             <Button>

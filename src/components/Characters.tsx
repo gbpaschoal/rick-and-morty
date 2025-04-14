@@ -1,94 +1,11 @@
 import * as React from 'react';
 import CardCharacter from './CardCharacter';
-import * as Icon from './../assets/icons';
 import { ICharacter } from './../types/Characters';
 import axios from 'axios'
-import clsx from 'clsx';
 import _ from 'lodash';
+import { useSearchParams } from 'react-router-dom';
 
-function SearchBar() {
-  const [open, setOpen] = React.useState(false)
-  const inputRef = React.useRef(null)
-  const [q, setQ] = React.useState('');
-  React.useEffect(()=>{
-    window.addEventListener("click", (e) => {
-      if(e.target !== inputRef.current) {
-        setOpen(false)
-      }
-    })
-
-    return () => {
-      window.addEventListener("click", (e) => {
-      if(e.target !== inputRef.current) {
-        setOpen(false)
-      }
-    })
-    }
-  }, [])
-
-  const [charactersList, setCharactersList] = React.useState<ICharacter[]>([]);
-  const fetchCharactersByQuery = async (q: string): Promise<void> => {
-    const BASE_URL = 'https://rickandmortyapi.com/api/character/';
-
-    if (q.trim() === '') {
-      setCharactersList([]);
-      return;
-    }
-
-    try {
-      //@ts-ignore
-      const { data } = await axios.get(`${BASE_URL}?name=${q}`)
-      const shortVersion = data.results.slice(0, 6)
-      if (data) setCharactersList(shortVersion);
-    } catch (error) {
-      setCharactersList([]);
-    }
-  };
-
-  const delayedFetchCharacters = _.debounce(fetchCharactersByQuery, 250);
-
-    React.useEffect(() => {
-    delayedFetchCharacters(q);
-  }, [q]);
-
-  return (
-    <div className={clsx(
-        "relative w-[32rem] bg-[var(--dark-100)] rounded-xl px-4",
-        open && "bg-[var(--dark-200)]",
-        "hover:bg-[var(--dark-200)] cursor-pointer transition-opacity"
-      )}>
-      <div className="w-full flex items-center gap-x-2">
-        <Icon.Search className="mt-[1px] fill-[var(--dark-600)]" />
-        <input className="w-full h-12 outline-none border-none bg-transparent
-            flex-1 text-[var(--light-200) placeholder:text-[var(--dark-600)]
-            cursor-pointer"
-          ref={inputRef}
-          onChange={(e) => {
-            setQ(e.target.value);
-          }}
-          onFocus={() => setOpen(true)}
-          type="text"
-          placeholder="Search Characters"
-        />
-      </div>
-      <div className={clsx(
-        "bg-[var(--dark-200)] absolute top-14 left-0",
-        open && q && charactersList.length > 0 ? "block" : "hidden",
-        "w-full z-3 rounded-xl"
-        )}>
-          <ul className="w-full max-h-[22rem] flex flex-col *:w-full *:flex
-            *:justify-start p-2">
-            {charactersList &&
-              charactersList.map((data: ICharacter) => (
-                <li key={data.id} className="p-2 rounded-lg text-base text-[var(--light-200)] hover:bg-[var(--dark-300)]"> {data.name} </li>
-              ))}
-          </ul>
-      </div>
-    </div>
-  )
-}
-
-function useFetchCharacters () {
+function useFetchCharacters (searchParams:any) {
   const [characters, setCharacters] = React.useState<ICharacter[]>([]);
   const [isLoading, setIsLoading] = React.useState(false)
   const page = React.useRef(1)
@@ -102,7 +19,7 @@ function useFetchCharacters () {
       if(isLoading) return
       setIsLoading(true)
 
-      const { data } = await axios.get(`${BASE_URL}?page=${page.current}`)
+      const { data } = await axios.get(`${BASE_URL}?page=${page.current}&${searchParams}`)
 
       setCharacters(prev => [...prev, ...data.results])
       hasDone.current = data.info.count === characters.length
@@ -118,7 +35,7 @@ function useFetchCharacters () {
     hasMounted.current = true;
     fetchCharacters();
 
-}, []);
+}, [searchParams]);
 
 
   return ({characters, isLoading, fetchCharacters})
@@ -182,7 +99,8 @@ function useIntersectionObserver(func: () => Promise<void>) {
 }
 
 export default function Characters () {
-  const { characters, isLoading, fetchCharacters } = useFetchCharacters()
+  const [searchParams] = useSearchParams()
+  const { characters, isLoading, fetchCharacters } = useFetchCharacters(searchParams.toString())
   const setObserverRef = useIntersectionObserver(fetchCharacters)
 
   React.useEffect(() => {
@@ -190,17 +108,6 @@ export default function Characters () {
     }, []);
 
   return (
-    <div className='flex flex-col gap-y-6 items-center'>
-      <div className="flex flex-col gap-y-4 items-center">
-        <h1
-          className="font-extrabold text-center text-light-300
-          text-[clamp(2rem,_7vw,_3.6rem)] leading-none tracking-tight">
-          Rick and Morty <br /> Characters
-        </h1>
-        <div className="mb-4">
-          <SearchBar/>
-        </div>
-      </div>
       <ul
         className="gap-1 grid grid-cols-2 sm:grid-cols-3
       md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 w-full">
@@ -220,7 +127,6 @@ export default function Characters () {
           );
         })}
       </ul>
-    </div>
   );
 
 }

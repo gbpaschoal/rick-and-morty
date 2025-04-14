@@ -9,7 +9,7 @@ function FilterModalField({
     <div className="flex flex-col px-4">
       <div className="flex w-full items-center gap-x-2">
         <span
-          className="text-sm font-medium text-[var(--light-300)]  p-2">
+          className="text-sm font-medium text-[var(--light-300)] p-2">
           {field.charAt(0).toUpperCase() + field.slice(1)}
         </span>
       </div>

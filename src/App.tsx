@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Header from './components/Header';
 import * as Router from 'react-router-dom';
 import * as Icon from './assets/icons'
