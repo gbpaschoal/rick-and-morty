@@ -32,7 +32,7 @@ export default function OverlayModal({
       id="modal">
       <div
         onClick={onClose}
-        className="absolute -z-1 bg-slate-800/40 backdrop-blur-md w-full h-screen"
+        className="absolute -z-1 bg-gray-800/80 backdrop-blur-md w-full h-screen"
         aria-expanded={isOpen}>
         <button
           className="ml-auto grid
@@ -42,7 +42,7 @@ export default function OverlayModal({
           aria-label="Close Modal"
           aria-controls="modal"
           title="Close">
-          <Icon.Close className="fill-light-100/60 hover:fill-light-200" />
+          <Icon.Close className="fill-white" />
         </button>
       </div>
       {children}

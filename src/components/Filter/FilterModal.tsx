@@ -9,7 +9,7 @@ function FilterModalField({
     <div className="flex flex-col px-4">
       <div className="flex w-full items-center gap-x-2">
         <span
-          className="text-sm font-medium text-[var(--light-300)] p-2">
+          className="text-sm font-medium text-gray-400 p-2">
           {field.charAt(0).toUpperCase() + field.slice(1)}
         </span>
       </div>
@@ -30,11 +30,11 @@ function FilterModalInput({
   return (
     <label
       className="w-full flex justify-between
-      rounded-lg p-2 text-[var(--light)] font-medium cursor-pointer">
+      rounded-lg p-2 text-gray-200 font-medium cursor-pointer">
       {value.charAt(0).toUpperCase() + value.slice(1)}
       <label className="inline-flex cursor-pointer size-5 border-1
-      border-[var(--dark-500)] has-[:checked]:bg-[var(--primary)]
-      has-[:checked]:border-[var(--primary)]">
+      border-gray-200 has-[:checked]:bg-primary
+      has-[:checked]:border-primary">
         <input
           type="checkbox"
           name={group}
@@ -99,11 +99,11 @@ export default function FilterModal() {
   return (
       <div
         className="absolute z-3 bottom-[90%] right-[25px] w-[300px]
-        rounded-lg bg-[var(--dark-200)] py-4">
+        rounded-lg bg-gray-800 py-4">
         <div className="flex h-[500px] flex-col gap-y-4 overflow-y-scroll">
-          {filterFields.map(field => {
+          {filterFields.map((field, index) => {
             return (
-              <FilterModalField field={field.name}>
+              <FilterModalField key={index} field={field.name}>
                 {field.data.map((item, index) => {
                   return (
                     <FilterModalInput

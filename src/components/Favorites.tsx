@@ -13,24 +13,24 @@ export default function Favorites() {
   }, []);
 
   return (
-    <>
+    <div className='w-full'>
       <div
         className="w-full sm:grid sm:grid-cols-3 place-items-center mb-8
       sm:mb-16
       ">
         <button
           onClick={() => navigate(-1)}
-          className="p-3 bg-[var(--light)] hover:bg-[var(--dark-300)]
+          className="p-3 bg-white hover:bg-gray-900
           group transition-colors ease-linear
           *:transition-colors *:ease-linear
           rounded-full justify-self-start">
-          <Icon.ArrowToLeft className="size-8 text-[var(--dark)]
-          group-hover:fill-[var(--light)]"/>
+          <Icon.ArrowToLeft className="size-8 fill-black
+          group-hover:fill-gray-200"/>
         </button>
         <h2
           className="font-extrabold
         text-center text-[clamp(2rem,_7vw,_3.6rem)] leading-none
-         text-light-300 tracking-[.02px]
+         text-gray-100 tracking-tight
         mt-6 sm:mt-0">
           Favorites
         </h2>
@@ -38,7 +38,7 @@ export default function Favorites() {
       <div className="w-full flex flex-col justify-center">
         {favorites.length === 0 && (
           <div className="mx-auto text-center">
-            <span className="text-light-100/60 "> There is nothing yet </span>
+            <span className="text-gray-200 "> There is nothing yet </span>
           </div>
         )}
         <ul
@@ -53,6 +53,6 @@ export default function Favorites() {
           })}
         </ul>
       </div>
-    </>
+    </div>
   );
 }

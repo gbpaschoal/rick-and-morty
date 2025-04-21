@@ -5,33 +5,29 @@
 
 html {
   color-scheme: dark;
+  font-size: 16px;
 }
+
 
 :root {
   --header-height: 6rem;
-  --gutter: .8rem;
-
-  --dark: #000;
-  --dark-50: #0a0a0a;
-  --dark-100: #171717;
-  --dark-200: #262626;
-  --dark-300: #373737;
-  --dark-400: #525252;
-  --dark-500: #8a8a8a;
-  --dark-600: #a3a3a3;
-
-  --light: #fff;
-  --light-50: #fafafa;
-  --light-100: #f5f5f5;
-  --light-200: #e5e5e5;
-  --light-300: #d4d4d4;
-  --light-400: #737373;
+  --gutter: 1rem;
 
   --primary: #1B56FD;
 
-  --bg-main: var(--dark-50)
+  --gray-100: #f2f2f2;
+  --gray-200: #e5e5e5;
+  --gray-300: #d4d4d4;
+  --gray-400: #a3a3a3; /*200*/
+  --gray-500: #848484;
+  --gray-600: #525252;
+  --gray-700: #373737;
+  --gray-800: #171717;
+  --gray-900: #0f0f0f; /*800, */
 
+  --bg-main: black
 }
+
 
 
 body {
@@ -44,9 +40,62 @@ input[type='checkbox'] {
   display: none;
 }
 
+.wrapper {
+  padding-inline: var(--gutter);
+}
+
+@media(width <= 30rem) {
+  :root {
+    --gutter: .25rem
+  }
+}
+
 .bg-special {
   background: linear-gradient(180deg, #0000, #0000004d);
   filter: drop-shadow(0px 8px 16px rgba(0, 0, 0, .25));;
+}
+
+.grid-container {
+  display: grid;
+  gap: .25rem;
+  grid-template-columns: repeat(1, 1fr);
+
+}
+
+@media(width >= 23.75rem) {
+  .grid-container {
+      grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(width >= 38rem) {
+  .grid-container {
+      grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media(width >= 57rem) {
+  .grid-container {
+      grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media(width >= 76rem) {
+  .grid-container {
+      grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media(width >= 95rem) {
+  .grid-container {
+      grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media(width >= 133rem) {
+  .grid-container {
+      grid-template-columns: repeat(7, 1fr);
+  }
 }
 
 .checkmark {
@@ -55,7 +104,7 @@ input[type='checkbox'] {
 
 label input:checked + .checkmark::before {
   content: '';
-  background: var(--light);
+  background: white;
   width: 8px;
   height: 2px;
   position: absolute;
@@ -67,7 +116,7 @@ label input:checked + .checkmark::before {
 
 label input:checked + .checkmark::after {
   content: '';
-  background: var(--light);
+  background: white;
   width: 13px;
   height: 2px;
   position: absolute;

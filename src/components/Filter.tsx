@@ -8,12 +8,10 @@ export default function Filter() {
     <div>
       {isOpen && <FilterModal />}
       <button
-        className="p-5 bg-[var(--light)]
-        transition-colors
-        rounded-full justify-self-start"
+        className="size-14 md:size-16 bg-white rounded-full"
         onClick={() => setIsOpen((prev) => !prev)}>
           <Icon.Filter
-          className="size-7 fill-[var(--dark)]"/>
+          className="size-[1.5rem] mx-auto fill-black"/>
       </button>
     </div>
   )

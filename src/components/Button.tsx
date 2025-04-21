@@ -10,7 +10,7 @@ export default function Button ({
   return (
       <div
         onClick={onClick}
-        className="w-max bg-[var(--primary)] text-[var(--light)] py-3 px-6
+        className="w-max bg-primary text-white py-2 px-4 md:py-3 md:px-5
         rounded-full cursor-pointer">
         {children}
       </div>

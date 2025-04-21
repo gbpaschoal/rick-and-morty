@@ -11,7 +11,6 @@ import FavoriteProvider from './components/FavoriteProvider';
 import App from './App';
 import Favorites from './components/Favorites';
 import Hero from './components/Hero';
-import SearchResults from './components/SearchResults';
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -22,10 +21,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Hero/>
-      },
-      {
-        path: 'results/:id',
-        element: <SearchResults/>
       },
       {
         path: 'fav',

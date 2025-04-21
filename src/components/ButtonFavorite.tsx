@@ -16,7 +16,7 @@ export default function ButtonFavorite({ data }: { data: ICharacter }) {
         )}
         role="button"
         aria-label="Add Character in you list of Favorites">
-        <Icon.Fav className="size-8 fill-[var(--light)]" />
+        <Icon.Fav className="size-8 fill-gray-100" />
       </button>
   );
 }
