@@ -3,6 +3,7 @@ import * as Icon from '../assets/icons';
 import CardCharacter from './CardCharacter';
 import { FavoriteContext} from './FavoriteProvider';
 import { useNavigate } from 'react-router-dom';
+import GridContainer from './GridContainer';
 
 export default function Favorites() {
   const { favorites } = React.useContext(FavoriteContext);
@@ -35,23 +36,13 @@ export default function Favorites() {
           Favorites
         </h2>
       </div>
-      <div className="w-full flex flex-col justify-center">
+      <div className="w-full flex flex-col items-center">
         {favorites.length === 0 && (
           <div className="mx-auto text-center">
             <span className="text-gray-200 "> There is nothing yet </span>
           </div>
         )}
-        <ul
-          className="gap-1 grid grid-cols-2 sm:grid-cols-3
-        md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 w-full">
-          {[...favorites].reverse().map((character) => {
-            return (
-              <li key={character.id}>
-                <CardCharacter data={character} />
-              </li>
-            );
-          })}
-        </ul>
+        <GridContainer data={[...favorites.reverse()]}/>
       </div>
     </div>
   );

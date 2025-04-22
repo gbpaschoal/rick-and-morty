@@ -15,6 +15,14 @@ export default {
           '900': 'var(--gray-900)',
         }
       },
+      screens: {
+        xs: "20rem",
+        sm: '40rem',
+        md: '48rem',
+        lg: '64rem',
+        xl: '80rem',
+        '2xl': '96rem',
+      },
       zIndex: {
         1: '1',
         2: '2',

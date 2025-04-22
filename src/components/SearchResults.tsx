@@ -1,4 +1,4 @@
-import { GridContainer } from './Characters'
+import { GridContainer } from './GridContainer'
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'

@@ -13,36 +13,19 @@ export default function OverlayModal({
   onClose,
 }: OverlayModalProps) {
   React.useEffect(() => {
-    const isAlreadyOpen = document.body.style.overflowY === 'hidden';
+    if (isOpen) document.body.style.overflowY = 'hidden'
 
-    if (isOpen && !isAlreadyOpen) {
-      document.body.style.overflowY = 'hidden';
-    }
-
-    return () => {
-      if (!isAlreadyOpen) {
-        document.body.style.overflowY = '';
-      }
-    };
+    return () => {document.body.style.overflowY = ''}
   }, [isOpen]);
 
   return (
     <div
-      className="fixed inset-0 z-4 flex flex-col items-center px-4"
-      id="modal">
+      className="fixed inset-0 z-4 grid place-content-center px-4">
       <div
         onClick={onClose}
-        className="absolute -z-1 bg-gray-800/80 backdrop-blur-md w-full h-screen"
-        aria-expanded={isOpen}>
-        <button
-          className="ml-auto grid
-        place-items-center z-3 p-4"
-          type="button"
-          role="button"
-          aria-label="Close Modal"
-          aria-controls="modal"
-          title="Close">
-          <Icon.Close className="fill-white" />
+        className="absolute -z-1 bg-gray-800/80 backdrop-blur-md w-full min-h-screen">
+        <button className="ml-auto grid z-3 p-4">
+          <Icon.Close className="fill-gray-200 hover:fill-white" />
         </button>
       </div>
       {children}

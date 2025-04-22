@@ -6,7 +6,7 @@ import CardCharacterDetails from './CardCharacterDetails';
 export default function CardCharacter({ data }: { data: ICharacter }) {
   const [isOpen, setIsOpen] = React.useState(false)
   return (
-    <div className="group w-full max-w-[18.75rem] bg-gray-900 rounded-xl flex flex-col gap-y-2
+    <div className="group mx-auto xs:w-full max-w-[18.75rem] bg-gray-900 rounded-xl flex flex-col gap-y-2
     pb-8 p-2 hover:bg-gray-800"
     onClick={() => setIsOpen(prev => !prev)}>
       {isOpen && <CardCharacterDetails isOpen={true} onClose={() =>{}} data={data}/>}

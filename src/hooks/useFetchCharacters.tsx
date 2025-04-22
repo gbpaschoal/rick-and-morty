@@ -26,17 +26,18 @@ export const useFetchCharacters = () => {
 
       return data
     }
-    const {
-      data,
-      fetchNextPage,
-    } = useInfiniteQuery({
-      queryKey: ['characters', params],
-      queryFn: ({ pageParam }) => func(pageParam),
-      initialPageParam: BASE_URL,
-      getNextPageParam: (lastPage) => {
-        return lastPage.info.next
-      }
-    })
+
+  const {
+    data,
+    fetchNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['characters', params],
+    queryFn: ({ pageParam }) => func(pageParam),
+    initialPageParam: BASE_URL,
+    getNextPageParam: (lastPage) => {
+      return lastPage.info.next
+    }
+  })
 
 return { data, fetchNextPage}
 }
