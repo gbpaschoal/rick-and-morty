@@ -17,7 +17,7 @@ export default {
       },
       screens: {
         xs: "20rem",
-        sm: '40rem',
+        sm: '30rem',
         md: '48rem',
         lg: '64rem',
         xl: '80rem',

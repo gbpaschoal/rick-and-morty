@@ -98,7 +98,7 @@ export default function FilterModal() {
 
   return (
       <div
-        className="absolute z-3 bottom-[90%] right-[25px] w-[300px]
+        className="absolute z-3 bottom-[90%] right-4 w-[200px] xs:w-[300px]
         rounded-lg bg-gray-800 py-4">
         <div className="flex h-[500px] flex-col gap-y-4 overflow-y-scroll">
           {filterFields.map((field, index) => {

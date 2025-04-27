@@ -1,22 +1,23 @@
 import React from 'react';
-import OverlayModal from './OverlayModal';
+import { SearchModalOverlay } from './Search';
 import { ICharacter } from './../types/Characters';
+import { Overlay } from './Overlay';
+import { FavoriteContext } from './FavoriteProvider';
+import clsx from 'clsx';
 
 type CardCharacterModalProps = {
   data: ICharacter;
-  isOpen: boolean;
-  onClose: () => void;
+
 };
 
-export default function CardCharacterDetails({
-  isOpen,
-  onClose,
+export function CardCharacterDetails({
   data: character,
-}: CardCharacterModalProps) {
+  onClose
+}: any) {
+  const { isInFavorites, toggleCharactersInFavorites } = React.useContext(FavoriteContext)
   return (
-    <OverlayModal isOpen={isOpen} onClose={onClose}>
-      <div
-        className="bg-gray-800 rounded-lg max-w-[38rem]
+    <Overlay closeModal={onClose}>
+      <div className="mt-[3rem] md:mt-[10rem] bg-gray-800 rounded-lg max-w-[30rem] md:max-w-[38rem]
         grid sm:grid-cols-[1fr_,300px] gap-4 py-4 px-5">
         <div className="w-full overflow-hidden rounded-lg mb-3">
           <img src={character.image} alt={character.name} />
@@ -60,10 +61,15 @@ export default function CardCharacterDetails({
               </span>
             </span>
           </div>
-          <div className='mt-auto mb-[4px] cursor-pointer rounded-full p-2 text-center text-base font-semibold
-          bg-primary text-white'>Add to Favorites</div>
+          <button className={clsx('mt-auto mb-[4px] cursor-pointer rounded-full',
+          'p-2 text-center text-base font-semibold',
+          isInFavorites(character) ? 'bg-gray-100 text-gray-900' : 'bg-primary text-white'
+          )}
+          onClick={() => toggleCharactersInFavorites(character)}>
+            {isInFavorites(character) ? 'Remove from favorites' : 'Add to favorites'}
+          </button>
         </div>
       </div>
-    </OverlayModal>
+    </Overlay>
   );
 }

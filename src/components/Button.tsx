@@ -2,17 +2,14 @@ import * as React from 'react'
 
 export default function Button ({
   children,
-  onClick
-}: {
-  children: React.ReactNode,
-  onClick?: React.MouseEventHandler
-  }) {
+  ...rest
+  }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
-      <div
-        onClick={onClick}
-        className="w-max bg-primary text-white py-2 px-4 md:py-3 md:px-5
+      <button
+        {...rest}
+        className="inline-grid place-items-center bg-primary py-2 px-4 md:py-3 md:px-5
         rounded-full cursor-pointer">
         {children}
-      </div>
+      </button>
   )
 }

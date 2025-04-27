@@ -36,6 +36,8 @@ body {
   background-color: var(--bg-main);
 }
 
+#root { isolation: isolate }
+
 input[type='checkbox'] {
   display: none;
 }

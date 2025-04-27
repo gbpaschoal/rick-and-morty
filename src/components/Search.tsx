@@ -1,116 +1,149 @@
-import React from "react";
-import * as Router from 'react-router-dom';
-import * as Icon from './../assets/icons';
-import { ICharacter } from "../types/Characters";
-import clsx from "clsx";
+import React from 'react'
+import { createPortal } from 'react-dom'
+import * as Icon from '../assets/icons'
+import _ from 'lodash'
 import axios from 'axios'
-import _ from 'lodash';
+import { useQuery } from '@tanstack/react-query'
+import { useSearchParams } from 'react-router-dom'
+import { Overlay } from './Overlay'
+
+export const SearchModalContext = React.createContext({
+  isOpen: false,
+  openModal: () => {},
+  closeModal: () => {},
+})
+
+export const SearchModalProvider = ({ children }: { children: React.ReactNode}) => {
+  const [isOpen, setIsOpen] = React.useState(false)
+
+  const openModal = React.useCallback(() => {
+    if(!isOpen) {
+      setIsOpen(true)
+      document.body.style.overflow = 'hidden'
+    }
+
+  }, [isOpen])
+
+  const closeModal = React.useCallback(() => {
+    if(isOpen) {
+      setIsOpen(false)
+      document.body.style.overflow = ''
+    }
+
+  }, [isOpen])
+
+  const searchControls = React.useMemo(()=>({
+    isOpen,
+    openModal,
+    closeModal
+  }), [isOpen, openModal, closeModal])
+
+  return (
+      <SearchModalContext.Provider value={searchControls}>
+        {/* <SearchPortal/> */}
+        {children}
+      </SearchModalContext.Provider>
+  )
+
+}
 
 
+export function SearchModalOverlay({ children }: { children: React.ReactNode }) {
+  const { closeModal } = React.useContext(SearchModalContext)
+  return (
+    <Overlay closeModal={closeModal}>
+      {children}
+    </Overlay>
+  )
+}
 
-export function SearchBar() {
-  const [open, setOpen] = React.useState(false)
-  const inputRef = React.useRef(null)
+export function SearchModal() {
   const [q, setQ] = React.useState('');
-  React.useEffect(()=>{
-    window.addEventListener("click", (e) => {
-      if(e.target !== inputRef.current) {
-        setOpen(false)
-      }
-    })
+  const [searchParams, setSearchParams] = useSearchParams()
 
-    return () => {
-      window.addEventListener("click", (e) => {
-      if(e.target !== inputRef.current) {
-        setOpen(false)
-      }
-    })
-    }
-  }, [])
-
-  const [charactersList, setCharactersList] = React.useState<ICharacter[]>([]);
-  const fetchCharactersByQuery = async (q: string): Promise<void> => {
+  const { data: characters } = useQuery({queryKey: ['search', q], queryFn: async () => {
     const BASE_URL = 'https://rickandmortyapi.com/api/character/';
+    const { data } = await axios.get(`${BASE_URL}?name=${q}`)
+    const shortVersion = data.results.slice(0, 10)
+    return shortVersion
 
-    if (q.trim() === '') {
-      setCharactersList([]);
-      return;
-    }
+  }})
 
-    try {
-      //@ts-ignore
-      const { data } = await axios.get(`${BASE_URL}?name=${q}`)
-      const shortVersion = data.results.slice(0, 4)
-      if (data) setCharactersList(shortVersion);
-    } catch (error) {
-      setCharactersList([]);
-    }
-  };
-
-  const delayedFetchCharacters = _.debounce(fetchCharactersByQuery, 250);
+    const delayedFetchCharacters = () => {
+      if (q.trim() === '') return;
+      // _.debounce(fetchCharactersByQuery, 250);
+  }
 
     React.useEffect(() => {
-    delayedFetchCharacters(q);
+    delayedFetchCharacters();
   }, [q]);
 
   return (
-    <div className={clsx(
-        "relative w-full max-w-[31rem] bg-gray-900 rounded-xl px-4",
-        open && "bg-gray-800",
-        "hover:bg-gray-800 cursor-pointer"
-      )}>
-      <div className="w-full flex items-center gap-x-2">
-        <Icon.Search className="mt-[1px] ml-[6px] size-[1.5rem] fill-gray-400" />
-        <input className="w-full h-12 outline-none border-none bg-transparent
-            flex-1 text-gray-200 placeholder:text-gray-400
-            cursor-pointer"
-          ref={inputRef}
-          onChange={(e) => {
-            setQ(e.target.value);
-          }}
-          onFocus={() => setOpen(true)}
-          type="text"
-          placeholder="Search Characters"
-        />
-      </div>
-      <div className={clsx(
-        "bg-gray-800 absolute top-14 left-0",
-        open && q && charactersList.length > 0 ? "block" : "hidden",
-        "w-full z-3 rounded-xl py-3"
-        )}>
-          <ul className="w-full max-h-[22rem] flex flex-col *:w-full *:flex
-            *:justify-start">
-            {charactersList &&
-              charactersList.map((data: ICharacter) => (
-                // <li key={data.id} className="px-3 py-2 text-base
-                // text-[var(--gray-200)] hover:bg-[var(--gray-800)]
-                // *:w-full">
-                //   <Router.Link to={`results/${data.name}`}>{data.name}</Router.Link>
-                // </li>
-                    <li>
-                    <div className="w-full bg-gray-800 hover:bg-gray-700 rounded-sm flex
-                    p-1 items-center">
-                      <div className="flex gap-x-2">
-                        <div className="max-w-20 rounded-lg overflow-hidden">
-                          <img className="w-full" src={data.image} alt={data.name} />
-                        </div>
-                        <div className="flex flex-col py-2">
-                          <span
-                            className="text-xl leading-none font-bold text-gray-100
-                          hyphens-auto break-words">
-                            {data.name}
-                          </span>
-                          <span className="text-gray-200">{data.species}</span>
-                        </div>
-                      </div>
-                      <div>
-                        {/* <ButtonFavorite data={data} /> */}
-                      </div>
-                    </div>
-                  </li>
-              ))}
+      <div className="mt-16 w-full max-w-[36rem] bg-gray-800 rounded-lg shadow-lg shadow-gray-700/40">
+        <div className="border-b-2 border-gray-700 px-4">
+          <form onSubmit={(e) => {
+            e.preventDefault()
+            searchParams.set('name', q)
+            setSearchParams(searchParams)
+          }}>
+            <div className="flex items-center gap-x-2">
+              <Icon.Search className="mt-[1px] size-[1.4rem] fill-gray-400" />
+              <input
+                value={q}
+                onChange={(e) => {
+                  setQ(e.target.value);
+                }}
+                type="text"
+                className="w-full h-14 outline-none border-none bg-transparent
+                text-gray-200 placeholder:text-gray-400"
+                placeholder="Search Characters"
+                autoFocus
+              />
+            </div>
+          </form>
+        </div>
+        <div className="min-h-[19rem] pt-2 pb-4">
+          <ul className="max-h-[22rem] flex flex-col overflow-y-scroll">
+            {characters &&
+              characters.map((data: ICharacter) => (
+            <li key={data.id} className="bg-gray-800 hover:bg-gray-700 rounded-sm flex
+              p-1 px-2 items-center"
+              onClick={() => {
+                searchParams.set('name', data.name)
+                setSearchParams(searchParams)
+              }}>
+              <div className="flex gap-x-2">
+                <div className="max-w-[4.4rem] rounded-lg overflow-hidden">
+                  <img className="w-full" src={data.image} alt={data.name} />
+                </div>
+                <div className="flex flex-col py-2">
+                  <span
+                    className="text-lg leading-none font-bold text-gray-200
+                  hyphens-auto break-words">
+                    {data.name}
+                  </span>
+                  <span className="text-gray-300">{data.species}</span>
+                </div>
+              </div>
+            </li>
+          ))}
           </ul>
+        </div>
       </div>
-    </div>
+  )
+}
+
+export function SearchPortal () {
+  const { isOpen } = React.useContext(SearchModalContext)
+
+  return (
+    <>
+      {isOpen && createPortal(
+          <SearchModalOverlay>
+            <SearchModal/>
+          </SearchModalOverlay>,
+          document.body
+        )}
+    </>
   )
 }

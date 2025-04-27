@@ -42,7 +42,7 @@ export default function Favorites() {
             <span className="text-gray-200 "> There is nothing yet </span>
           </div>
         )}
-        <GridContainer data={[...favorites.reverse()]}/>
+        <GridContainer data={[...favorites].reverse()}/>
       </div>
     </div>
   );
