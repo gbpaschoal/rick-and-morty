@@ -2,6 +2,13 @@ import React from 'react'
 import * as Icon from '../assets/icons'
 import FilterModal from './Filter/FilterModal'
 
+export const FilterContext = React.createContext({})
+export function FilterProvider({children}: {children: React.ReactNode}) {
+  return (
+    <FilterContext.Provider value={({})}>{children}</FilterContext.Provider>
+  )
+}
+
 export default function Filter() {
   const [isOpen, setIsOpen] = React.useState(false)
   return (

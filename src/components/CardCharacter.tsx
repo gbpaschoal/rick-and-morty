@@ -11,7 +11,7 @@ export default function CardCharacter({ data }: { data: ICharacter }) {
       {isOpen && <CardCharacterDetails data={data} onClose={() => {
         setIsOpen(false)
       }}/>}
-      <div className="group mx-auto xs:w-full max-w-[18.75rem] bg-gray-900 rounded-xl flex flex-col gap-y-2
+      <div className="group cursor-pointer mx-auto xs:w-full max-w-[18.75rem] bg-gray-900 rounded-xl flex flex-col gap-y-2
       pb-8 p-2 hover:bg-gray-800"
       onClick={(e) => {
         if (!e.target.closest('.fav-btn')) {
@@ -34,7 +34,7 @@ export default function CardCharacter({ data }: { data: ICharacter }) {
             className="font-extrabold text-gray-100 text-lg md:text-xl w-full md:line-clamp-1">
             {data.name}
           </h2>
-          <span className="text-[var(--gray-200)] text-base">{data.species}</span>
+          <span className="text-gray-200 text-base">{data.species}</span>
         </div>
       </div>
     </>

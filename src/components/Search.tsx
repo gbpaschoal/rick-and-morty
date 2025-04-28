@@ -60,23 +60,18 @@ export function SearchModalOverlay({ children }: { children: React.ReactNode }) 
 export function SearchModal() {
   const [q, setQ] = React.useState('');
   const [searchParams, setSearchParams] = useSearchParams()
+  const { closeModal } = React.useContext(SearchModalContext)
 
   const { data: characters } = useQuery({queryKey: ['search', q], queryFn: async () => {
     const BASE_URL = 'https://rickandmortyapi.com/api/character/';
+    if (q.trim() === '') return;
+
     const { data } = await axios.get(`${BASE_URL}?name=${q}`)
     const shortVersion = data.results.slice(0, 10)
     return shortVersion
 
   }})
 
-    const delayedFetchCharacters = () => {
-      if (q.trim() === '') return;
-      // _.debounce(fetchCharactersByQuery, 250);
-  }
-
-    React.useEffect(() => {
-    delayedFetchCharacters();
-  }, [q]);
 
   return (
       <div className="mt-16 w-full max-w-[36rem] bg-gray-800 rounded-lg shadow-lg shadow-gray-700/40">
@@ -85,6 +80,7 @@ export function SearchModal() {
             e.preventDefault()
             searchParams.set('name', q)
             setSearchParams(searchParams)
+            closeModal()
           }}>
             <div className="flex items-center gap-x-2">
               <Icon.Search className="mt-[1px] size-[1.4rem] fill-gray-400" />
@@ -102,10 +98,10 @@ export function SearchModal() {
             </div>
           </form>
         </div>
-        <div className="min-h-[19rem] pt-2 pb-4">
+        <div className="min-h-[19rem] pb-4">
           <ul className="max-h-[22rem] flex flex-col overflow-y-scroll">
             {characters &&
-              characters.map((data: ICharacter) => (
+              characters.map((data: any) => (
             <li key={data.id} className="bg-gray-800 hover:bg-gray-700 rounded-sm flex
               p-1 px-2 items-center"
               onClick={() => {
