@@ -17,11 +17,13 @@ export default {
       },
       screens: {
         xs: "20rem",
-        sm: '30rem',
+        sm: '28rem',
         md: '48rem',
         lg: '64rem',
         xl: '80rem',
         '2xl': '96rem',
+        '4xl': '160rem',
+
       },
       zIndex: {
         1: '1',

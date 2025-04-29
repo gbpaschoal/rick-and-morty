@@ -11,14 +11,11 @@ export default function CardCharacter({ data }: { data: ICharacter }) {
       {isOpen && <CardCharacterDetails data={data} onClose={() => {
         setIsOpen(false)
       }}/>}
-      <div className="group cursor-pointer mx-auto xs:w-full max-w-[18.75rem] bg-gray-900 rounded-xl flex flex-col gap-y-2
-      pb-8 p-2 hover:bg-gray-800"
-      onClick={(e) => {
-        if (!e.target.closest('.fav-btn')) {
-          setIsOpen(true);
-    }
-      }}>
-        <div className="relative overflow-hidden rounded-xl">
+      <div
+      onClick={(e) => {if (!e.target.closest('.fav-btn')) setIsOpen(true)}}
+      className="group flex flex-col gap-y-2 w-full max-w-[18rem] mx-auto pb-8 bg-gray-900
+      rounded-md cursor-pointer">
+        <div className="relative overflow-hidden rounded-t-lg">
           <div className="absolute inset-0">
             <div className="flex flex-col justify-start h-full">
               <div className="w-full p-1 relative top-[-100%] group-hover:top-0
@@ -27,9 +24,9 @@ export default function CardCharacter({ data }: { data: ICharacter }) {
               </div>
             </div>
           </div>
-          <img src={data.image} alt={data.name} className="object-cover" />
+          <img src={data.image} alt={data.name} className="w-full object-cover" />
         </div>
-        <div className="h-14 overflow-hidden">
+        <div className="h-16 overflow-hidden p-2">
           <h2
             className="font-extrabold text-gray-100 text-lg md:text-xl w-full md:line-clamp-1">
             {data.name}
