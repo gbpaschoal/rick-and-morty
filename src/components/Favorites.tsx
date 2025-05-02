@@ -1,9 +1,50 @@
 import React from 'react';
-import * as Icon from '../assets/icons';
-import CardCharacter from './CardCharacter';
-import { FavoriteContext} from './FavoriteProvider';
+import { Icon } from '../assets/icons/Icon';
 import { useNavigate } from 'react-router-dom';
 import GridContainer from './GridContainer';
+import { clsx } from 'clsx';
+import { ICharacter } from './../types/Characters';
+
+export const FavoriteContext = React.createContext<{
+  favorites: ICharacter[];
+  isInFavorites: (character: ICharacter) => boolean;
+  toggleCharactersInFavorites: (character: ICharacter) => void
+}>({
+  favorites: [],
+  isInFavorites: () => false,
+  toggleCharactersInFavorites: () => {}
+});
+
+export function FavoriteProvider({
+  children
+}: {
+   children: React.ReactNode
+  }) {
+  const [favorites, setFavorites] = React.useState<ICharacter[]>([]);
+  const isInFavorites = React.useCallback((character: ICharacter) => favorites.some(
+    (elem) => elem.id === character.id
+  ), [favorites]);
+
+  const toggleCharactersInFavorites = React.useCallback((character: ICharacter) => {
+    if (isInFavorites(character)) {
+      setFavorites(prev => prev.filter((elem) => elem.id !== character.id))
+      return
+    }
+
+    setFavorites(prev => [...prev, character])
+  }, [favorites])
+
+  const favoriteState = React.useMemo(() => ({
+    favorites, isInFavorites, toggleCharactersInFavorites
+  }), [favorites])
+
+  return (
+    //@ts-ignore
+    <FavoriteContext.Provider value={favoriteState}>
+      {children}
+    </FavoriteContext.Provider>
+  );
+}
 
 export default function Favorites() {
   const { favorites } = React.useContext(FavoriteContext);
@@ -45,5 +86,22 @@ export default function Favorites() {
         <GridContainer data={[...favorites].reverse()}/>
       </div>
     </div>
+  );
+}
+
+export function ButtonFavorite({ data }: { data: ICharacter }) {
+  const { isInFavorites, toggleCharactersInFavorites } = React.useContext(FavoriteContext);
+  return (
+      <button
+        onClick={() => toggleCharactersInFavorites(data)}
+        className={clsx(
+          'fav-btn relative top-0 ml-auto p-3 cursor-pointer rounded-full',
+          isInFavorites(data) ? 'bg-red-600' : 'bg-slate-800/60',
+          'w-max grid place-items-center backdrop-blur-md'
+        )}
+        role="button"
+        aria-label="Add Character in you list of Favorites">
+        <Icon.Fav className="size-8 fill-gray-100" />
+      </button>
   );
 }

@@ -6,7 +6,7 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import FavoriteProvider from './components/FavoriteProvider';
+import { FavoriteProvider } from './components/Favorites';
 import { SearchModalProvider } from './components/Search';
 
 import App from './App';

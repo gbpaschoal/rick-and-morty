@@ -28,7 +28,7 @@ const SearchBar = () => {
 }
 
 export default function Hero() {
-  const {data, fetchNextPage} = useFetchCharacters()
+  const {data, state, fetchNextPage} = useFetchCharacters()
 
   return (
     <div className='flex flex-col gap-y-6 items-center'>
@@ -42,6 +42,7 @@ export default function Hero() {
       </div>
       <GridContainer
         data={data?.pages.flatMap(page => page.results)}
+        state={state}
         fetchMore={fetchNextPage}/>
     </div>
   )

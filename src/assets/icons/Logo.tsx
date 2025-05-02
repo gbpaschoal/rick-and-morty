@@ -2,8 +2,6 @@ export function Logo({ className }: { className: string }) {
   return (
     <svg
       className={className}
-      width={42}
-      height={42}
       xmlns="http://www.w3.org/2000/svg"
       x="0"
       y="0"

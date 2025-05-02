@@ -1,5 +1,5 @@
 import React from 'react'
-import Filter from './Filter'
+import { Filter } from './Filter'
 import * as Icon from '../assets/icons'
 
 export default function NavFooter() {

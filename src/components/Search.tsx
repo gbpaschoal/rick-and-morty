@@ -19,7 +19,6 @@ export const SearchModalProvider = ({ children }: { children: React.ReactNode}) 
   const openModal = React.useCallback(() => {
     if(!isOpen) {
       setIsOpen(true)
-      document.body.style.overflow = 'hidden'
     }
 
   }, [isOpen])
@@ -27,7 +26,6 @@ export const SearchModalProvider = ({ children }: { children: React.ReactNode}) 
   const closeModal = React.useCallback(() => {
     if(isOpen) {
       setIsOpen(false)
-      document.body.style.overflow = ''
     }
 
   }, [isOpen])
@@ -40,13 +38,11 @@ export const SearchModalProvider = ({ children }: { children: React.ReactNode}) 
 
   return (
       <SearchModalContext.Provider value={searchControls}>
-        {/* <SearchPortal/> */}
         {children}
       </SearchModalContext.Provider>
   )
 
 }
-
 
 export function SearchModalOverlay({ children }: { children: React.ReactNode }) {
   const { closeModal } = React.useContext(SearchModalContext)
@@ -63,10 +59,9 @@ export function SearchModal() {
   const { closeModal } = React.useContext(SearchModalContext)
 
   const { data: characters } = useQuery({queryKey: ['search', q], queryFn: async () => {
-    const BASE_URL = 'https://rickandmortyapi.com/api/character/';
     if (q.trim() === '') return;
 
-    const { data } = await axios.get(`${BASE_URL}?name=${q}`)
+    const { data } = await axios.get(`${import.meta.env.VITE.BASE_URL}&name=${q}`)
     const shortVersion = data.results.slice(0, 10)
     return shortVersion
 
@@ -74,7 +69,7 @@ export function SearchModal() {
 
 
   return (
-      <div className="mt-16 w-full max-w-[36rem] bg-gray-800 rounded-lg shadow-lg shadow-gray-700/40">
+      <div className="w-full max-w-[36rem] bg-gray-800 rounded-lg shadow-lg shadow-gray-700/40">
         <div className="border-b-2 border-gray-700 px-4">
           <form onSubmit={(e) => {
             e.preventDefault()
@@ -136,7 +131,9 @@ export function SearchPortal () {
     <>
       {isOpen && createPortal(
           <SearchModalOverlay>
-            <SearchModal/>
+            <div className="mt-[4rem] mx-auto">
+              <SearchModal/>
+            </div>
           </SearchModalOverlay>,
           document.body
         )}

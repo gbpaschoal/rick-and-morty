@@ -1,10 +1,9 @@
 import React from "react"
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
+import { useInfiniteQuery } from "@tanstack/react-query"
 import { useSearchParams } from "react-router-dom"
 import axios from "axios"
 
 export const useFetchCharacters = () => {
-  const BASE_URL = 'https://rickandmortyapi.com/api/character/?page=1'
   const [searchParams] = useSearchParams();
   const params = searchParams.toString()
 
@@ -29,15 +28,19 @@ export const useFetchCharacters = () => {
 
   const {
     data,
+    isLoading,
+    isError,
     fetchNextPage,
   } = useInfiniteQuery({
     queryKey: ['characters', params],
     queryFn: ({ pageParam }) => func(pageParam),
-    initialPageParam: BASE_URL,
+    initialPageParam: import.meta.env.VITE_BASE_URL,
     getNextPageParam: (lastPage) => {
       return lastPage.info.next
     }
   })
 
-return { data, fetchNextPage}
+  const state = React.useMemo(()=>({isLoading, isError}),[isLoading, isError])
+
+return { data, state, fetchNextPage }
 }
