@@ -11,10 +11,10 @@ export interface IResultList {
 export interface ICharacter {
   id: number;
   name: string;
-  status: 'Alive' | 'Dead' | 'Unknown';
+  status: "Alive" | "Dead" | "Unknown";
   species: string;
   type: string;
-  gender: 'Male' | 'Female' | 'Genderless' | 'unknown';
+  gender: "Male" | "Female" | "Genderless" | "unknown";
   image: string;
   episode: string[];
   firstEpisode: string;

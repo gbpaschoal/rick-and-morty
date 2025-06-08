@@ -2,17 +2,34 @@ module.exports = {
   root: true,
   env: { browser: true, es2020: true },
   extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
+    "eslint:recommended",
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+  ignorePatterns: ["node_modules", ".eslintrc.cjs"],
+  parser: "@typescript-eslint/parser",
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
+    semi: ["error", "always"],
+    quotes: ["error", "double"],
+    indent: ["error", 2],
+    "object-curly-spacing": ["error", "always"],
+    "space-before-function-paren": ["error", "never"],
+    "arrow-spacing": ["error", { before: true, after: true }],
+    "max-len": [
+      "warn",
+      {
+        code: 80,
+        ignoreComments: true,
+        ignoreUrls: true,
+        ignoreStrings: true,
+        ignoreTemplateLiterals: true,
+        ignoreRegExpLiterals: true,
+      },
     ],
+    "key-spacing": ["error", { beforeColon: false, afterColon: true }],
+    "comma-dangle": ["error", "always-multiline"],
+    "no-multiple-empty-lines": ["error", { max: 1 }],
+    "no-console": "warn",
+    "prefer-const": "error",
+
+    "react/no-unescaped-entities": ["off"],
   },
-}
+};

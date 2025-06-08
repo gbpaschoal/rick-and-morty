@@ -1,11 +1,11 @@
-import React from 'react'
-import { Filter } from './Filter'
-import * as Icon from '../assets/icons'
+import React from "react";
+import { Filter } from "./Filter";
+import * as Icon from "../assets/icons";
 
 export default function NavFooter() {
   const [isVisible, setIsVisible] = React.useState(false);
 
-   React.useEffect(() => {
+  React.useEffect(() => {
     const verifyScrollHeight = () => {
       if (window.scrollY > 200) {
         setIsVisible(true);
@@ -14,23 +14,27 @@ export default function NavFooter() {
       }
     };
 
-    document.addEventListener('scroll', verifyScrollHeight);
-    return () => document.removeEventListener('scroll', verifyScrollHeight);
+    document.addEventListener("scroll", verifyScrollHeight);
+    return () => document.removeEventListener("scroll", verifyScrollHeight);
   }, []);
   return (
-    <div className="wrapper bg-special z-3 fixed bottom-0 left-0 w-full
-        pointer-events-none flex flex-row gap-2
-        justify-end items-center py-4 *:pointer-events-auto">
-        { isVisible && (
-          <button className="inline-grid place-items-center size-14 md:size-16 bg-primary rounded-full"
+    <div
+      className="wrapper bg-special pointer-events-none fixed bottom-0 left-0 z-3
+        flex w-full flex-row items-center
+        justify-end gap-2 py-4 *:pointer-events-auto"
+    >
+      {isVisible && (
+        <button
+          className="inline-grid size-14 place-items-center rounded-full bg-primary md:size-16"
           onClick={() => {
-            window.scrollTo(0, 0)
-          }}>
-            <Icon.ArrowToUp className="size-[1.5rem] fill-white"/>
-          </button>
-        )}
+            window.scrollTo(0, 0);
+          }}
+        >
+          <Icon.ArrowToUp className="size-[1.5rem] fill-white" />
+        </button>
+      )}
 
-        <Filter/>
-      </div>
-  )
+      <Filter />
+    </div>
+  );
 }

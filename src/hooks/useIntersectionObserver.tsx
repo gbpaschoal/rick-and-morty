@@ -1,19 +1,21 @@
 import React from "react";
 
 export const useIntersectionObserver = (func: () => Promise<void>) => {
-  const [observerRef, setObserverRef] = React.useState<HTMLElement | null>(null);
+  const [observerRef, setObserverRef] = React.useState<HTMLElement | null>(
+    null,
+  );
   const isFetchingRef = React.useRef(false);
 
   React.useEffect(() => {
     const observer = new IntersectionObserver(
       async ([entry]) => {
-          if (entry.isIntersecting && !isFetchingRef.current) {
-            isFetchingRef.current = true;
-            await func();
-            isFetchingRef.current = false;
-          }
+        if (entry.isIntersecting && !isFetchingRef.current) {
+          isFetchingRef.current = true;
+          await func();
+          isFetchingRef.current = false;
+        }
       },
-      { rootMargin: '200px' }
+      { rootMargin: "200px" },
     );
 
     if (observerRef) {
@@ -27,5 +29,5 @@ export const useIntersectionObserver = (func: () => Promise<void>) => {
     };
   }, [observerRef]);
 
-  return setObserverRef
-}
+  return setObserverRef;
+};
