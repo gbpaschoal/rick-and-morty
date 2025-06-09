@@ -24,13 +24,16 @@ html {
 body {
   min-height: 100dvh;
   font-family:
-    "Inter",
-    "Helvetica" sans-serif;
+    "Inter", "Helvetica", sans-serif;
   background-color: var(--background);
 }
 
 input[type="checkbox"] {
   display: none;
+}
+
+img {
+  user-select: none;
 }
 
 .bg-special {

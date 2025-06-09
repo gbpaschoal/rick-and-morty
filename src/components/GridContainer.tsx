@@ -48,7 +48,7 @@ export default function GridContainer({ data, state, fetchMore }: any) {
       variants={containerVariant}
       initial="hidden"
       animate="show"
-      className="grid gap-x-2 gap-y-4 sm:max-w-[96rem] sm:grid-cols-2
+      className="grid gap-x-2 gap-y-4 sm:max-w-[96rem] sm:grid-cols-2 md:grid-cols-3
     lg:grid-cols-4"
     >
       {data?.map((character, idx) => {
