@@ -2,8 +2,8 @@ export function Fav({ className }: { className?: string }) {
   return (
     <svg
       className={className}
-      width="24"
-      height="24"
+      width={42}
+      height={42}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 -960 960 960"
     >

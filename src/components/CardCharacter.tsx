@@ -1,16 +1,14 @@
 import React from "react";
 import { ICharacter } from "../types/Characters";
-import { ButtonFavorite, FavoriteContext } from "./Favorites";
+import { ButtonFavorite } from "./Favorites";
 
 export function CardCharacter({ data }: { data: ICharacter }) {
   return (
     <article
-      className="group flex w-full h-full rounded-md bg-gray-900 sm:max-w-[18rem]
-        sm:flex-col md:pb-4"
+      className="group flex h-full w-full max-w-[18rem] flex-col rounded-md
+        bg-gray-900 pb-4"
     >
-      <div className="relative inset-0 flex-shrink-0 overflow-hidden max-sm:max-w-[200px] max-sm:rounded-md
-       max-sm:rounded-r-none sm:rounded-t-md
-      ">
+      <div className="relative inset-0 overflow-hidden rounded-t-md">
         <div className="absolute inset-0">
           <div className="flex h-full flex-col justify-start">
             <div

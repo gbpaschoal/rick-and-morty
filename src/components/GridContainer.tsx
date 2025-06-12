@@ -1,7 +1,7 @@
+import React from "react";
 import { CardCharacter } from "./CardCharacter";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import { motion } from "framer-motion";
-import React from "react";
 
 const useDelayedLoading = (isLoading, minDelay = 500) => {
   const [showSkeleton, setShowSkeleton] = React.useState(true);

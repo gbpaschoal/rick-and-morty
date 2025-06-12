@@ -23,8 +23,7 @@ html {
 
 body {
   min-height: 100dvh;
-  font-family:
-    "Inter", "Helvetica", sans-serif;
+  font-family: "Inter", "Helvetica", sans-serif;
   background-color: var(--background);
 }
 
