@@ -1,6 +1,6 @@
 import React from "react";
 import { Filter } from "./Filter";
-import * as Icon from "../assets/icons";
+import { Icon } from "../assets/icons/Icon";
 
 export default function NavFooter() {
   const [isVisible, setIsVisible] = React.useState(false);

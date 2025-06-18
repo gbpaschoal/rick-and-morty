@@ -1,15 +1,13 @@
-import { Logo } from "./Logo";
-import { Menu } from "./Menu";
-import { Search } from "./Search";
-import { Fav } from "./Fav";
-import { Close } from "./Close";
-import { Filter } from "./Filter";
-import { ArrowToLeft } from "./ArrowToLeft";
-import { ArrowToUp } from "./ArrowToUp";
+import { Logo } from "./Logo.tsx";
+import { Search } from "./Search.tsx";
+import { Fav } from "./Fav.tsx";
+import { Filter } from "./Filter.tsx";
+import { ArrowToLeft } from "./ArrowToLeft.tsx";
+import { ArrowToUp } from "./ArrowToUp.tsx";
+import { Close } from "./Close.tsx";
 
 export const Icon = {
   Logo,
-  Menu,
   Search,
   Fav,
   Close,

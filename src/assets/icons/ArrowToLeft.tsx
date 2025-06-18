@@ -1,4 +1,6 @@
-export function ArrowToLeft(props: any) {
+import React from "react";
+
+export function ArrowToLeft(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}

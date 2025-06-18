@@ -26,11 +26,11 @@ export function CardCharacter({ data }: { data: ICharacter }) {
         />
       </div>
       <div className="overflow-hidden p-2">
-        <h2 className="text-lg font-bold text-gray-100 md:text-xl ">
+        <h2 className="text-lg font-semibold text-gray-100 md:text-xl ">
           {data.name}
         </h2>
         <span className="block pb-3 text-gray-200">{data.species}</span>
-        <span className="text-base text-gray-400">
+        <span className="text-gray-400">
           First seen in:&nbsp;
           <span className="font-semibold text-gray-200">
             {data.firstEpisode?.name}

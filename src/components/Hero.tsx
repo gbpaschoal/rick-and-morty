@@ -13,7 +13,7 @@ export const SearchBar = () => {
 
   const { data: characters } = useQuery({
     queryKey: ["search", query],
-    queryFn: async () => {
+    queryFn: async() => {
       const { data } = await axios.get(
         `${"https://rickandmortyapi.com/api/character?page=1"}&name=${query}`,
       );
@@ -134,7 +134,7 @@ export default function Hero() {
       <div className="mb-4 flex w-full flex-col items-center gap-y-4 px-2">
         <Link to="/">
           <h1
-            className="text-center text-[2.2rem] font-bold
+            className="text-center font-mono text-[2.2rem] font-bold
             leading-none tracking-tight text-gray-100 sm:text-[3rem]
             lg:text-[3.5rem]"
           >

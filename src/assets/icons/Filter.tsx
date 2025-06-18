@@ -1,9 +1,11 @@
-export function Filter({ className }: { className: string }) {
+import React from "react";
+
+export function Filter(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
-      className={className}
-      width={42}
-      height={42}
+      {...props}
+      width="24"
+      height="24"
       xmlns="http://www.w3.org/2000/svg"
       fill="currentColor"
       viewBox="0 0 24 24"
@@ -13,3 +15,4 @@ export function Filter({ className }: { className: string }) {
     </svg>
   );
 }
+

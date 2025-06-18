@@ -1,9 +1,11 @@
-export function Fav({ className }: { className?: string }) {
+import React from "react";
+
+export function Fav(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
-      className={className}
-      width={42}
-      height={42}
+      {...props}
+      width="24"
+      height="24"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 -960 960 960"
     >

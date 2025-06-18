@@ -1,7 +1,9 @@
-export function Logo({ className }: { className: string }) {
+import React from "react";
+
+export function Logo(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
-      className={className}
+      {...props}
       xmlns="http://www.w3.org/2000/svg"
       x="0"
       y="0"
