@@ -5,6 +5,7 @@ import { Icon } from "../assets/icons/Icon";
 import { Link, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useWidth } from "../hooks/useWidth";
 
 export const SearchBar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -13,7 +14,7 @@ export const SearchBar = () => {
 
   const { data: characters } = useQuery({
     queryKey: ["search", query],
-    queryFn: async() => {
+    queryFn: async () => {
       const { data } = await axios.get(
         `${"https://rickandmortyapi.com/api/character?page=1"}&name=${query}`,
       );
@@ -83,7 +84,7 @@ export const SearchBar = () => {
       {isOpen && (
         <div className="absolute left-0 top-0 z-0 w-full rounded-[calc(.5_*_48px)] bg-gray-900">
           <div className="mt-12 pb-6">
-            <ul className="flex flex-col overflow-y-scroll">
+            <ul className="flex flex-col">
               {query.trim() !== "" && (
                 <li
                   className="w-full cursor-pointer px-5 py-2 hover:bg-gray-800"
@@ -118,23 +119,16 @@ export const SearchBar = () => {
   );
 };
 
-export default function Hero() {
+export function Hero() {
   const { data, state, fetchNextPage } = useFetchCharacters();
-  const width = React.useSyncExternalStore(
-    (cb) => {
-      window.addEventListener("resize", cb);
-      return () => window.removeEventListener("resize", cb);
-    },
-    () => window.innerWidth,
-    () => window.innerWidth,
-  );
+  const width = useWidth();
 
   return (
     <div className="flex flex-col items-center gap-y-6">
       <div className="mb-4 flex w-full flex-col items-center gap-y-4 px-2">
         <Link to="/">
           <h1
-            className="text-center font-mono text-[2.2rem] font-bold
+            className="text-center text-[2.2rem] font-bold
             leading-none tracking-tight text-gray-100 sm:text-[3rem]
             lg:text-[3.5rem]"
           >
@@ -144,7 +138,7 @@ export default function Hero() {
         <div className="flex w-full max-w-xl items-center justify-center gap-2">
           <SearchBar />
           <Link
-            to="/"
+            to="/fav"
             className="inline-grid flex-shrink-0 cursor-pointer place-items-center
               rounded-full bg-primary text-white max-sm:size-12
               sm:px-5 sm:py-3"

@@ -19,9 +19,9 @@ export default function NavFooter() {
   }, []);
   return (
     <div
-      className="wrapper bg-special pointer-events-none fixed bottom-0 left-0 z-3
-        flex w-full flex-row items-center
-        justify-end gap-2 py-4 *:pointer-events-auto"
+      className="bg-special pointer-events-none fixed bottom-0 left-0 z-3 flex
+        w-full flex-row items-center justify-end
+        gap-2 px-2 py-4 *:pointer-events-auto"
     >
       {isVisible && (
         <button

@@ -15,4 +15,3 @@ export function Filter(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
-

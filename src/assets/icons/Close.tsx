@@ -13,4 +13,3 @@ export function Close(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
-

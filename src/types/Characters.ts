@@ -19,3 +19,4 @@ export interface ICharacter {
   episode: string[];
   firstEpisode: string;
 }
+export type AwaitedResult<T> = T extends PromiseLike<infer U> ? U : T;

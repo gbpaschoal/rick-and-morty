@@ -63,7 +63,7 @@ export default function GridContainer({ data, state, fetchMore }: any) {
               {showSkeleton ? (
                 <div className="h-20 w-[18rem] rounded-md bg-gray-800"></div>
               ) : (
-                <CardCharacter data={character} />
+                <CardCharacter character={character} />
               )}
             </motion.li>
           );
@@ -73,7 +73,7 @@ export default function GridContainer({ data, state, fetchMore }: any) {
             {showSkeleton ? (
               <div className="h-[25rem] w-[18rem] rounded-md bg-gray-800"></div>
             ) : (
-              <CardCharacter data={character} />
+              <CardCharacter character={character} />
             )}
           </motion.li>
         );

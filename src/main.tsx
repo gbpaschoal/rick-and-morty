@@ -8,7 +8,7 @@ import { FavoriteProvider } from "./components/Favorites";
 
 import App from "./App";
 import Favorites from "./components/Favorites";
-import Hero from "./components/Hero";
+import { Hero } from "./components/Hero";
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([

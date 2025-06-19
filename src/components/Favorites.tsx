@@ -61,10 +61,10 @@ export default function Favorites() {
   }, []);
 
   return (
-    <div className="w-full">
+    <div className="grid w-full place-items-center">
       <div
-        className="mb-8 w-full place-items-center sm:mb-16 sm:grid
-      sm:grid-cols-3
+        className="mb-8 w-full max-w-6xl place-items-center sm:mb-16
+      sm:grid sm:grid-cols-3
       "
       >
         <button
@@ -79,14 +79,12 @@ export default function Favorites() {
           group-hover:fill-gray-200"
           />
         </button>
-        <h2
-          className="mt-6
-        text-center text-[clamp(2rem,_7vw,_3.6rem)] font-extrabold
-         leading-none tracking-tight
-        text-gray-100 sm:mt-0"
+        <h1
+          className="mt-6 text-[2.2rem] font-extrabold
+          tracking-tight text-gray-100 sm:mt-0 sm:text-[3rem] lg:text-[3.5rem]"
         >
           Favorites
-        </h2>
+        </h1>
       </div>
       <div className="flex w-full flex-col items-center">
         {favorites.length === 0 && (
@@ -94,7 +92,11 @@ export default function Favorites() {
             <span className="text-gray-200 "> There is nothing yet </span>
           </div>
         )}
-        <GridContainer data={[...favorites].reverse()} />
+        <GridContainer
+          data={[...favorites].reverse()}
+          state={{ isLoading: false, isError: false }}
+          fetchMore={() => {}}
+        />
       </div>
     </div>
   );
