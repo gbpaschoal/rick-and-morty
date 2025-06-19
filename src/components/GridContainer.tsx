@@ -9,12 +9,11 @@ const useDelayedLoading = (isLoading, minDelay = 500) => {
   React.useEffect(() => {
     let timeout;
     if (!isLoading) {
-      // Aguarda o tempo mínimo antes de esconder o skeleton
       timeout = setTimeout(() => {
         setShowSkeleton(false);
       }, minDelay);
     } else {
-      setShowSkeleton(true); // Reativa o skeleton se loading for true
+      setShowSkeleton(true);
     }
 
     return () => clearTimeout(timeout);
@@ -24,7 +23,7 @@ const useDelayedLoading = (isLoading, minDelay = 500) => {
 };
 
 export default function GridContainer({ data, state, fetchMore }: any) {
-  const setObserver = useIntersectionObserver(fetchMore);
+  const observer = useIntersectionObserver(fetchMore);
 
   const showSkeleton = useDelayedLoading(state.isLoading, 800);
 
@@ -55,11 +54,7 @@ export default function GridContainer({ data, state, fetchMore }: any) {
         const isTheLastOne = data.length - 1 === idx;
         if (isTheLastOne) {
           return (
-            <motion.li
-              key={character.id}
-              variants={itemVariant}
-              ref={setObserver}
-            >
+            <motion.li key={character.id} variants={itemVariant} ref={observer}>
               {showSkeleton ? (
                 <div className="h-20 w-[18rem] rounded-md bg-gray-800"></div>
               ) : (
