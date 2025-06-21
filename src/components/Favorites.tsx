@@ -1,30 +1,31 @@
 import React from "react";
 import { Icon } from "../assets/icons/Icon";
 import { useNavigate } from "react-router-dom";
-import GridContainer from "./GridContainer";
+import { GridContainer } from "./GridContainer";
 import { clsx } from "clsx";
-import { ICharacter } from "./../types/Characters";
+import { ResultCharacter } from "./../types/Characters";
+import { CardCharacter } from "./CardCharacter";
 
 export const FavoriteContext = React.createContext<{
-  favorites: ICharacter[];
-  isInFavorites: (character: ICharacter) => boolean;
-  toggleCharactersInFavorites: (character: ICharacter) => void;
-}>({
-  favorites: [],
-  isInFavorites: () => false,
-  toggleCharactersInFavorites: () => {},
-});
+  favorites: ResultCharacter[];
+  isInFavorites: (character: ResultCharacter) => boolean;
+  toggleCharactersInFavorites: (character: ResultCharacter) => void;
+    }>({
+      favorites: [],
+      isInFavorites: () => false,
+      toggleCharactersInFavorites: () => {},
+    });
 
 export function FavoriteProvider({ children }: { children: React.ReactNode }) {
-  const [favorites, setFavorites] = React.useState<ICharacter[]>([]);
+  const [favorites, setFavorites] = React.useState<ResultCharacter[]>([]);
   const isInFavorites = React.useCallback(
-    (character: ICharacter) =>
+    (character: ResultCharacter) =>
       favorites.some((elem) => elem.id === character.id),
     [favorites],
   );
 
   const toggleCharactersInFavorites = React.useCallback(
-    (character: ICharacter) => {
+    (character: ResultCharacter) => {
       if (isInFavorites(character)) {
         setFavorites((prev) => prev.filter((elem) => elem.id !== character.id));
         return;
@@ -92,17 +93,21 @@ export default function Favorites() {
             <span className="text-gray-200 "> There is nothing yet </span>
           </div>
         )}
-        <GridContainer
-          data={[...favorites].reverse()}
-          state={{ isLoading: false, isError: false }}
-          fetchMore={() => {}}
-        />
+        <GridContainer>
+          {[...favorites].reverse().map((character) => {
+            return (
+              <li key={character.id}>
+                <CardCharacter character={character} />
+              </li>
+            );
+          })}
+        </GridContainer>
       </div>
     </div>
   );
 }
 
-export function ButtonFavorite({ data }: { data: ICharacter }) {
+export function ButtonFavorite({ data }: { data: ResultCharacter }) {
   const { isInFavorites, toggleCharactersInFavorites } =
     React.useContext(FavoriteContext);
   return (

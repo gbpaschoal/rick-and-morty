@@ -1,8 +1,8 @@
 import React from "react";
-import { ICharacter } from "../types/Characters";
+import { ResultCharacter } from "../types/Characters";
 import { ButtonFavorite } from "./Favorites";
 
-export function CardCharacter({ character }: { character: ICharacter }) {
+export function CardCharacter({ character }: { character: ResultCharacter }) {
   return (
     <article
       className="group flex h-full w-full max-w-[18rem] flex-col rounded-md
@@ -33,7 +33,7 @@ export function CardCharacter({ character }: { character: ICharacter }) {
         <span className="text-gray-400">
           First seen in:&nbsp;
           <span className="font-semibold text-gray-200">
-            {character.firstEpisode?.name}
+            {character.firstEpisode.name}
           </span>
         </span>
       </div>

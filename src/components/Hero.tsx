@@ -1,4 +1,4 @@
-import GridContainer from "./GridContainer";
+import { GridContainer } from "./GridContainer";
 import { useFetchCharacters } from "../hooks/useFetchCharacters";
 import React from "react";
 import { Icon } from "../assets/icons/Icon";
@@ -6,6 +6,8 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useWidth } from "../hooks/useWidth";
+import { CardCharacter } from "./CardCharacter";
+import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 
 export const SearchBar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -120,7 +122,9 @@ export const SearchBar = () => {
 };
 
 export function Hero() {
-  const { data, state, fetchNextPage } = useFetchCharacters();
+  const { data, fetchNextPage } = useFetchCharacters();
+  const observer = useIntersectionObserver(fetchNextPage);
+  const characterList = data?.pages.flatMap((page) => page.results);
   const width = useWidth();
 
   return (
@@ -151,11 +155,24 @@ export function Hero() {
           </Link>
         </div>
       </div>
-      <GridContainer
-        data={data?.pages.flatMap((page) => page.results)}
-        state={state}
-        fetchMore={fetchNextPage}
-      />
+      <GridContainer>
+        {characterList &&
+          characterList.map((character, i) => {
+            const isTheLastOne = characterList.length - 1 === i;
+            if (isTheLastOne) {
+              return (
+                <li key={character.id} ref={observer}>
+                  <CardCharacter character={character} />
+                </li>
+              );
+            }
+            return (
+              <li key={character.id}>
+                <CardCharacter character={character} />
+              </li>
+            );
+          })}
+      </GridContainer>
     </div>
   );
 }

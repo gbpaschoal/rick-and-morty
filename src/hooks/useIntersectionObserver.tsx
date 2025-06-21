@@ -1,18 +1,15 @@
 import React from "react";
 
-export const useIntersectionObserver = (func: () => Promise<void>) => {
+export const useIntersectionObserver = (func: () => void | unknown) => {
   const [observerRef, setObserverRef] = React.useState<HTMLElement | null>(
     null,
   );
-  const isFetchingRef = React.useRef(false);
 
   React.useEffect(() => {
     const observer = new IntersectionObserver(
-      async ([entry]) => {
-        if (entry.isIntersecting && !isFetchingRef.current) {
-          isFetchingRef.current = true;
-          await func();
-          isFetchingRef.current = false;
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          func();
         }
       },
       { rootMargin: "200px" },
@@ -24,7 +21,7 @@ export const useIntersectionObserver = (func: () => Promise<void>) => {
 
     return () => {
       if (observerRef) {
-        observer.disconnect;
+        observer.disconnect();
       }
     };
   }, [observerRef]);

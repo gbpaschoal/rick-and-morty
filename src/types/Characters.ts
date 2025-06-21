@@ -1,14 +1,4 @@
-export interface IResultList {
-  info: {
-    pages: number;
-    count: number;
-    next: string;
-  };
-  results: ICharacter[];
-  error?: string;
-}
-
-export interface ICharacter {
+export interface ResultCharacter {
   id: number;
   name: string;
   status: "Alive" | "Dead" | "Unknown";
@@ -17,5 +7,8 @@ export interface ICharacter {
   gender: "Male" | "Female" | "Genderless" | "unknown";
   image: string;
   episode: string[];
-  firstEpisode: string;
+  firstEpisode: {
+    name: string;
+    episode: string;
+  };
 }

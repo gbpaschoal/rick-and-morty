@@ -7,37 +7,30 @@ export const useFetchCharacters = () => {
   const [searchParams] = useSearchParams();
   const params = searchParams.toString();
 
-  const func = async (page: any) => {
-    const { data } = await axios.get(`${page}&${params}`);
-
-    await Promise.all(
-      data.results.map(async (el) => {
-        const { data: firstEpisode } = await axios.get(el.episode[0]);
-        Object.assign(el, {
-          firstEpisode: {
-            name: firstEpisode.name,
-            episode: firstEpisode.episode,
-          },
-        });
-      }),
-    );
-
-    return data;
-  };
-
   const { data, isLoading, isError, fetchNextPage } = useInfiniteQuery({
     queryKey: ["characters", params],
-    queryFn: ({ pageParam }) => func(pageParam),
+    queryFn: async ({ pageParam }) => {
+      const { data } = await axios.get(`${pageParam}&${params}`);
+
+      await Promise.all(
+        data.results.map(async (res) => {
+          const { data: firstEpisode } = await axios.get(res.episode[0]);
+          Object.assign(res, {
+            firstEpisode: {
+              name: firstEpisode.name,
+              episode: firstEpisode.episode,
+            },
+          });
+        }),
+      );
+
+      return data;
+    },
     initialPageParam: import.meta.env.VITE_BASE_URL,
     getNextPageParam: (lastPage) => {
       return lastPage.info.next;
     },
   });
 
-  const state = React.useMemo(
-    () => ({ isLoading, isError }),
-    [isLoading, isError],
-  );
-
-  return { data, state, fetchNextPage };
+  return { data, isLoading, isError, fetchNextPage };
 };
