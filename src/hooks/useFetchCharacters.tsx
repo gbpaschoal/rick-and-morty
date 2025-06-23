@@ -1,7 +1,7 @@
-import React from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
+import { CharacterResponse } from "../types/Characters";
 
 export const useFetchCharacters = () => {
   const [searchParams] = useSearchParams();
@@ -9,8 +9,10 @@ export const useFetchCharacters = () => {
 
   const { data, isLoading, isError, fetchNextPage } = useInfiniteQuery({
     queryKey: ["characters", params],
-    queryFn: async ({ pageParam }) => {
-      const { data } = await axios.get(`${pageParam}&${params}`);
+    queryFn: async ({ pageParam }): Promise<CharacterResponse> => {
+      const { data } = await axios.get<CharacterResponse>(
+        `${pageParam}&${params}`,
+      );
 
       await Promise.all(
         data.results.map(async (res) => {

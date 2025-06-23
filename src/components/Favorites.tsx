@@ -3,13 +3,13 @@ import { Icon } from "../assets/icons/Icon";
 import { useNavigate } from "react-router-dom";
 import { GridContainer } from "./GridContainer";
 import { clsx } from "clsx";
-import { ResultCharacter } from "./../types/Characters";
+import { Character } from "./../types/Characters";
 import { CardCharacter } from "./CardCharacter";
 
 export const FavoriteContext = React.createContext<{
-  favorites: ResultCharacter[];
-  isInFavorites: (character: ResultCharacter) => boolean;
-  toggleCharactersInFavorites: (character: ResultCharacter) => void;
+  favorites: Character[];
+  isInFavorites: (character: Character) => boolean;
+  toggleCharactersInFavorites: (character: Character) => void;
     }>({
       favorites: [],
       isInFavorites: () => false,
@@ -17,15 +17,15 @@ export const FavoriteContext = React.createContext<{
     });
 
 export function FavoriteProvider({ children }: { children: React.ReactNode }) {
-  const [favorites, setFavorites] = React.useState<ResultCharacter[]>([]);
+  const [favorites, setFavorites] = React.useState<Character[]>([]);
   const isInFavorites = React.useCallback(
-    (character: ResultCharacter) =>
+    (character: Character) =>
       favorites.some((elem) => elem.id === character.id),
     [favorites],
   );
 
   const toggleCharactersInFavorites = React.useCallback(
-    (character: ResultCharacter) => {
+    (character: Character) => {
       if (isInFavorites(character)) {
         setFavorites((prev) => prev.filter((elem) => elem.id !== character.id));
         return;
@@ -107,7 +107,7 @@ export default function Favorites() {
   );
 }
 
-export function ButtonFavorite({ data }: { data: ResultCharacter }) {
+export function ButtonFavorite({ data }: { data: Character }) {
   const { isInFavorites, toggleCharactersInFavorites } =
     React.useContext(FavoriteContext);
   return (

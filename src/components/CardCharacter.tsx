@@ -1,8 +1,8 @@
 import React from "react";
-import { ResultCharacter } from "../types/Characters";
+import { Character } from "../types/Characters";
 import { ButtonFavorite } from "./Favorites";
 
-export function CardCharacter({ character }: { character: ResultCharacter }) {
+export function CardCharacter({ character }: { character: Character }) {
   return (
     <article
       className="group flex h-full w-full max-w-[18rem] flex-col rounded-md
