@@ -6,7 +6,7 @@ export default function App() {
   return (
     <div className="w-full px-2">
       <Header />
-      <div className="my-20">
+      <div className="my-16">
         <Outlet />
         <NavFooter />
       </div>

@@ -8,25 +8,25 @@ import { CardCharacter } from "./CardCharacter";
 
 export const FavoriteContext = React.createContext<{
   favorites: Character[];
-  isInFavorites: (character: Character) => boolean;
-  toggleCharactersInFavorites: (character: Character) => void;
+  verifyCharacterInFavorites: (character: Character) => boolean;
+  toggleCharacterInFavorites: (character: Character) => void;
     }>({
       favorites: [],
-      isInFavorites: () => false,
-      toggleCharactersInFavorites: () => {},
+      verifyCharacterInFavorites: () => false,
+      toggleCharacterInFavorites: () => {},
     });
 
 export function FavoriteProvider({ children }: { children: React.ReactNode }) {
   const [favorites, setFavorites] = React.useState<Character[]>([]);
-  const isInFavorites = React.useCallback(
+  const verifyCharacterInFavorites = React.useCallback(
     (character: Character) =>
       favorites.some((elem) => elem.id === character.id),
     [favorites],
   );
 
-  const toggleCharactersInFavorites = React.useCallback(
+  const toggleCharacterInFavorites = React.useCallback(
     (character: Character) => {
-      if (isInFavorites(character)) {
+      if (verifyCharacterInFavorites(character)) {
         setFavorites((prev) => prev.filter((elem) => elem.id !== character.id));
         return;
       }
@@ -39,33 +39,33 @@ export function FavoriteProvider({ children }: { children: React.ReactNode }) {
   const favoriteState = React.useMemo(
     () => ({
       favorites,
-      isInFavorites,
-      toggleCharactersInFavorites,
+      verifyCharacterInFavorites,
+      toggleCharacterInFavorites,
     }),
     [favorites],
   );
 
   return (
-    //@ts-ignore
     <FavoriteContext.Provider value={favoriteState}>
       {children}
     </FavoriteContext.Provider>
   );
 }
 
-export default function Favorites() {
+const useFavoriteContext = () => {
   const { favorites } = React.useContext(FavoriteContext);
-  const navigate = useNavigate();
+  return { favorites };
+};
 
-  React.useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+export function Favorites() {
+  const { favorites } = useFavoriteContext();
+  const navigate = useNavigate();
 
   return (
     <div className="grid w-full place-items-center">
       <div
-        className="mb-8 w-full max-w-6xl place-items-center sm:mb-16
-      sm:grid sm:grid-cols-3
+        className="mb-8 w-full max-w-6xl place-items-center
+      grid grid-cols-3
       "
       >
         <button
@@ -76,13 +76,13 @@ export default function Favorites() {
           *:ease-linear hover:bg-gray-900"
         >
           <Icon.ArrowToLeft
-            className="size-8 fill-black
+            className="size-6 sm:size-8 fill-black
           group-hover:fill-gray-200"
           />
         </button>
         <h1
-          className="mt-6 text-[2.2rem] font-extrabold
-          tracking-tight text-gray-100 sm:mt-0 sm:text-[3rem] lg:text-[3.5rem]"
+          className="text-[2.2rem] font-bold tracking-tight text-gray-100
+          sm:text-[3rem] lg:text-[3.5rem]"
         >
           Favorites
         </h1>
@@ -107,21 +107,21 @@ export default function Favorites() {
   );
 }
 
-export function ButtonFavorite({ data }: { data: Character }) {
-  const { isInFavorites, toggleCharactersInFavorites } =
+export function ButtonFavorite({ character }: { character: Character }) {
+  const { verifyCharacterInFavorites, toggleCharacterInFavorites } =
     React.useContext(FavoriteContext);
   return (
     <button
-      onClick={() => toggleCharactersInFavorites(data)}
+      onClick={() => toggleCharacterInFavorites(character)}
       className={clsx(
         "fav-btn relative top-0 ml-auto cursor-pointer rounded-full p-3",
-        isInFavorites(data) ? "bg-red-600" : "bg-slate-800/60",
+        verifyCharacterInFavorites(character) ? "bg-red-600" : "bg-slate-800/60",
         "grid w-max place-items-center backdrop-blur-md",
       )}
       role="button"
       aria-label="Add Character in you list of Favorites"
     >
-      <Icon.Fav className="size-8 fill-gray-100" />
+      <Icon.Fav className="size-6 sm:size-8 fill-gray-100" />
     </button>
   );
 }

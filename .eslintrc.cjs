@@ -27,6 +27,7 @@ module.exports = {
     "key-spacing": ["error", { beforeColon: false, afterColon: true }],
     "comma-dangle": ["error", "always-multiline"],
     "no-multiple-empty-lines": ["error", { max: 1 }],
+    "no-unused-vars": ["warn", { vars: "all", args: "after-used", ignoreRestSiblings: true }],
     "no-console": "warn",
     "prefer-const": "error",
 

@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { FavoriteProvider } from "./components/Favorites";
 
 import App from "./App";
-import Favorites from "./components/Favorites";
+import { Favorites } from "./components/Favorites";
 import { Hero } from "./components/Hero";
 
 const queryClient = new QueryClient();

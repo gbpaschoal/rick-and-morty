@@ -132,8 +132,8 @@ export function Hero() {
       <div className="mb-4 flex w-full flex-col items-center gap-y-4 px-2">
         <Link to="/">
           <h1
-            className="text-center text-[2.2rem] font-bold
-            leading-none tracking-tight text-gray-100 sm:text-[3rem]
+            className="text-center text-[2.2rem] font-bold leading-none
+            tracking-tight text-gray-100 sm:text-[3rem]
             lg:text-[3.5rem]"
           >
             Rick and Morty <br /> Characters

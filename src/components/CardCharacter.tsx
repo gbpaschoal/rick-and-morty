@@ -15,7 +15,7 @@ export function CardCharacter({ character }: { character: Character }) {
               className="relative top-0 w-full p-1 transition-all duration-300
             lg:-top-full lg:group-hover:top-0"
             >
-              <ButtonFavorite data={character} />
+              <ButtonFavorite character={character} />
             </div>
           </div>
         </div>
