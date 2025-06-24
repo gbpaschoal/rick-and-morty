@@ -8,49 +8,28 @@ import axios from "axios";
 import { useWidth } from "../hooks/useWidth";
 import { CardCharacter } from "./CardCharacter";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
+import { CharacterResponse } from "../types/Characters";
+import { useQueryStore } from "../store/queryStore";
 
 export const SearchBar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [query, setQuery] = React.useState("");
   const [searchParams, setSearchParams] = useSearchParams();
+  const queryStore = useQueryStore((state) => state.query);
+  const setQueryStore = useQueryStore((state) => state.setQuery);
 
   const { data: characters } = useQuery({
-    queryKey: ["search", query],
+    queryKey: ["search", queryStore],
     queryFn: async () => {
-      const { data } = await axios.get(
-        `${"https://rickandmortyapi.com/api/character?page=1"}&name=${query}`,
+      const { data } = await axios.get<CharacterResponse>(
+        `${"https://rickandmortyapi.com/api/character?page=1"}&name=${queryStore}`,
       );
       const shortVersion = data.results.slice(0, 6);
       return shortVersion;
     },
   });
 
-  const handleInput = (e) => {
-    if (e.target.value.trim() === "") {
-      setIsOpen(false);
-      return;
-    }
-
-    setIsOpen(true);
-    setQuery(e.target.value);
-  };
-
-  const handleForm = (e) => {
-    const formData = new FormData(e.target);
-    const search = formData.get("search");
-
-    if (search.trim() === "") {
-      setIsOpen(false);
-      return;
-    }
-
-    searchParams.set("name", search);
-    setSearchParams(searchParams);
-    setIsOpen(false);
-  };
-
   React.useEffect(() => {
-    function handleClick(e) {
+    function handleClick(e: any) {
       if (e.target && !e.target.closest(".search-bar")) {
         setIsOpen(false);
       }
@@ -69,50 +48,59 @@ export const SearchBar = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            handleForm(e);
+            const formData = new FormData(e.currentTarget);
+            const search = formData.get("search") as string;
+
+            if (search.trim() === "") {
+              setIsOpen(false);
+              return;
+            }
+
+            searchParams.set("name", search);
+            setSearchParams(searchParams);
+            setIsOpen(false);
           }}
           className="w-full"
         >
           <input
-            onChange={(e) => handleInput(e)}
+            onChange={(e) => {
+              setQueryStore(e.target.value);
+
+              if (e.target.value.trim() === "") {
+                setIsOpen(false);
+                return;
+              }
+              setIsOpen(true);
+            }}
             type="text"
+            value={queryStore}
             name="search"
             placeholder="Search Characters"
+            autoComplete="off"
+            autoCapitalize="off"
             className="inline-flex h-12 w-full flex-1 items-center border-none
                 bg-transparent text-gray-200 outline-none"
           />
         </form>
       </div>
-      {isOpen && (
+      {isOpen && characters && (
         <div className="absolute left-0 top-0 z-0 w-full rounded-[calc(.5_*_48px)] bg-gray-900">
           <div className="mt-12 pb-6">
             <ul className="flex flex-col">
-              {query.trim() !== "" && (
+              {characters.map((data: any) => (
                 <li
+                  key={data.id}
                   className="w-full cursor-pointer px-5 py-2 hover:bg-gray-800"
-                  onClick={(e) => {
-                    searchParams.set("name", e.target.value);
+                  onClick={() => {
+                    searchParams.set("name", data.name);
                     setSearchParams(searchParams);
                   }}
                 >
-                  <span className="font-medium text-gray-200">{query}</span>
+                  <span className="font-medium text-gray-200">
+                    {data.name}
+                  </span>
                 </li>
-              )}
-              {characters &&
-                characters.map((data: any) => (
-                  <li
-                    key={data.id}
-                    className="w-full cursor-pointer px-5 py-2 hover:bg-gray-800"
-                    onClick={() => {
-                      searchParams.set("name", data.name);
-                      setSearchParams(searchParams);
-                    }}
-                  >
-                    <span className="font-medium text-gray-200">
-                      {data.name}
-                    </span>
-                  </li>
-                ))}
+              ))}
             </ul>
           </div>
         </div>
