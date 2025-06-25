@@ -96,9 +96,7 @@ export const SearchBar = () => {
                     setSearchParams(searchParams);
                   }}
                 >
-                  <span className="font-medium text-gray-200">
-                    {data.name}
-                  </span>
+                  <span className="font-medium text-gray-200">{data.name}</span>
                 </li>
               ))}
             </ul>

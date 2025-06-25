@@ -1,6 +1,6 @@
 import { Header } from "./components/Header";
 import { Outlet } from "react-router-dom";
-import NavFooter from "./components/NavFooter";
+import { NavFooter } from "./components/NavFooter";
 
 export default function App() {
   return (
@@ -8,7 +8,6 @@ export default function App() {
       <Header />
       <div className="my-16">
         <Outlet />
-        <NavFooter />
       </div>
     </div>
   );

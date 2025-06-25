@@ -10,11 +10,11 @@ export const FavoriteContext = React.createContext<{
   favorites: Character[];
   verifyCharacterInFavorites: (character: Character) => boolean;
   toggleCharacterInFavorites: (character: Character) => void;
-    }>({
-      favorites: [],
-      verifyCharacterInFavorites: () => false,
-      toggleCharacterInFavorites: () => {},
-    });
+}>({
+  favorites: [],
+  verifyCharacterInFavorites: () => false,
+  toggleCharacterInFavorites: () => {},
+});
 
 export function FavoriteProvider({ children }: { children: React.ReactNode }) {
   const [favorites, setFavorites] = React.useState<Character[]>([]);
@@ -64,8 +64,8 @@ export function Favorites() {
   return (
     <div className="grid w-full place-items-center">
       <div
-        className="mb-8 w-full max-w-6xl place-items-center
-      grid grid-cols-3
+        className="mb-8 grid w-full max-w-6xl
+      grid-cols-3 place-items-center
       "
       >
         <button
@@ -76,8 +76,8 @@ export function Favorites() {
           *:ease-linear hover:bg-gray-900"
         >
           <Icon.ArrowToLeft
-            className="size-6 sm:size-8 fill-black
-          group-hover:fill-gray-200"
+            className="size-6 fill-black group-hover:fill-gray-200
+          sm:size-8"
           />
         </button>
         <h1
@@ -115,13 +115,15 @@ export function ButtonFavorite({ character }: { character: Character }) {
       onClick={() => toggleCharacterInFavorites(character)}
       className={clsx(
         "fav-btn relative top-0 ml-auto cursor-pointer rounded-full p-3",
-        verifyCharacterInFavorites(character) ? "bg-red-600" : "bg-slate-800/60",
+        verifyCharacterInFavorites(character)
+          ? "bg-red-600"
+          : "bg-slate-800/60",
         "grid w-max place-items-center backdrop-blur-md",
       )}
       role="button"
       aria-label="Add Character in you list of Favorites"
     >
-      <Icon.Fav className="size-6 sm:size-8 fill-gray-100" />
+      <Icon.Fav className="size-6 fill-gray-100 sm:size-8" />
     </button>
   );
 }
