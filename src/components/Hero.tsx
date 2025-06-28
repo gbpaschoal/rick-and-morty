@@ -10,6 +10,7 @@ import { CardCharacter } from "./CardCharacter";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import { CharacterResponse } from "../types/Characters";
 import { useQueryStore } from "../store/queryStore";
+import { Filter } from "./Filter";
 
 export const SearchBar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -90,7 +91,7 @@ export const SearchBar = () => {
               {characters.map((data: any) => (
                 <li
                   key={data.id}
-                  className="w-full cursor-pointer px-5 py-2 hover:bg-gray-800"
+                  className="w-full cursor-pointer px-5 py-2 hover:bg-gray-900"
                   onClick={() => {
                     searchParams.set("name", data.name);
                     setSearchParams(searchParams);
@@ -114,8 +115,8 @@ export function Hero() {
   const width = useWidth();
 
   return (
-    <div className="flex flex-col items-center gap-y-6">
-      <div className="mb-4 flex w-full flex-col items-center gap-y-4 px-2">
+    <div className="flex flex-col items-center gap-y-4">
+      <div className="flex w-full flex-col items-center gap-y-4 px-2">
         <Link to="/">
           <h1
             className="text-center text-[2.2rem] font-bold leading-none
@@ -140,6 +141,7 @@ export function Hero() {
             )}
           </Link>
         </div>
+        <Filter/>
       </div>
       <GridContainer>
         {characterList &&

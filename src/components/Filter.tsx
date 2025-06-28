@@ -1,150 +1,210 @@
 import React from "react";
-import { Icon } from "../assets/icons/Icon";
 import { useSearchParams } from "react-router-dom";
-
-export const FilterContext = React.createContext({});
-export function FilterProvider({ children }: { children: React.ReactNode }) {
-  return <FilterContext.Provider value={{}}>{children}</FilterContext.Provider>;
-}
+import { useFilter } from "../hooks/useFilter";
+import { Icon } from "../assets/icons/Icon";
 
 export function Filter() {
-  const [isOpen, setIsOpen] = React.useState(false);
-  return (
-    <>
-      {isOpen && <FilterModal />}
-      <button
-        className="inline-grid size-14 place-items-center rounded-full bg-white md:size-16"
-        onClick={() => setIsOpen((prev) => !prev)}
-      >
-        <Icon.Filter className="mx-auto size-[1.5rem] fill-black" />
-      </button>
-    </>
-  );
-}
+  const [filterOpen, setFilterOpen] = React.useState(false);
+  const [statusFieldOpen, setStatusFieldOpen] = React.useState(false);
+  const [speciesFieldOpen, setSpeciesFieldOpen] = React.useState(false);
+  const [genderFieldOpen, setGenderFieldOpen] = React.useState(false);
 
-function FilterModalField({ children, field }: any) {
-  return (
-    <div className="flex flex-col px-4">
-      <div className="flex w-full items-center gap-x-2">
-        <span className="p-2 text-sm font-medium text-gray-400">
-          {field.charAt(0).toUpperCase() + field.slice(1)}
-        </span>
-      </div>
-      <div className="flex flex-col">{children}</div>
-    </div>
-  );
-}
-
-function FilterModalInput({
-  field: { group, value },
-  handleFilters,
-  checked,
-}: {
-  field: { group: string; value: string };
-  handleFilters: (group: string, value: string) => void;
-  checked: boolean;
-}) {
-  return (
-    <label
-      className="flex w-full cursor-pointer
-      justify-between rounded-lg p-2 font-medium text-gray-200"
-    >
-      {value.charAt(0).toUpperCase() + value.slice(1)}
-      <label
-        className="inline-flex size-5 cursor-pointer border-1
-      border-gray-200 has-[:checked]:border-primary
-      has-[:checked]:bg-primary"
-      >
-        <input
-          type="checkbox"
-          name={group}
-          value={value}
-          checked={checked}
-          onChange={() => handleFilters(group, value)}
-        />
-        <span className="checkmark w-full"></span>
-      </label>
-    </label>
-  );
-}
-
-export function FilterModal() {
+  const { statusField, specieField, genderField, handleFilters } = useFilter();
   const [searchParams, setSearchParams] = useSearchParams();
-  const updateLocalStorage = (searchParam: string) => {
-    searchParam
-      ? sessionStorage.setItem("params", searchParam)
-      : sessionStorage.clear();
+
+  const paramsToArray = () => {
+    const arr = [];
+    for (const [key, value] of searchParams) {
+      arr.push({ [key]: value });
+    }
+    return arr;
   };
-  const handleFilters = (group: string, value: string) => {
-    const isSelected = searchParams.has(group, value);
 
-    if (isSelected) {
-      searchParams.delete(group);
-      updateLocalStorage(searchParams.toString());
-      setSearchParams(searchParams);
-
-      return;
+  React.useEffect(() => {
+    function handleClick(e: any) {
+      if (e.target && !e.target.closest(".filters")) {
+        ((bol) => {
+          setStatusFieldOpen(bol);
+          setSpeciesFieldOpen(bol);
+          setGenderFieldOpen(bol);
+        })(false);
+      }
     }
 
-    searchParams.set(group, value);
-    updateLocalStorage(searchParams.toString());
-    setSearchParams(searchParams);
-  };
-
-  const filterFields = [
-    {
-      name: "status",
-      data: [
-        { group: "status", value: "alive" },
-        { group: "status", value: "dead" },
-        { group: "status", value: "unknown" },
-      ],
-    },
-    {
-      name: "Specie",
-      data: [
-        { group: "species", value: "human" },
-        { group: "species", value: "alien" },
-        { group: "species", value: "mythologic" },
-        { group: "species", value: "animal" },
-        { group: "species", value: "robot" },
-        { group: "species", value: "unknown" },
-      ],
-    },
-    {
-      name: "Gender",
-      data: [
-        { group: "gender", value: "male" },
-        { group: "gender", value: "female" },
-        { group: "gender", value: "genderless" },
-        { group: "gender", value: "unknown" },
-      ],
-    },
-  ];
+    document.addEventListener("click", handleClick);
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, []);
 
   return (
-    <div
-      className="absolute bottom-[90%] right-4 z-3 w-[200px] rounded-lg
-        bg-gray-800 py-4 xs:w-[300px]"
-    >
-      <div className="flex h-[500px] flex-col gap-y-4 overflow-y-scroll">
-        {filterFields.map((field, index) => {
-          return (
-            <FilterModalField key={index} field={field.name}>
-              {field.data.map((item, index) => {
-                return (
-                  <FilterModalInput
-                    key={index}
-                    field={item}
-                    handleFilters={handleFilters}
-                    checked={searchParams.get(item.group) === item.value}
-                  />
+    <nav className="flex w-full max-w-[1180px] flex-col justify-center gap-2">
+      <div className="flex flex-1 justify-between gap-2 flex-wrap">
+        <div className="flex items-center gap-2">
+          {paramsToArray().map((param) => (
+            <button
+              onClick={() => {
+                handleFilters(
+                  Object.keys(param)[0],
+                  Object.values(param)[0],
                 );
-              })}
-            </FilterModalField>
-          );
-        })}
+              }}
+              className="inline-flex cursor-pointer items-center justify-center gap-x-2 rounded-full bg-primary px-4 py-2 text-white"
+            >
+              <Icon.Close className="size-[1.2rem] fill-white" />
+              {Object.values(param)[0].charAt(0).toUpperCase() +
+              Object.values(param)[0].slice(1)}
+            </button>
+          ))}
+        </div>
+        <button
+          onClick={() => setFilterOpen(!filterOpen)}
+          className="inline-flex cursor-pointer justify-center gap-x-2 rounded-full bg-gray-900 px-4 py-2 text-white
+        hover:bg-gray-900 "
+        >
+          <Icon.Filter className="size-[1.5rem] fill-white" />
+        Filter
+        </button>
       </div>
-    </div>
+      {filterOpen && (
+        <div className="grid w-full place-items-center gap-2 *:w-full md:grid-cols-3">
+          <div className="filters relative cursor-pointer rounded-lg bg-gray-900">
+            {statusFieldOpen && (
+              <div
+                className="absolute inset-x-0 top-[112%] z-3 w-full rounded-lg
+          bg-gray-900 py-4"
+              >
+                <div className="flex flex-col">
+                  {statusField.fields.map((field) => (
+                    <label
+                      className="flex w-full cursor-pointer
+          justify-between px-4 py-2 font-medium text-gray-200 hover:bg-gray-800"
+                    >
+                      {field.value.charAt(0).toUpperCase() +
+                      field.value.slice(1)}
+                      <label
+                        className="inline-flex size-5 cursor-pointer rounded-sm
+          border-2 border-gray-400 hover:border-gray-200
+          has-[:checked]:border-primary has-[:checked]:bg-primary"
+                      >
+                        <input
+                          type="checkbox"
+                          name={field.group}
+                          value={field.value}
+                          checked={
+                            searchParams.get(field.group) === field.value
+                          }
+                          onChange={() =>
+                            handleFilters(field.group, field.value)
+                          }
+                        />
+                        <span className="checkmark w-full"></span>
+                      </label>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )}
+            <div
+              onClick={() => setStatusFieldOpen(!statusFieldOpen)}
+              className="flex w-full items-center justify-between px-4 py-2"
+            >
+              <span className="font-medium text-white">Status</span>
+              <Icon.DropDown className="size-[1.5rem] fill-white" />
+            </div>
+          </div>
+          <div className="filters relative flex cursor-pointer rounded-lg bg-gray-900">
+            {speciesFieldOpen && (
+              <div
+                className="absolute inset-x-0 top-[112%] z-3 w-full rounded-lg
+          bg-gray-900 py-4"
+              >
+                <div className="flex flex-col">
+                  {specieField.fields.map((field) => (
+                    <label
+                      className="flex w-full cursor-pointer
+          justify-between px-4 py-2 font-medium text-gray-200 hover:bg-gray-800"
+                    >
+                      {field.value.charAt(0).toUpperCase() +
+                      field.value.slice(1)}
+                      <label
+                        className="inline-flex size-5 cursor-pointer rounded-sm
+          border-2 border-gray-400 hover:border-gray-200
+          has-[:checked]:border-primary has-[:checked]:bg-primary"
+                      >
+                        <input
+                          type="checkbox"
+                          name={field.group}
+                          value={field.value}
+                          checked={
+                            searchParams.get(field.group) === field.value
+                          }
+                          onChange={() =>
+                            handleFilters(field.group, field.value)
+                          }
+                        />
+                        <span className="checkmark w-full"></span>
+                      </label>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )}
+            <div
+              onClick={() => setSpeciesFieldOpen(!speciesFieldOpen)}
+              className="flex w-full items-center justify-between px-4 py-2"
+            >
+              <span className="font-medium text-white">Species</span>
+              <Icon.DropDown className="size-[1.5rem] fill-white" />
+            </div>
+          </div>
+          <div className="filters relative flex cursor-pointer rounded-lg bg-gray-900">
+            {genderFieldOpen && (
+              <div
+                className="absolute inset-x-0 top-[112%] z-3 w-full rounded-lg
+          bg-gray-900 py-4"
+              >
+                <div className="flex flex-col">
+                  {genderField.fields.map((field) => (
+                    <label
+                      className="flex w-full cursor-pointer
+          justify-between px-4 py-2 font-medium text-gray-200 hover:bg-gray-800"
+                    >
+                      {field.value.charAt(0).toUpperCase() +
+                      field.value.slice(1)}
+                      <label
+                        className="inline-flex size-5 cursor-pointer rounded-sm
+          border-2 border-gray-400 hover:border-gray-200
+          has-[:checked]:border-primary has-[:checked]:bg-primary"
+                      >
+                        <input
+                          type="checkbox"
+                          name={field.group}
+                          value={field.value}
+                          checked={
+                            searchParams.get(field.group) === field.value
+                          }
+                          onChange={() =>
+                            handleFilters(field.group, field.value)
+                          }
+                        />
+                        <span className="checkmark w-full"></span>
+                      </label>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )}
+            <div
+              onClick={() => setGenderFieldOpen(!genderFieldOpen)}
+              className="flex w-full items-center justify-between px-4 py-2"
+            >
+              <span className="font-medium text-white">Gender</span>
+              <Icon.DropDown className="size-[1.5rem] fill-white" />
+            </div>
+          </div>
+        </div>
+      )}
+    </nav>
   );
 }
