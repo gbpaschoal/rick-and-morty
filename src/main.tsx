@@ -1,14 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import App from "./App";
 import "./styles/main.css";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { FavoriteProvider } from "./components/Favorites";
 
-import App from "./App";
-import { Favorites } from "./components/Favorites";
-import { Hero } from "./components/Hero";
+import { Home } from "./components/Home";
+import { Favorites, FavoriteProvider } from "./components/Favorites";
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -18,7 +17,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Hero />,
+        element: <Home />,
       },
       {
         path: "fav",

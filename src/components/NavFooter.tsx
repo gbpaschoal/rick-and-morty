@@ -13,7 +13,8 @@ export function NavFooter() {
       <div className="flex w-full items-center justify-center gap-2">
         {scroll > 200 && (
           <button
-            className="inline-grid size-14 place-items-center rounded-full bg-gray-800"
+            className="inline-grid size-14 place-items-center rounded-full
+              bg-gray-800 hover:bg-gray-700"
             onClick={() => {
               window.scrollTo(0, 0);
             }}

@@ -15,6 +15,7 @@
   --gray-700: #373737;
   --gray-800: #171717;
   --gray-900: #0f0f0f;
+
 }
 
 html {
@@ -27,43 +28,30 @@ body {
   @apply font-mono;
 }
 
-input[type="checkbox"] {
-  display: none;
-}
-
 img {
   user-select: none;
 }
 
-.bg-special {
-  background: linear-gradient(180deg, #0000, #0000004d);
-  filter: drop-shadow(0px 8px 16px rgba(0, 0, 0, 0.25));
-}
-
-.checkmark {
-  position: relative;
-}
-
-label input:checked + .checkmark::before {
+label input:checked + span::before {
   content: "";
   background: white;
   width: 8px;
   height: 2px;
   position: absolute;
   top: 10px;
-  left: 2px;
+  left: 1px;
   border-radius: 2222px;
   transform: rotate(40deg);
 }
 
-label input:checked + .checkmark::after {
+label input:checked + span::after {
   content: "";
   background: white;
   width: 13px;
   height: 2px;
   position: absolute;
   top: 7px;
-  left: 6px;
+  left: 5px;
   border-radius: 2222px;
   transform: rotate(-55deg);
 }

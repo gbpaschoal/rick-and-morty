@@ -4,7 +4,7 @@ import { ButtonFavorite } from "./Favorites";
 
 export function CardCharacter({ character }: { character: Character }) {
   return (
-    <article
+    <div
       className="group flex h-full w-full max-w-[18rem] flex-col rounded-md
         bg-gray-900 pb-4"
     >
@@ -37,6 +37,6 @@ export function CardCharacter({ character }: { character: Character }) {
           </span>
         </span>
       </div>
-    </article>
+    </div>
   );
 }

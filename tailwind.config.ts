@@ -36,6 +36,7 @@ export default {
       borderWidth: {
         1: "1px",
       },
+      animation: { "show-card": "var(--animate-show-card)" },
     },
   },
   plugins: [],

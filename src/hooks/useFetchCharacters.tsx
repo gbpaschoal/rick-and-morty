@@ -26,6 +26,8 @@ export const useFetchCharacters = () => {
         }),
       );
 
+      await new Promise((res) => setTimeout(res, 500));
+
       return data;
     },
     initialPageParam: import.meta.env.VITE_BASE_URL,

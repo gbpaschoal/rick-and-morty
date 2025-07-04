@@ -6,15 +6,16 @@ import { clsx } from "clsx";
 import { Character } from "./../types/Characters";
 import { CardCharacter } from "./CardCharacter";
 
+// prettier-ignore
 export const FavoriteContext = React.createContext<{
   favorites: Character[];
   verifyCharacterInFavorites: (character: Character) => boolean;
   toggleCharacterInFavorites: (character: Character) => void;
-}>({
-  favorites: [],
-  verifyCharacterInFavorites: () => false,
-  toggleCharacterInFavorites: () => {},
-});
+    }>({
+      favorites: [],
+      verifyCharacterInFavorites: () => false,
+      toggleCharacterInFavorites: () => {},
+    });
 
 export function FavoriteProvider({ children }: { children: React.ReactNode }) {
   const [favorites, setFavorites] = React.useState<Character[]>([]);
@@ -90,7 +91,10 @@ export function Favorites() {
       <div className="flex w-full flex-col items-center">
         {favorites.length === 0 && (
           <div className="mx-auto text-center">
-            <span className="text-gray-200 "> There is nothing yet </span>
+            <span className="font-medium text-gray-400">
+              {" "}
+              There is nothing yet{" "}
+            </span>
           </div>
         )}
         <GridContainer>
@@ -120,8 +124,7 @@ export function ButtonFavorite({ character }: { character: Character }) {
           : "bg-slate-800/60",
         "grid w-max place-items-center backdrop-blur-md",
       )}
-      role="button"
-      aria-label="Add Character in you list of Favorites"
+      aria-label="Add Character to Favorites"
     >
       <Icon.Fav className="size-6 fill-gray-100 sm:size-8" />
     </button>
