@@ -1,65 +1,12 @@
-import React from "react";
 import { Icon } from "../assets/icons/Icon";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GridContainer } from "./GridContainer";
-import { clsx } from "clsx";
-import { Character } from "./../types/Characters";
 import { CardCharacter } from "./CardCharacter";
-
-// prettier-ignore
-export const FavoriteContext = React.createContext<{
-  favorites: Character[];
-  verifyCharacterInFavorites: (character: Character) => boolean;
-  toggleCharacterInFavorites: (character: Character) => void;
-    }>({
-      favorites: [],
-      verifyCharacterInFavorites: () => false,
-      toggleCharacterInFavorites: () => {},
-    });
-
-export function FavoriteProvider({ children }: { children: React.ReactNode }) {
-  const [favorites, setFavorites] = React.useState<Character[]>([]);
-  const verifyCharacterInFavorites = React.useCallback(
-    (character: Character) =>
-      favorites.some((elem) => elem.id === character.id),
-    [favorites],
-  );
-
-  const toggleCharacterInFavorites = React.useCallback(
-    (character: Character) => {
-      if (verifyCharacterInFavorites(character)) {
-        setFavorites((prev) => prev.filter((elem) => elem.id !== character.id));
-        return;
-      }
-
-      setFavorites((prev) => [...prev, character]);
-    },
-    [favorites],
-  );
-
-  const favoriteState = React.useMemo(
-    () => ({
-      favorites,
-      verifyCharacterInFavorites,
-      toggleCharacterInFavorites,
-    }),
-    [favorites],
-  );
-
-  return (
-    <FavoriteContext.Provider value={favoriteState}>
-      {children}
-    </FavoriteContext.Provider>
-  );
-}
-
-const useFavoriteContext = () => {
-  const { favorites } = React.useContext(FavoriteContext);
-  return { favorites };
-};
+import { useWidth } from "../hooks/useWidth";
+import { useFavoriteStore } from "../store/favoritesStore";
 
 export function Favorites() {
-  const { favorites } = useFavoriteContext();
+  const { favorites } = useFavoriteStore();
   const navigate = useNavigate();
 
   return (
@@ -92,8 +39,7 @@ export function Favorites() {
         {favorites.length === 0 && (
           <div className="mx-auto text-center">
             <span className="font-medium text-gray-400">
-              {" "}
-              There is nothing yet{" "}
+              There is nothing yet
             </span>
           </div>
         )}
@@ -111,22 +57,22 @@ export function Favorites() {
   );
 }
 
-export function ButtonFavorite({ character }: { character: Character }) {
-  const { verifyCharacterInFavorites, toggleCharacterInFavorites } =
-    React.useContext(FavoriteContext);
+export function ButtonFavorite () {
+  const width = useWidth();
+
   return (
-    <button
-      onClick={() => toggleCharacterInFavorites(character)}
-      className={clsx(
-        "fav-btn relative top-0 ml-auto cursor-pointer rounded-full p-3",
-        verifyCharacterInFavorites(character)
-          ? "bg-red-600"
-          : "bg-slate-800/60",
-        "grid w-max place-items-center backdrop-blur-md",
-      )}
-      aria-label="Add Character to Favorites"
+    <Link
+      to="fav"
+      className="inline-grid flex-shrink-0 cursor-pointer place-items-center
+        rounded-4xl bg-primary text-white max-sm:size-12
+        sm:px-4 sm:py-3"
+      aria-label="Favorites"
     >
-      <Icon.Fav className="size-6 fill-gray-100 sm:size-8" />
-    </button>
+      {width < 448 ? (
+        <Icon.Fav className="size-6 fill-white" />
+      ) : (
+        "Favorites"
+      )}
+    </Link>
   );
 }

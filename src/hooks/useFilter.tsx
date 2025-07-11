@@ -1,8 +1,10 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
+import { useQueryStore } from "../store/queryStore";
 
 export function useFilter() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { setQuery } = useQueryStore();
   const updateLocalStorage = (searchParam: string) => {
     searchParam
       ? sessionStorage.setItem("params", searchParam)
@@ -15,6 +17,7 @@ export function useFilter() {
       searchParams.delete(group);
       updateLocalStorage(searchParams.toString());
       setSearchParams(searchParams);
+      setQuery("");
 
       return;
     }
@@ -27,31 +30,31 @@ export function useFilter() {
   const statusField = {
     name: "status",
     fields: [
-      { group: "status", value: "alive" },
-      { group: "status", value: "dead" },
-      { group: "status", value: "unknown" },
+      { group: "status", value: "Alive" },
+      { group: "status", value: "Dead" },
+      { group: "status", value: "Unknown" },
     ],
   };
 
   const specieField = {
     name: "Specie",
     fields: [
-      { group: "species", value: "human" },
-      { group: "species", value: "alien" },
-      { group: "species", value: "mythologic" },
-      { group: "species", value: "animal" },
-      { group: "species", value: "robot" },
-      { group: "species", value: "unknown" },
+      { group: "species", value: "Human" },
+      { group: "species", value: "Alien" },
+      { group: "species", value: "Mythologic" },
+      { group: "species", value: "Animal" },
+      { group: "species", value: "Robot" },
+      { group: "species", value: "Unknown" },
     ],
   };
 
   const genderField = {
     name: "Gender",
     fields: [
-      { group: "gender", value: "male" },
-      { group: "gender", value: "female" },
-      { group: "gender", value: "genderless" },
-      { group: "gender", value: "unknown" },
+      { group: "gender", value: "Male" },
+      { group: "gender", value: "Female" },
+      { group: "gender", value: "Genderless" },
+      { group: "gender", value: "Unknown" },
     ],
   };
 

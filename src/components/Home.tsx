@@ -16,14 +16,13 @@ import { SpinnerCircularFixed } from "spinners-react";
 export const SearchBar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const queryStore = useQueryStore((state) => state.query);
-  const setQueryStore = useQueryStore((state) => state.setQuery);
+  const { query, setQuery } = useQueryStore();
 
   const { data: characters } = useQuery({
-    queryKey: ["search", queryStore],
+    queryKey: ["search", query],
     queryFn: async () => {
       const { data } = await axios.get<CharacterResponse>(
-        `${"https://rickandmortyapi.com/api/character?page=1"}&name=${queryStore}`,
+        `${"https://rickandmortyapi.com/api/character?page=1"}&name=${query}`,
       );
       const shortVersion = data.results.slice(0, 6);
       return shortVersion;
@@ -71,7 +70,7 @@ export const SearchBar = () => {
           >
             <input
               onChange={(e) => {
-                setQueryStore(e.target.value);
+                setQuery(e.target.value);
 
                 if (e.target.value.trim() === "") {
                   setIsOpen(false);
@@ -80,7 +79,7 @@ export const SearchBar = () => {
                 setIsOpen(true);
               }}
               type="text"
-              value={queryStore}
+              value={query}
               name="search"
               placeholder="Search Characters"
               autoComplete="off"
@@ -120,7 +119,7 @@ export function Home() {
   const width = useWidth();
 
   return (
-    <div className="flex flex-col items-center gap-y-4">
+    <div className="flex flex-col items-center gap-y-2">
       <div className="flex w-full flex-col items-center gap-y-4 px-2">
         <Link to="/" aria-label="Clear Filters">
           <h1
@@ -147,8 +146,8 @@ export function Home() {
             )}
           </Link>
         </div>
-        <Filter />
       </div>
+      <Filter />
       <div>
         {isError && (
           <span className="mx-0 inline-block font-medium text-gray-400">

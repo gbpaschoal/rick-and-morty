@@ -1,8 +1,11 @@
 import React from "react";
 import { Character } from "../types/Characters";
-import { ButtonFavorite } from "./Favorites";
+import { Icon } from "../assets/icons/Icon";
+import clsx from "clsx";
+import { useFavoriteStore } from "../store/favoritesStore";
 
 export function CardCharacter({ character }: { character: Character }) {
+  const { isFavorite, toggleCharacterInFavorites } = useFavoriteStore();
   return (
     <div
       className="group flex h-full w-full max-w-[18rem] flex-col rounded-md
@@ -15,7 +18,19 @@ export function CardCharacter({ character }: { character: Character }) {
               className="relative top-0 w-full p-1 transition-all duration-300
             lg:-top-full lg:group-hover:top-0"
             >
-              <ButtonFavorite character={character} />
+              <button
+                onClick={() => toggleCharacterInFavorites(character)}
+                className={clsx(
+                  "fav-btn relative top-0 ml-auto cursor-pointer rounded-full p-3",
+                  isFavorite(character)
+                    ? "bg-red-600"
+                    : "bg-slate-800/60",
+                  "grid w-max place-items-center backdrop-blur-md",
+                )}
+                aria-label="Add Character to Favorites"
+              >
+                <Icon.Fav className="size-6 fill-gray-100 sm:size-8" />
+              </button>
             </div>
           </div>
         </div>

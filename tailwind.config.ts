@@ -36,7 +36,9 @@ export default {
       borderWidth: {
         1: "1px",
       },
-      animation: { "show-card": "var(--animate-show-card)" },
+      borderRadius: {
+        "4xl": "calc(.5 * 48px)",
+      },
     },
   },
   plugins: [],

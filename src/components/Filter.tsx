@@ -52,8 +52,7 @@ export function Filter() {
               aria-label="Remove filter"
             >
               <Icon.Close className="size-[1.2rem] fill-white" />
-              {Object.values(param)[0].charAt(0).toUpperCase() +
-                Object.values(param)[0].slice(1)}
+              {Object.values(param)}
             </button>
           ))}
         </div>
