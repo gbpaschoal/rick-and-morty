@@ -15,17 +15,15 @@
   --gray-700: #373737;
   --gray-800: #171717;
   --gray-900: #0f0f0f;
-
 }
 
 html {
-  scroll-behavior: smooth;
+  @apply font-mono;
 }
 
 body {
   min-height: 100dvh;
   background-color: var(--background);
-  @apply font-mono;
 }
 
 img {

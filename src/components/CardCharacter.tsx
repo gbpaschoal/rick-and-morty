@@ -22,9 +22,7 @@ export function CardCharacter({ character }: { character: Character }) {
                 onClick={() => toggleCharacterInFavorites(character)}
                 className={clsx(
                   "fav-btn relative top-0 ml-auto cursor-pointer rounded-full p-3",
-                  isFavorite(character)
-                    ? "bg-red-600"
-                    : "bg-slate-800/60",
+                  isFavorite(character) ? "bg-red-600" : "bg-slate-800/60",
                   "grid w-max place-items-center backdrop-blur-md",
                 )}
                 aria-label="Add Character to Favorites"

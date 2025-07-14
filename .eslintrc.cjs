@@ -30,7 +30,5 @@ module.exports = {
     "no-unused-vars": ["warn", { vars: "all", args: "after-used", ignoreRestSiblings: true }],
     "no-console": "warn",
     "prefer-const": "error",
-
-    "react/no-unescaped-entities": ["off"],
   },
 };

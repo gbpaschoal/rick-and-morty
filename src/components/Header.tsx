@@ -9,7 +9,7 @@ export function Header() {
       {scroll > 200 ? (
         <div className="flex w-full items-center justify-center gap-2 px-2 py-2.5">
           <SearchBar />
-          <ButtonFavorite/>
+          <ButtonFavorite />
         </div>
       ) : null}
     </header>

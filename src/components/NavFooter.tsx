@@ -10,13 +10,13 @@ export function NavFooter() {
       className="pointer-events-none fixed bottom-0 left-0 z-3 flex w-full justify-center
         py-4 *:pointer-events-auto"
     >
-      <div className="flex w-full items-center justify-center gap-2">
+      <div className="w-full grid place-items-center">
         {scroll > 200 && (
           <button
-            className="inline-grid size-14 place-items-center rounded-full
+            className="grid size-14 place-items-center rounded-full
               bg-gray-800 hover:bg-gray-700"
             onClick={() => {
-              window.scrollTo(0, 0);
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
             <Icon.ArrowToUp className="size-[1.5rem] fill-white" />

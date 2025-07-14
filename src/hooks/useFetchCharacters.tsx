@@ -1,13 +1,14 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
-import { CharacterResponse } from "../types/Characters";
+import { Character, CharacterResponse } from "../types/Characters";
 
+type EpisodeInfo = Pick<Character["firstEpisode"], "name" | "episode">;
 export const useFetchCharacters = () => {
   const [searchParams] = useSearchParams();
   const params = searchParams.toString();
 
-  const { data, isLoading, isError, fetchNextPage } = useInfiniteQuery({
+  const { data, isFetching, isError, fetchNextPage } = useInfiniteQuery({
     queryKey: ["characters", params],
     queryFn: async ({ pageParam }): Promise<CharacterResponse> => {
       const { data } = await axios.get<CharacterResponse>(
@@ -16,7 +17,9 @@ export const useFetchCharacters = () => {
 
       await Promise.all(
         data.results.map(async (res) => {
-          const { data: firstEpisode } = await axios.get(res.episode[0]);
+          const { data: firstEpisode } = await axios.get<EpisodeInfo>(
+            res.episode[0],
+          );
           Object.assign(res, {
             firstEpisode: {
               name: firstEpisode.name,
@@ -36,5 +39,5 @@ export const useFetchCharacters = () => {
     },
   });
 
-  return { data, isLoading, isError, fetchNextPage };
+  return { data, isFetching, isError, fetchNextPage };
 };

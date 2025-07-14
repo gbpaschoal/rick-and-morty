@@ -11,7 +11,7 @@ import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import { CharacterResponse } from "../types/Characters";
 import { useQueryStore } from "../store/queryStore";
 import { Filter } from "./Filter";
-import { SpinnerCircularFixed } from "spinners-react";
+import { Spinner } from "./Spinner";
 
 export const SearchBar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -27,6 +27,7 @@ export const SearchBar = () => {
       const shortVersion = data.results.slice(0, 6);
       return shortVersion;
     },
+    placeholderData: (previousData) => previousData,
   });
 
   React.useEffect(() => {
@@ -47,7 +48,7 @@ export const SearchBar = () => {
       <div className="relative z-1 w-full">
         <div
           className="search-bar flex w-full items-center gap-x-2
-        rounded-[calc(.5_*_48px)] bg-gray-900 pl-4 pr-6"
+        rounded-4xl bg-gray-900 pl-4 pr-6"
           aria-expanded={isOpen}
         >
           <Icon.Search className="mt-[1px] size-[1.4rem] fill-gray-400" />
@@ -91,7 +92,7 @@ export const SearchBar = () => {
         </div>
       </div>
       {isOpen && characters && (
-        <div className="absolute inset-x-0 top-0 z-0 rounded-[calc(.5_*_48px)] bg-gray-900">
+        <div className="absolute inset-x-0 top-0 z-0 rounded-4xl bg-gray-900">
           <ul className="mt-12 flex flex-col pb-6">
             {characters.map((data: any) => (
               <li
@@ -113,7 +114,7 @@ export const SearchBar = () => {
 };
 
 export function Home() {
-  const { data, isLoading, isError, fetchNextPage } = useFetchCharacters();
+  const { data, isFetching, isError, fetchNextPage } = useFetchCharacters();
   const observer = useIntersectionObserver(fetchNextPage);
   const characterList = data?.pages.flatMap((page) => page.results);
   const width = useWidth();
@@ -166,16 +167,9 @@ export function Home() {
             );
           })}
       </GridContainer>
-      <div>
-        {isLoading && (
-          <SpinnerCircularFixed
-            size={30}
-            thickness={150}
-            color="var(--gray-400)"
-            secondaryColor="var(--gray-900)"
-            speed={200}
-            enabled={isLoading}
-          />
+      <div className="py-4">
+        {isFetching && (
+          <Spinner enabled={isFetching}/>
         )}
       </div>
     </div>

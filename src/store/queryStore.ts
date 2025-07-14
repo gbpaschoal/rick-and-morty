@@ -1,9 +1,9 @@
 import { create } from "zustand";
 
 type QueryState = {
-  query: string,
-  setQuery: (query: string) => void
-}
+  query: string;
+  setQuery: (query: string) => void;
+};
 
 export const useQueryStore = create<QueryState>((set) => ({
   query: "",

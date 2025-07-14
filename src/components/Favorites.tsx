@@ -57,7 +57,7 @@ export function Favorites() {
   );
 }
 
-export function ButtonFavorite () {
+export function ButtonFavorite() {
   const width = useWidth();
 
   return (
@@ -68,11 +68,7 @@ export function ButtonFavorite () {
         sm:px-4 sm:py-3"
       aria-label="Favorites"
     >
-      {width < 448 ? (
-        <Icon.Fav className="size-6 fill-white" />
-      ) : (
-        "Favorites"
-      )}
+      {width < 448 ? <Icon.Fav className="size-6 fill-white" /> : "Favorites"}
     </Link>
   );
 }

@@ -24,11 +24,9 @@ export function Filter() {
   React.useEffect(() => {
     function handleClick(e: any) {
       if (e.target && !e.target.closest(".filters")) {
-        ((bol) => {
-          setStatusFieldOpen(bol);
-          setSpeciesFieldOpen(bol);
-          setGenderFieldOpen(bol);
-        })(false);
+        setStatusFieldOpen(false);
+        setSpeciesFieldOpen(false);
+        setGenderFieldOpen(false);
       }
     }
 
@@ -75,9 +73,7 @@ export function Filter() {
       </div>
       {filterOpen && (
         <div className="grid w-full gap-2 *:w-full md:grid-cols-3">
-          <div
-            className="filters relative cursor-pointer rounded-lg bg-gray-900 hover:bg-gray-800"
-          >
+          <div className="filters relative cursor-pointer rounded-lg bg-gray-900 hover:bg-gray-800">
             {statusFieldOpen && (
               <div
                 className="absolute inset-x-0 top-[112%] z-3 w-full rounded-lg
@@ -89,16 +85,20 @@ export function Filter() {
                   {statusField.fields.map((field) => {
                     const id = `${field.group}-${field.value}`;
                     return (
-                      <label key={id} htmlFor={id} className="flex w-full cursor-pointer
-                      justify-between px-4 py-2 font-medium text-gray-200 hover:bg-gray-800">
+                      <label
+                        key={id}
+                        htmlFor={id}
+                        className="flex w-full cursor-pointer
+                      justify-between px-4 py-2 font-medium text-gray-200 hover:bg-gray-800"
+                      >
                         {field.value.charAt(0).toUpperCase() +
-                        field.value.slice(1)}
+                          field.value.slice(1)}
                         <input
                           type="checkbox"
                           id={id}
                           name={field.group}
                           value={field.value}
-                          className="sr-only peer"
+                          className="peer sr-only"
                           checked={
                             searchParams.get(field.group) === field.value
                           }
@@ -107,10 +107,10 @@ export function Filter() {
                           }
                         />
                         <span
-                          className="inline-flex relative size-5 cursor-pointer rounded-sm
+                          className="relative inline-flex size-5 cursor-pointer rounded-sm
                             border-2 border-gray-400 hover:border-gray-200
-                            peer-checked:border-primary peer-checked:bg-primary">
-                        </span>
+                            peer-checked:border-primary peer-checked:bg-primary"
+                        ></span>
                       </label>
                     );
                   })}
@@ -142,16 +142,20 @@ export function Filter() {
                   {specieField.fields.map((field) => {
                     const id = `${field.group}-${field.value}`;
                     return (
-                      <label key={id} htmlFor={id} className="flex w-full cursor-pointer
-                      justify-between px-4 py-2 font-medium text-gray-200 hover:bg-gray-800">
+                      <label
+                        key={id}
+                        htmlFor={id}
+                        className="flex w-full cursor-pointer
+                      justify-between px-4 py-2 font-medium text-gray-200 hover:bg-gray-800"
+                      >
                         {field.value.charAt(0).toUpperCase() +
-                        field.value.slice(1)}
+                          field.value.slice(1)}
                         <input
                           type="checkbox"
                           id={id}
                           name={field.group}
                           value={field.value}
-                          className="sr-only peer"
+                          className="peer sr-only"
                           checked={
                             searchParams.get(field.group) === field.value
                           }
@@ -160,10 +164,10 @@ export function Filter() {
                           }
                         />
                         <span
-                          className="inline-flex relative size-5 cursor-pointer rounded-sm
+                          className="relative inline-flex size-5 cursor-pointer rounded-sm
                             border-2 border-gray-400 hover:border-gray-200
-                            peer-checked:border-primary peer-checked:bg-primary">
-                        </span>
+                            peer-checked:border-primary peer-checked:bg-primary"
+                        ></span>
                       </label>
                     );
                   })}
@@ -195,16 +199,20 @@ export function Filter() {
                   {genderField.fields.map((field) => {
                     const id = `${field.group}-${field.value}`;
                     return (
-                      <label key={id} htmlFor={id} className="flex w-full cursor-pointer
-                      justify-between px-4 py-2 font-medium text-gray-200 hover:bg-gray-800">
+                      <label
+                        key={id}
+                        htmlFor={id}
+                        className="flex w-full cursor-pointer
+                      justify-between px-4 py-2 font-medium text-gray-200 hover:bg-gray-800"
+                      >
                         {field.value.charAt(0).toUpperCase() +
-                        field.value.slice(1)}
+                          field.value.slice(1)}
                         <input
                           type="checkbox"
                           id={id}
                           name={field.group}
                           value={field.value}
-                          className="sr-only peer"
+                          className="peer sr-only"
                           checked={
                             searchParams.get(field.group) === field.value
                           }
@@ -213,10 +221,10 @@ export function Filter() {
                           }
                         />
                         <span
-                          className="inline-flex relative size-5 cursor-pointer rounded-sm
+                          className="relative inline-flex size-5 cursor-pointer rounded-sm
                             border-2 border-gray-400 hover:border-gray-200
-                            peer-checked:border-primary peer-checked:bg-primary">
-                        </span>
+                            peer-checked:border-primary peer-checked:bg-primary"
+                        ></span>
                       </label>
                     );
                   })}
