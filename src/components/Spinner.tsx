@@ -1,6 +1,6 @@
 import { SpinnerCircularFixed } from "spinners-react";
 
-export function Spinner({ enabled }: {enabled: boolean}) {
+export function Spinner({ enabled }: { enabled: boolean }) {
   return (
     <SpinnerCircularFixed
       size={30}

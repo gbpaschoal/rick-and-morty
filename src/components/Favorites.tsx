@@ -1,9 +1,9 @@
 import { Icon } from "../assets/icons/Icon";
 import { Link, useNavigate } from "react-router-dom";
-import { GridContainer } from "./GridContainer";
 import { CardCharacter } from "./CardCharacter";
 import { useWidth } from "../hooks/useWidth";
 import { useFavoriteStore } from "../store/favoritesStore";
+import { motion } from "framer-motion";
 
 export function Favorites() {
   const { favorites } = useFavoriteStore();
@@ -43,15 +43,21 @@ export function Favorites() {
             </span>
           </div>
         )}
-        <GridContainer>
+        <ul className="grid place-items-stretch gap-2 sm:max-w-[96rem] grid-cols-2 md:grid-cols-3
+      lg:grid-cols-4"
+        >
           {[...favorites].reverse().map((character) => {
             return (
-              <li key={character.id}>
+              <motion.li
+                initial = {{ opacity: 0 }}
+                animate = {{ opacity: 1 }}
+                key={character.id}
+              >
                 <CardCharacter character={character} />
-              </li>
+              </motion.li>
             );
           })}
-        </GridContainer>
+        </ul>
       </div>
     </div>
   );
@@ -64,7 +70,7 @@ export function ButtonFavorite() {
     <Link
       to="fav"
       className="inline-grid flex-shrink-0 cursor-pointer place-items-center
-        rounded-4xl bg-primary text-white max-sm:size-12
+        rounded-4xl bg-primary text-white max-sm:size-11
         sm:px-4 sm:py-3"
       aria-label="Favorites"
     >

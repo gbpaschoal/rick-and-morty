@@ -1,5 +1,6 @@
 import { Header } from "./components/Header";
 import { Outlet, ScrollRestoration } from "react-router-dom";
+import { NavFooter } from "./components/NavFooter";
 
 export default function App() {
   return (
@@ -9,6 +10,7 @@ export default function App() {
         <ScrollRestoration />
         <Outlet />
       </div>
+      <NavFooter />
     </div>
   );
 }

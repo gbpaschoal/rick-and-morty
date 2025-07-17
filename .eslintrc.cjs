@@ -11,7 +11,6 @@ module.exports = {
     quotes: ["error", "double"],
     indent: ["error", 2],
     "object-curly-spacing": ["error", "always"],
-    // "space-before-function-paren": ["error", "never"],
     "arrow-spacing": ["error", { before: true, after: true }],
     "max-len": [
       "warn",

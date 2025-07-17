@@ -37,7 +37,7 @@ export function Filter() {
   }, []);
 
   return (
-    <nav className="flex w-full max-w-[1180px] flex-col justify-center gap-2">
+    <nav className="flex w-full max-w-[74rem] flex-col justify-center gap-2">
       <div className="flex flex-wrap justify-between gap-2">
         <div className="flex items-center gap-2">
           {paramsToArray().map((param) => (
@@ -45,7 +45,7 @@ export function Filter() {
               onClick={() => {
                 handleFilters(Object.keys(param)[0], Object.values(param)[0]);
               }}
-              className="inline-flex cursor-pointer items-center justify-center
+              className="flex cursor-pointer items-center justify-center
                 gap-x-2 rounded-full bg-primary px-4 py-2 text-white"
               aria-label="Remove filter"
             >

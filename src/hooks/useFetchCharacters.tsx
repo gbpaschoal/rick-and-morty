@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
-import { Character, CharacterResponse } from "../types/Characters";
+import type { Character, CharacterResponse } from "../types/Characters";
 
 type EpisodeInfo = Pick<Character["firstEpisode"], "name" | "episode">;
 export const useFetchCharacters = () => {

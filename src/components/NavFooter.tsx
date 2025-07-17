@@ -10,7 +10,7 @@ export function NavFooter() {
       className="pointer-events-none fixed bottom-0 left-0 z-3 flex w-full justify-center
         py-4 *:pointer-events-auto"
     >
-      <div className="w-full grid place-items-center">
+      <div className="grid w-full place-items-center">
         {scroll > 200 && (
           <button
             className="grid size-14 place-items-center rounded-full
