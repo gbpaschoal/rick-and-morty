@@ -44,9 +44,9 @@ export function Home() {
             const isTheLastOne = characterList.length - 1 === i;
             return (
               <motion.li
-                initial = {{ opacity: 0 }}
-                animate = {{ opacity: 1 }}
-                key={character.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                key={character?.id}
                 ref={isTheLastOne ? observer : null}
               >
                 <CardCharacter character={character} />
@@ -56,7 +56,7 @@ export function Home() {
       </ul>
       {isFetching && (
         <div className="inline-block py-4">
-          <Spinner enabled={isFetching}/>
+          <Spinner enabled={isFetching} />
         </div>
       )}
     </div>

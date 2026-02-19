@@ -1,10 +1,9 @@
-import React from "react";
-import { Character } from "../types/Characters";
+import { Character } from "../types/interfaces";
 import { Icon } from "../assets/icons/Icon";
 import clsx from "clsx";
 import { useFavoriteStore } from "../store/favoritesStore";
 
-export function CardCharacter({ character }: { character: Character }) {
+export function CardCharacter({ character }: { character: Character | undefined }) {
   const { isFavorite, toggleCharacterInFavorites } = useFavoriteStore();
   return (
     <div
@@ -33,20 +32,21 @@ export function CardCharacter({ character }: { character: Character }) {
           </div>
         </div>
         <img
-          src={character.image}
-          alt={character.name}
+          src={character?.image}
+          alt={character?.name}
+          loading="lazy"
           className="aspect-square w-full object-cover"
         />
       </div>
       <div className="overflow-hidden p-2">
         <h2 className="text-lg font-semibold text-gray-100 md:text-xl ">
-          {character.name}
+          {character?.name}
         </h2>
-        <span className="block pb-3 text-gray-200">{character.species}</span>
+        <span className="block pb-3 text-gray-200">{character?.species}</span>
         <span className="text-gray-400">
           First seen in:&nbsp;
           <span className="font-semibold text-gray-200">
-            {character.firstEpisode.name}
+            {character?.firstEpisode?.name}
           </span>
         </span>
       </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { useQueryStore } from "../store/queryStore";
 import { useQuery } from "@tanstack/react-query";
-import { CharacterResponse } from "../types/Characters";
+import { CharacterResponse } from "../types/interfaces";
 import { Icon } from "../assets/icons/Icon";
 import axios from "axios";
 

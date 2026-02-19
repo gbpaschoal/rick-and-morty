@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Character } from "../types/Characters";
+import { Character } from "../types/interfaces";
 
 type FavoriteStore = {
   favorites: Character[];

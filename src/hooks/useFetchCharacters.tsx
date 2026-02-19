@@ -1,25 +1,29 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
-import type { Character, CharacterResponse } from "../types/Characters";
+import type { CharactersResponse, Episode } from "../types/interfaces";
 
-type EpisodeInfo = Pick<Character["firstEpisode"], "name" | "episode">;
 export const useFetchCharacters = () => {
   const [searchParams] = useSearchParams();
   const params = searchParams.toString();
+  const API_URL = import.meta.env.VITE_BASE_URL as string;
 
-  const { data, isFetching, isError, fetchNextPage } = useInfiniteQuery({
-    queryKey: ["characters", params],
-    queryFn: async ({ pageParam }): Promise<CharacterResponse> => {
-      const { data } = await axios.get<CharacterResponse>(
-        `${pageParam}&${params}`,
-      );
+  const fetchCharacters = async (pageUrl: string): Promise<CharactersResponse> => {
+    //try-catch
+    const { data: characters } = await axios.get<CharactersResponse>(
+      `${pageUrl}&${params}`,
+    );
 
+    const fetchEpisode = async (episodeUrl: string) => {
+      const { data: episode } = await axios.get<Episode>(episodeUrl);
+
+      return episode;
+    };
+
+    if (characters.results) {
       await Promise.all(
-        data.results.map(async (res) => {
-          const { data: firstEpisode } = await axios.get<EpisodeInfo>(
-            res.episode[0],
-          );
+        characters?.results?.map(async (res) => {
+          const firstEpisode = await fetchEpisode(res.episode[0]);
           Object.assign(res, {
             firstEpisode: {
               name: firstEpisode.name,
@@ -28,15 +32,16 @@ export const useFetchCharacters = () => {
           });
         }),
       );
+    }
 
-      await new Promise((res) => setTimeout(res, 500));
+    return characters;
+  };
 
-      return data;
-    },
-    initialPageParam: import.meta.env.VITE_BASE_URL,
-    getNextPageParam: (lastPage) => {
-      return lastPage.info.next;
-    },
+  const { data, isFetching, isError, fetchNextPage } = useInfiniteQuery({
+    queryKey: ["characters", params],
+    queryFn: ({ pageParam }) => fetchCharacters(pageParam),
+    initialPageParam: API_URL,
+    getNextPageParam: lastPage => lastPage.info ? lastPage.info.next : null,
   });
 
   return { data, isFetching, isError, fetchNextPage };
