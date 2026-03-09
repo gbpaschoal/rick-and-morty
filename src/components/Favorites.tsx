@@ -1,6 +1,6 @@
 import { Icon } from "../assets/icons/Icon";
 import { Link, useNavigate } from "react-router-dom";
-import { CardCharacter } from "./CardCharacter";
+import { CardCharacter } from "./CharacterCard";
 import { useWidth } from "../hooks/useWidth";
 import { useFavoriteStore } from "../store/favoritesStore";
 import { motion } from "framer-motion";
@@ -49,8 +49,8 @@ export function Favorites() {
           {[...favorites].reverse().map((character) => {
             return (
               <motion.li
-                initial = {{ opacity: 0 }}
-                animate = {{ opacity: 1 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 key={character.id}
               >
                 <CardCharacter character={character} />
