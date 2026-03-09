@@ -1,6 +1,36 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: var(--primary);
+
+  --color-gray-100: var(--gray-100);
+  --color-gray-200: var(--gray-200);
+  --color-gray-400: var(--gray-400);
+  --color-gray-600: var(--gray-600);
+  --color-gray-700: var(--gray-700);
+  --color-gray-800: var(--gray-800);
+  --color-gray-900: var(--gray-900);
+
+  --breakpoint-xs: 20rem;
+  --breakpoint-sm: 28rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+  --breakpoint-4xl: 160rem;
+
+  --z-index-1: 1;
+  --z-index-2: 2;
+  --z-index-3: 3;
+  --z-index-4: 4;
+  --z-index-5: 5;
+
+  --border-width-1: 1px;
+
+  --radius-4xl: calc(0.5 * 48px);
+}
+
+@layer base {}
 
 :root {
   --primary: #1b56fd;
@@ -15,6 +45,7 @@
   --gray-700: #373737;
   --gray-800: #171717;
   --gray-900: #0f0f0f;
+
 }
 
 html {
@@ -30,7 +61,7 @@ img {
   user-select: none;
 }
 
-label input:checked + span::before {
+label input:checked+span::before {
   content: "";
   background: white;
   width: 8px;
@@ -42,7 +73,7 @@ label input:checked + span::before {
   transform: rotate(40deg);
 }
 
-label input:checked + span::after {
+label input:checked+span::after {
   content: "";
   background: white;
   width: 13px;

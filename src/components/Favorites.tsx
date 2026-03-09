@@ -43,7 +43,7 @@ export function Favorites() {
             </span>
           </div>
         )}
-        <ul className="grid place-items-stretch gap-2 sm:max-w-[96rem] grid-cols-2 md:grid-cols-3
+        <ul className="grid place-items-stretch gap-2 sm:max-w-384 grid-cols-2 md:grid-cols-3
       lg:grid-cols-4"
         >
           {[...favorites].reverse().map((character) => {
@@ -69,7 +69,7 @@ export function ButtonFavorite() {
   return (
     <Link
       to="fav"
-      className="inline-grid flex-shrink-0 cursor-pointer place-items-center
+      className="inline-grid shrink-0 cursor-pointer place-items-center
         rounded-4xl bg-primary text-white max-sm:size-11
         sm:px-4 sm:py-3"
       aria-label="Favorites"

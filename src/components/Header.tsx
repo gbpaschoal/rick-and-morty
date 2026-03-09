@@ -6,7 +6,7 @@ export function Header() {
   const scroll = useScroll();
 
   return (
-    <header className="fixed left-0 top-0 z-3 w-full bg-[var(--background)]">
+    <header className="fixed left-0 top-0 z-3 w-full bg-(--background)">
       {scroll > 200 ? (
         <div className="flex items-center justify-center gap-2 px-2 py-2.5">
           <SearchBar />

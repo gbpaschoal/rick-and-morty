@@ -37,7 +37,7 @@ export function Filter() {
   }, []);
 
   return (
-    <nav className="flex w-full max-w-[74rem] flex-col justify-center gap-2">
+    <nav className="flex w-full max-w-296 flex-col justify-center gap-2">
       <div className="flex flex-wrap justify-between gap-2">
         <div className="flex items-center gap-2">
           {paramsToArray().map((param) => (
@@ -64,7 +64,7 @@ export function Filter() {
         >
           <Icon.Filter
             className={clsx(
-              "mt-[1px] size-[1.2rem] fill-white transition-all ease-linear",
+              "mt-px size-[1.2rem] fill-white transition-all ease-linear",
               filterOpen ? "rotate-180" : "rotate-0",
             )}
           />
@@ -107,7 +107,7 @@ export function Filter() {
                           }
                         />
                         <span
-                          className="relative inline-flex size-5 cursor-pointer rounded-sm
+                          className="relative inline-flex size-5 cursor-pointer rounded-xs
                             border-2 border-gray-400 hover:border-gray-200
                             peer-checked:border-primary peer-checked:bg-primary"
                         ></span>
@@ -126,7 +126,7 @@ export function Filter() {
               <span className="font-medium text-white">Status</span>
               <Icon.DropDown
                 className={clsx(
-                  "size-[1.5rem] fill-white transition-all ease-linear",
+                  "size-6 fill-white transition-all ease-linear",
                   statusFieldOpen ? "rotate-180" : "rotate-0",
                 )}
               />
@@ -164,7 +164,7 @@ export function Filter() {
                           }
                         />
                         <span
-                          className="relative inline-flex size-5 cursor-pointer rounded-sm
+                          className="relative inline-flex size-5 cursor-pointer rounded-xs
                             border-2 border-gray-400 hover:border-gray-200
                             peer-checked:border-primary peer-checked:bg-primary"
                         ></span>
@@ -183,7 +183,7 @@ export function Filter() {
               <span className="font-medium text-white">Species</span>
               <Icon.DropDown
                 className={clsx(
-                  "size-[1.5rem] fill-white transition-all ease-linear",
+                  "size-6 fill-white transition-all ease-linear",
                   speciesFieldOpen ? "rotate-180" : "rotate-0",
                 )}
               />
@@ -221,7 +221,7 @@ export function Filter() {
                           }
                         />
                         <span
-                          className="relative inline-flex size-5 cursor-pointer rounded-sm
+                          className="relative inline-flex size-5 cursor-pointer rounded-xs
                             border-2 border-gray-400 hover:border-gray-200
                             peer-checked:border-primary peer-checked:bg-primary"
                         ></span>
@@ -240,7 +240,7 @@ export function Filter() {
               <span className="font-medium text-white">Gender</span>
               <Icon.DropDown
                 className={clsx(
-                  "size-[1.5rem] fill-white transition-all ease-linear",
+                  "size-6 fill-white transition-all ease-linear",
                   genderFieldOpen ? "rotate-180" : "rotate-0",
                 )}
               />

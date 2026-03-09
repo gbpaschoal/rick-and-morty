@@ -19,7 +19,7 @@ export function NavFooter() {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
-            <Icon.ArrowToUp className="size-[1.5rem] fill-white" />
+            <Icon.ArrowToUp className="size-6 fill-white" />
           </button>
         )}
       </div>

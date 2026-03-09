@@ -36,7 +36,7 @@ export function Home() {
           {"No founds :("}
         </span>
       )}
-      <ul className="grid place-items-stretch gap-2 sm:max-w-[96rem] grid-cols-2 md:grid-cols-3
+      <ul className="grid place-items-stretch gap-2 sm:max-w-384 grid-cols-2 md:grid-cols-3
       lg:grid-cols-4"
       >
         {characterList &&

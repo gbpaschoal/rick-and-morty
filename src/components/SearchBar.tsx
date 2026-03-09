@@ -44,7 +44,7 @@ export function SearchBar() {
         rounded-4xl bg-gray-900 pl-4 pr-6"
           aria-expanded={isOpen}
         >
-          <Icon.Search className="mt-[1px] size-[1.4rem] fill-gray-400" />
+          <Icon.Search className="mt-px size-[1.4rem] fill-gray-400" />
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -79,7 +79,7 @@ export function SearchBar() {
               autoComplete="off"
               autoCapitalize="off"
               className="h-12 w-full border-none
-                bg-transparent text-gray-200 outline-none"
+                bg-transparent text-gray-200 outline-hidden"
             />
           </form>
         </div>
