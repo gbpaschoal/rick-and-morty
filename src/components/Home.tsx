@@ -1,6 +1,6 @@
 import { useFetchCharacters } from "../hooks/useFetchCharacters";
 import { Link } from "react-router-dom";
-import { CardCharacter } from "./CharacterCard";
+import { CharacterCard } from "./CharacterCard";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import { Filter } from "./Filter";
 import { Spinner } from "./Spinner";
@@ -49,7 +49,7 @@ export function Home() {
                 key={character?.id}
                 ref={isTheLastOne ? observer : null}
               >
-                <CardCharacter character={character} />
+                <CharacterCard character={character} />
               </motion.li>
             );
           })}
