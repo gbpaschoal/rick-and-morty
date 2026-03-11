@@ -88,7 +88,7 @@ export function Filter() {
                       <label
                         key={id}
                         htmlFor={id}
-                        className="flex w-full cursor-pointer
+                        className="check-input flex w-full cursor-pointer
                       justify-between px-4 py-2 font-medium text-gray-200 hover:bg-gray-800"
                       >
                         {field.value.charAt(0).toUpperCase() +
@@ -145,7 +145,7 @@ export function Filter() {
                       <label
                         key={id}
                         htmlFor={id}
-                        className="flex w-full cursor-pointer
+                        className="check-input flex w-full cursor-pointer
                       justify-between px-4 py-2 font-medium text-gray-200 hover:bg-gray-800"
                       >
                         {field.value.charAt(0).toUpperCase() +
@@ -202,7 +202,7 @@ export function Filter() {
                       <label
                         key={id}
                         htmlFor={id}
-                        className="flex w-full cursor-pointer
+                        className="check-input flex w-full cursor-pointer
                       justify-between px-4 py-2 font-medium text-gray-200 hover:bg-gray-800"
                       >
                         {field.value.charAt(0).toUpperCase() +
