@@ -49,7 +49,9 @@
 }
 
 html {
-  @apply font-mono;
+  @apply font-mono
+  /* Mudar */
+  ;
 }
 
 body {

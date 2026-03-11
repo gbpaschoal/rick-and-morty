@@ -1,17 +1,17 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useFilter } from "../hooks/useFilter";
 import { Icon } from "../assets/icons/Icon";
 import clsx from "clsx";
 
 export function Filter() {
-  const [filterOpen, setFilterOpen] = React.useState(false);
-  const [statusFieldOpen, setStatusFieldOpen] = React.useState(false);
-  const [speciesFieldOpen, setSpeciesFieldOpen] = React.useState(false);
-  const [genderFieldOpen, setGenderFieldOpen] = React.useState(false);
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [statusFieldOpen, setStatusFieldOpen] = useState(false);
+  const [speciesFieldOpen, setSpeciesFieldOpen] = useState(false);
+  const [genderFieldOpen, setGenderFieldOpen] = useState(false);
 
-  const { statusField, specieField, genderField, handleFilters } = useFilter();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { filters, handleFilters } = useFilter();
+  const [searchParams] = useSearchParams();
 
   const paramsToArray = () => {
     const arr = [];
@@ -21,7 +21,7 @@ export function Filter() {
     return arr;
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     function handleClick(e: any) {
       if (e.target && !e.target.closest(".filters")) {
         setStatusFieldOpen(false);
@@ -82,7 +82,7 @@ export function Filter() {
                 aria-label="Status Filters"
               >
                 <div className="flex flex-col">
-                  {statusField.fields.map((field) => {
+                  {filters.status.map((field) => {
                     const id = `${field.group}-${field.value}`;
                     return (
                       <label
@@ -139,7 +139,7 @@ export function Filter() {
           bg-gray-900 py-4"
               >
                 <div className="flex flex-col">
-                  {specieField.fields.map((field) => {
+                  {filters.specie.map((field) => {
                     const id = `${field.group}-${field.value}`;
                     return (
                       <label
@@ -196,7 +196,7 @@ export function Filter() {
           bg-gray-900 py-4"
               >
                 <div className="flex flex-col">
-                  {genderField.fields.map((field) => {
+                  {filters.gender.map((field) => {
                     const id = `${field.group}-${field.value}`;
                     return (
                       <label
