@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { useFavoriteStore } from "../store/favoritesStore";
 import { Character } from "../types/interfaces";
-import { Icon } from "../assets/icons/Icon";
+import { Fav } from "../assets/icons";
 
 export function FavoriteButton({ character }: { character: Character | undefined }) {
   const { isFavorite, toggleCharacterInFavorites } = useFavoriteStore();
@@ -16,7 +16,7 @@ export function FavoriteButton({ character }: { character: Character | undefined
       )}
       aria-label="Add Character to Favorites"
     >
-      <Icon.Fav className="size-6 fill-gray-100 sm:size-8" />
+      <Fav className="size-6 fill-gray-100 sm:size-8" />
     </button>
   );
 }

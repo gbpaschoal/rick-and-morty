@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon } from "../assets/icons/Icon";
+import { ArrowToUp } from "../assets/icons";
 import { useScroll } from "../hooks/useScroll";
 
 export function NavFooter() {
@@ -19,7 +19,7 @@ export function NavFooter() {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
-            <Icon.ArrowToUp className="size-6 fill-white" />
+            <ArrowToUp className="size-6 fill-white" />
           </button>
         )}
       </div>

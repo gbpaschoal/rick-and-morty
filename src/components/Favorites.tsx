@@ -1,4 +1,4 @@
-import { Icon } from "../assets/icons/Icon";
+import { ArrowToLeft, Fav } from "../assets/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { CharacterCard } from "./CharacterCard";
 import { useWidth } from "../hooks/useWidth";
@@ -23,7 +23,7 @@ export function Favorites() {
           ease-linear *:transition-colors
           *:ease-linear hover:bg-gray-900"
         >
-          <Icon.ArrowToLeft
+          <ArrowToLeft
             className="size-6 fill-black group-hover:fill-gray-200
           sm:size-8"
           />
@@ -74,7 +74,7 @@ export function ButtonFavorite() {
         sm:px-4 sm:py-3"
       aria-label="Favorites"
     >
-      {width < 448 ? <Icon.Fav className="size-6 fill-white" /> : "Favorites"}
+      {width < 448 ? <Fav className="size-6 fill-white" /> : "Favorites"}
     </Link>
   );
 }

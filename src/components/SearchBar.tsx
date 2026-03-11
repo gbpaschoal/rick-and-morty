@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { useQueryStore } from "../store/queryStore";
 import { useQuery } from "@tanstack/react-query";
 import { CharacterResponse } from "../types/interfaces";
-import { Icon } from "../assets/icons/Icon";
+import { Search } from "../assets/icons";
 import axios from "axios";
 
 export function SearchBar() {
@@ -44,7 +44,7 @@ export function SearchBar() {
         rounded-4xl bg-gray-900 pl-4 pr-6"
           aria-expanded={isOpen}
         >
-          <Icon.Search className="mt-px size-[1.4rem] fill-gray-400" />
+          <Search className="mt-px size-[1.4rem] fill-gray-400" />
           <form
             onSubmit={(e) => {
               e.preventDefault();

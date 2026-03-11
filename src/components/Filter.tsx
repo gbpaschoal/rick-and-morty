@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useFilter } from "../hooks/useFilter";
-import { Icon } from "../assets/icons/Icon";
+import { Filter as FilterIcon, Close, DropDown } from "../assets/icons";
 import clsx from "clsx";
 
 export function Filter() {
@@ -49,7 +49,7 @@ export function Filter() {
                 gap-x-2 rounded-full bg-primary px-4 py-2 text-white"
               aria-label="Remove filter"
             >
-              <Icon.Close className="size-[1.2rem] fill-white" />
+              <Close className="size-[1.2rem] fill-white" />
               {Object.values(param)}
             </button>
           ))}
@@ -62,7 +62,7 @@ export function Filter() {
           )}
           aria-label="Apply filters"
         >
-          <Icon.Filter
+          <FilterIcon
             className={clsx(
               "mt-px size-[1.2rem] fill-white transition-all ease-linear",
               filterOpen ? "rotate-180" : "rotate-0",
@@ -124,7 +124,7 @@ export function Filter() {
               aria-expanded={statusFieldOpen}
             >
               <span className="font-medium text-white">Status</span>
-              <Icon.DropDown
+              <DropDown
                 className={clsx(
                   "size-6 fill-white transition-all ease-linear",
                   statusFieldOpen ? "rotate-180" : "rotate-0",
@@ -181,7 +181,7 @@ export function Filter() {
               aria-expanded={speciesFieldOpen}
             >
               <span className="font-medium text-white">Species</span>
-              <Icon.DropDown
+              <DropDown
                 className={clsx(
                   "size-6 fill-white transition-all ease-linear",
                   speciesFieldOpen ? "rotate-180" : "rotate-0",
@@ -238,7 +238,7 @@ export function Filter() {
               aria-expanded={genderFieldOpen}
             >
               <span className="font-medium text-white">Gender</span>
-              <Icon.DropDown
+              <DropDown
                 className={clsx(
                   "size-6 fill-white transition-all ease-linear",
                   genderFieldOpen ? "rotate-180" : "rotate-0",
