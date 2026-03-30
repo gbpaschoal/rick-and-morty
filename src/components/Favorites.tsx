@@ -2,12 +2,24 @@ import { ArrowToLeft, Fav } from "../assets/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { CharacterCard } from "./CharacterCard";
 import { useWidth } from "../hooks/useWidth";
-import { useFavoriteStore } from "../store/favoritesStore";
-import { motion } from "framer-motion";
+import { useQueries } from "@tanstack/react-query";
 
 export function Favorites() {
-  const { favorites } = useFavoriteStore();
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]") as number[];
   const navigate = useNavigate();
+
+  const fetchCharacter = async (id: number) => {
+    const res = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
+    const data = await res.json();
+    return data;
+  };
+
+  const favCharacters = useQueries({
+    queries: favorites.map(id => ({
+      queryKey: ["fav-id", id],
+      queryFn: () => fetchCharacter(id),
+    })),
+  });
 
   return (
     <div className="grid w-full place-items-center">
@@ -46,15 +58,11 @@ export function Favorites() {
         <ul className="grid place-items-stretch gap-2 sm:max-w-384 grid-cols-2 md:grid-cols-3
       lg:grid-cols-4"
         >
-          {[...favorites].reverse().map((character) => {
+          {[...favCharacters].reverse().map((character, i) => {
             return (
-              <motion.li
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                key={character.id}
-              >
-                <CharacterCard character={character} />
-              </motion.li>
+              <li key={i}>
+                <CharacterCard character={character.data} />
+              </li>
             );
           })}
         </ul>
