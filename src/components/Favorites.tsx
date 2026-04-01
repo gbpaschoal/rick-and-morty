@@ -3,9 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { CharacterCard } from "./CharacterCard";
 import { useWidth } from "../hooks/useWidth";
 import { useQueries } from "@tanstack/react-query";
+import { useFavorites } from "../hooks/useFavorites";
 
 export function Favorites() {
-  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]") as number[];
+  const { store } = useFavorites();
   const navigate = useNavigate();
 
   const fetchCharacter = async (id: number) => {
@@ -15,7 +16,7 @@ export function Favorites() {
   };
 
   const favCharacters = useQueries({
-    queries: favorites.map(id => ({
+    queries: store.map(id => ({
       queryKey: ["fav-id", id],
       queryFn: () => fetchCharacter(id),
     })),
@@ -48,7 +49,7 @@ export function Favorites() {
         </h1>
       </div>
       <div className="flex w-full flex-col items-center">
-        {favorites.length === 0 && (
+        {store.length === 0 && (
           <div className="mx-auto text-center">
             <span className="font-medium text-gray-400">
               There is nothing yet
