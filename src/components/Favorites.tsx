@@ -1,7 +1,6 @@
-import { ArrowToLeft, Fav } from "../assets/icons";
-import { Link, useNavigate } from "react-router-dom";
+import { ArrowToLeft } from "../assets/icons";
+import { useNavigate } from "react-router-dom";
 import { CharacterCard } from "./CharacterCard";
-import { useWidth } from "../hooks/useWidth";
 import { useQueries } from "@tanstack/react-query";
 import { useFavorites } from "../hooks/useFavorites";
 
@@ -72,18 +71,3 @@ export function Favorites() {
   );
 }
 
-export function ButtonFavorite() {
-  const width = useWidth();
-
-  return (
-    <Link
-      to="fav"
-      className="inline-grid shrink-0 cursor-pointer place-items-center
-        rounded-4xl bg-primary text-white max-sm:size-11
-        sm:px-4 sm:py-3"
-      aria-label="Favorites"
-    >
-      {width < 448 ? <Fav className="size-6 fill-white" /> : "Favorites"}
-    </Link>
-  );
-}

@@ -1,18 +1,31 @@
 import { SearchBar } from "./SearchBar";
 import { useScroll } from "../hooks/useScroll";
-import { ButtonFavorite } from "./Favorites";
+import { Link } from "react-router-dom";
+import { Fav } from "../assets/icons";
 
 export function Header() {
   const scroll = useScroll();
 
   return (
     <header className="fixed left-0 top-0 z-3 w-full bg-(--background)">
-      {scroll > 200 ? (
-        <div className="flex items-center justify-center gap-2 px-2 py-2.5">
-          <SearchBar />
-          <ButtonFavorite />
+      <div className="grid grid-cols-[1fr_auto] [grid-template-areas:'b_c'] md:grid-cols-[minmax(44px,auto)_1fr_auto] md:[grid-template-areas:'._b_c'] gap-x-2 p-2">
+        {scroll > 250 ? (
+          <div className="[grid-area:b] flex justify-center">
+            <SearchBar />
+          </div>
+        ) : null}
+        <div className="[grid-area:c]">
+          <Link
+            to="fav"
+            className="flex gap-x-2 cursor-pointer items-center
+                rounded-lg bg-gray-800 text-white
+                p-3 hover:bg-gray-700"
+            aria-label="Favorites"
+          >
+            <Fav className="size-5 fill-white" />
+          </Link>
         </div>
-      ) : null}
-    </header>
+      </div>
+    </header >
   );
 }

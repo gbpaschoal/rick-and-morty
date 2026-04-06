@@ -25,6 +25,10 @@
   --background: var(--color-black)
 }
 
+*:hover {
+  @apply transition-all
+}
+
 html {
   @apply font-mono
 }

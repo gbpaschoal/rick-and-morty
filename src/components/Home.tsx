@@ -2,11 +2,10 @@ import { useFetchCharacters } from "../hooks/useFetchCharacters";
 import { Link } from "react-router-dom";
 import { CharacterCard } from "./CharacterCard";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
-import { Filter } from "./Filter";
 import { Spinner } from "./Spinner";
 import { SearchBar } from "./SearchBar";
-import { ButtonFavorite } from "./Favorites";
 import { motion } from "framer-motion";
+import { Filter } from "./Filter";
 
 export function Home() {
   const { data, isFetching, isError, fetchNextPage } = useFetchCharacters();
@@ -27,7 +26,6 @@ export function Home() {
         </Link>
         <div className="flex w-full max-w-xl items-center justify-center gap-2">
           <SearchBar />
-          <ButtonFavorite />
         </div>
       </div>
       <Filter />
