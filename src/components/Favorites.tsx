@@ -2,10 +2,10 @@ import { ArrowToLeft } from "../assets/icons";
 import { useNavigate } from "react-router-dom";
 import { CharacterCard } from "./CharacterCard";
 import { useQueries } from "@tanstack/react-query";
-import { useFavorites } from "../hooks/useFavorites";
+import { FavoritesStorage } from "../App";
 
 export function Favorites() {
-  const { store } = useFavorites();
+  const { storage } = FavoritesStorage.useStorage();
   const navigate = useNavigate();
 
   const fetchCharacter = async (id: number) => {
@@ -15,7 +15,7 @@ export function Favorites() {
   };
 
   const favCharacters = useQueries({
-    queries: store.map(id => ({
+    queries: storage?.map(id => ({
       queryKey: ["fav-id", id],
       queryFn: () => fetchCharacter(id),
     })),
@@ -30,7 +30,7 @@ export function Favorites() {
       >
         <button
           onClick={() => navigate(-1)}
-          className="group justify-self-start rounded-full
+          className="group cursor-pointer justify-self-start rounded-full
           bg-white p-3 transition-colors
           ease-linear *:transition-colors
           *:ease-linear hover:bg-gray-900"
@@ -48,7 +48,7 @@ export function Favorites() {
         </h1>
       </div>
       <div className="flex w-full flex-col items-center">
-        {store.length === 0 && (
+        {storage.length === 0 && (
           <div className="mx-auto text-center">
             <span className="font-medium text-gray-400">
               There is nothing yet

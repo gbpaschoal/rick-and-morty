@@ -1,29 +1,25 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import type React from "react";
+import { FavoritesStorage } from "../App";
 
-export const FavoritesContext = createContext<{
-  store: number[],
-  setStore: (arr: number[]) => void
-}>({ store: [], setStore: (arr: number[]) => { } });
-
-export const FavoritesProvider = ({ children }: { children: React.ReactNode }) => {
-  const [store, setStore] = useState<number[]>([]);
-
-  useEffect(() => {
-    setStore(JSON.parse(localStorage.getItem("favorites") || "[]"));
-  }, []);
-
-  const favoritesValue = useMemo(() => {
-    return { store, setStore };
-  }, [store]);
-
-  return (
-    <FavoritesContext.Provider value={favoritesValue}>
-      {children}
-    </FavoritesContext.Provider>
-  );
-};
 export const useFavorites = () => {
-  const storeContext = useContext(FavoritesContext);
-  return (storeContext);
+  const { storage, setStorage } = FavoritesStorage.useStorage();
+  const isFavorite = (id: number) => {
+    const arr = storage.includes(id);
+
+    return arr;
+  };
+  const toggleCharacterInFavorites = (characterId: number) => {
+    if (isFavorite(characterId)) {
+      const arr = storage.filter(id => id !== characterId);
+      localStorage.setItem("favorites", JSON.stringify(arr));
+      setStorage(arr);
+
+      return;
+    }
+
+    const arr = [...storage, characterId];
+    localStorage.setItem("favorites", JSON.stringify(arr));
+    setStorage(arr);
+
+  };
+  return { isFavorite, toggleCharacterInFavorites };
 };

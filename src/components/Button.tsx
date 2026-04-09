@@ -3,32 +3,8 @@ import { Character } from "../types/interfaces";
 import { Fav } from "../assets/icons";
 import { useFavorites } from "../hooks/useFavorites";
 
-const useFavorite = () => {
-  const { store, setStore } = useFavorites();
-  const isFavorite = (id: number) => {
-    const arr = store.includes(id);
-
-    return arr;
-  };
-  const toggleCharacterInFavorites = (characterId: number) => {
-    if (isFavorite(characterId)) {
-      const arr = store.filter(id => id !== characterId);
-      localStorage.setItem("favorites", JSON.stringify(arr));
-      setStore(arr);
-
-      return;
-    }
-
-    const arr = [...store, characterId];
-    localStorage.setItem("favorites", JSON.stringify(arr));
-    setStore(arr);
-
-  };
-  return { isFavorite, toggleCharacterInFavorites };
-};
-
 export function FavoriteButton({ character }: { character: Character }) {
-  const { isFavorite, toggleCharacterInFavorites } = useFavorite();
+  const { isFavorite, toggleCharacterInFavorites } = useFavorites();
 
   return (
     <button
