@@ -17,9 +17,8 @@ export function Home() {
       <div className="w-full flex flex-col items-center gap-y-4">
         <Link to="/" aria-label="Clear Filters">
           <h1
-            className="text-center text-[2.2rem] font-bold leading-none
-              tracking-tight text-gray-100 sm:text-[3rem]
-              lg:text-[3.5rem]"
+            className="text-gray-100 text-center text-4xl sm:text-5xl
+              lg:text-6xl leading-[0.8] font-bold"
           >
             Rick and Morty <br /> Characters
           </h1>
