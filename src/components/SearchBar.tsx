@@ -1,13 +1,13 @@
-import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { useQueryStore } from "../store/queryStore";
 import { useQuery } from "@tanstack/react-query";
 import { CharacterResponse } from "../types/interfaces";
 import { Search } from "../assets/icons";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 export function SearchBar() {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const { query, setQuery } = useQueryStore();
 
@@ -23,7 +23,7 @@ export function SearchBar() {
     placeholderData: (previousData) => previousData,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     function handleClick(e: any) {
       if (e.target && !e.target.closest(".search-bar")) {
         setIsOpen(false);
@@ -37,71 +37,77 @@ export function SearchBar() {
   }, []);
 
   return (
-    <div className="relative z-3 w-full max-w-lg">
-      <div className="relative z-1 w-full">
-        <div
-          className="search-bar flex w-full items-center gap-x-2
-        rounded-4xl bg-gray-900 pl-4 pr-6"
-          aria-expanded={isOpen}
-        >
-          <Search className="mt-px size-[1.4rem] fill-gray-400" />
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              const formData = new FormData(e.currentTarget);
-              const search = formData.get("search") as string;
-
-              if (search.trim() === "") {
-                setIsOpen(false);
-                return;
-              }
-
-              searchParams.set("name", search);
-              setSearchParams(searchParams);
-              setIsOpen(false);
-            }}
-            className="w-full"
+    <div className="w-full">
+      <div className="relative z-2">
+        <div className="relative z-2">
+          <div
+            className="search-bar flex items-center gap-x-2
+          rounded-4xl bg-gray-900 pl-4 pr-2"
+            aria-expanded={isOpen}
           >
-            <input
-              onChange={(e) => {
-                setQuery(e.target.value);
+            <Search className="mt-px size-5 fill-gray-400" />
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const formData = new FormData(e.currentTarget);
+                const search = formData.get("search") as string;
 
-                if (e.target.value.trim() === "") {
+                if (search.trim() === "") {
                   setIsOpen(false);
                   return;
-                }
-                setIsOpen(true);
+                } 2;
+
+                searchParams.set("name", search);
+                setSearchParams(searchParams);
+                setIsOpen(false);
               }}
-              type="text"
-              value={query}
-              name="search"
-              placeholder="Search Characters"
-              autoComplete="off"
-              autoCapitalize="off"
-              className="h-12 w-full border-none
-                bg-transparent text-gray-200 outline-hidden"
-            />
-          </form>
-        </div>
-      </div>
-      {isOpen && characters && (
-        <div className="absolute inset-x-0 top-0 z-0 rounded-4xl bg-gray-900">
-          <ul className="mt-12 flex flex-col pb-6">
-            {characters.map((data: any) => (
-              <li
-                key={data.id}
-                className="cursor-pointer px-5 py-2 hover:bg-gray-800"
-                onClick={() => {
-                  searchParams.set("name", data.name);
-                  setSearchParams(searchParams);
+              className="w-full flex items-center"
+            >
+              <input
+                onChange={(e) => {
+                  setQuery(e.target.value);
+
+                  if (e.target.value.trim() === "") {
+                    setIsOpen(false);
+                    return;
+                  }
+                  setIsOpen(true);
                 }}
-              >
-                <span className="font-medium text-gray-200">{data.name}</span>
-              </li>
-            ))}
-          </ul>
+                type="text"
+                value={query}
+                name="search"
+                placeholder="Find Characters"
+                autoComplete="off"
+                autoCapitalize="off"
+                className="h-12 w-full border-none
+                  bg-transparent text-gray-200 outline-hidden pr-2"
+              />
+              <button className="bg-primary fill-white rounded-full py-2 px-4">
+                {/* <Search /> */}
+                Search
+              </button>
+            </form>
+          </div>
         </div>
-      )}
+        {isOpen && characters && (
+          <div className="absolute inset-x-0 top-0 z-0 rounded-4xl bg-gray-900">
+            <ul className="mt-12 flex flex-col pb-6">
+              {characters.map((data: any) => (
+                <li
+                  key={data.id}
+                  className="cursor-pointer px-5 py-2 hover:bg-gray-800"
+                  onClick={() => {
+                    searchParams.set("name", data.name);
+                    setSearchParams(searchParams);
+                  }}
+                >
+                  <span className="font-medium text-gray-200">{data.name}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

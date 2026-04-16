@@ -14,7 +14,7 @@ export function Home() {
 
   return (
     <div className="flex flex-col items-center gap-y-2">
-      <div className="w-full flex flex-col items-center gap-y-4">
+      <div className="w-full max-w-lg flex flex-col items-center gap-y-4">
         <Link to="/" aria-label="Clear Filters">
           <h1
             className="text-gray-100 text-center text-4xl sm:text-5xl
@@ -23,9 +23,7 @@ export function Home() {
             Rick and Morty <br /> Characters
           </h1>
         </Link>
-        <div className="flex w-full max-w-xl items-center justify-center gap-2">
-          <SearchBar />
-        </div>
+        <SearchBar />
       </div>
       <Filter />
       {isError && (

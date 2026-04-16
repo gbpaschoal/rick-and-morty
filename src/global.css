@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 @theme {
-  /* Colors */
   --color-primary: #1b56fd;
 
   --color-gray-100: #f2f2f2;
@@ -13,20 +12,33 @@
   --color-gray-700: #373737;
   --color-gray-800: #171717;
   --color-gray-900: #0f0f0f;
-
 }
 
+:root {
+  --background: var(--color-black);
+}
+
+:root {
+  color-scheme: dark;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: var(--color-black);
+  }
+
+  :root {
+    color-scheme: dark;
+  }
+} */
+
 html {
-  @apply font-mono
+  font-family: var(--font-mono);
 }
 
 body {
   min-height: 100dvh;
-  background-color: var(--color-black);
-}
-
-img {
-  user-select: none;
+  background: var(--background);
 }
 
 .check-input input:checked+span::before {
