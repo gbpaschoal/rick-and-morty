@@ -47,6 +47,6 @@
     "plugins": [
       "prettier-plugin-tailwindcss"
     ],
-    "tailwindStylesheet": "./tailwind.config.ts"
+    "tailwindStylesheet": "./src/global.css"
   }
 }
