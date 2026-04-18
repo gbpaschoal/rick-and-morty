@@ -9,10 +9,6 @@ module.exports = {
     "key-spacing": ["error", { beforeColon: false, afterColon: true }],
     "arrow-spacing": ["error", { before: true, after: true }],
     "comma-dangle": ["error", "always-multiline"],
-    "no-unused-vars": [
-      "warn",
-      { vars: "all", args: "after-used", ignoreRestSiblings: true },
-    ],
     "max-len": [
       "warn",
       {

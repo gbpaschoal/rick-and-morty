@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useFilter } from "../hooks/useFilter";
-import { Filter as FilterIcon, Close, DropDown } from "../assets/icons";
+import {
+  RiEqualizerLine as FilterIcon,
+  RiCloseLine as CloseIcon,
+  RiArrowDownLine as DropDownIcon,
+} from "@remixicon/react";
 import clsx from "clsx";
 
 export function Filter() {
@@ -49,7 +53,7 @@ export function Filter() {
                 gap-x-2 rounded-full bg-primary px-4 py-2 text-white"
               aria-label="Remove filter"
             >
-              <Close className="size-[1.2rem] fill-white" />
+              <CloseIcon size={18} className="fill-white" />
               {Object.values(param)}
             </button>
           ))}
@@ -63,6 +67,7 @@ export function Filter() {
           aria-label="Apply filters"
         >
           <FilterIcon
+            size={16}
             className={clsx(
               "mt-px size-[1.2rem] fill-white transition-all ease-linear",
               filterOpen ? "rotate-180" : "rotate-0",
@@ -124,9 +129,10 @@ export function Filter() {
               aria-expanded={statusFieldOpen}
             >
               <span className="font-medium text-white">Status</span>
-              <DropDown
+              <DropDownIcon
+                size={20}
                 className={clsx(
-                  "size-6 fill-white transition-all ease-linear",
+                  "fill-white transition-all ease-linear",
                   statusFieldOpen ? "rotate-180" : "rotate-0",
                 )}
               />
@@ -181,9 +187,10 @@ export function Filter() {
               aria-expanded={speciesFieldOpen}
             >
               <span className="font-medium text-white">Species</span>
-              <DropDown
+              <DropDownIcon
+                size={20}
                 className={clsx(
-                  "size-6 fill-white transition-all ease-linear",
+                  "fill-white transition-all ease-linear",
                   speciesFieldOpen ? "rotate-180" : "rotate-0",
                 )}
               />
@@ -238,9 +245,10 @@ export function Filter() {
               aria-expanded={genderFieldOpen}
             >
               <span className="font-medium text-white">Gender</span>
-              <DropDown
+              <DropDownIcon
+                size={20}
                 className={clsx(
-                  "size-6 fill-white transition-all ease-linear",
+                  "fill-white transition-all ease-linear",
                   genderFieldOpen ? "rotate-180" : "rotate-0",
                 )}
               />

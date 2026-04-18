@@ -2,9 +2,9 @@ import { useSearchParams } from "react-router-dom";
 import { useQueryStore } from "../store/queryStore";
 import { useQuery } from "@tanstack/react-query";
 import { CharacterResponse } from "../types/interfaces";
-import { Search } from "../assets/icons";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { RiSearchLine as SearchIcon } from "@remixicon/react";
 
 export function SearchBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,7 +45,7 @@ export function SearchBar() {
           rounded-4xl bg-gray-900 pl-4 pr-2"
             aria-expanded={isOpen}
           >
-            <Search className="mt-px size-5 fill-gray-400" />
+            <SearchIcon size={20} className="mt-px fill-gray-400" />
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -55,7 +55,8 @@ export function SearchBar() {
                 if (search.trim() === "") {
                   setIsOpen(false);
                   return;
-                } 2;
+                }
+                2;
 
                 searchParams.set("name", search);
                 setSearchParams(searchParams);

@@ -13,6 +13,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@remixicon/react": "^4.9.0",
     "@tailwindcss/vite": "^4.2.1",
     "@tanstack/react-query": "^5.29.2",
     "@types/lodash": "^4.17.0",

@@ -1,4 +1,4 @@
-import { ArrowToLeft } from "../assets/icons";
+import { RiArrowLeftLine as ArrowToLeft } from "@remixicon/react";
 import { useNavigate } from "react-router-dom";
 import { CharacterCard } from "./CharacterCard";
 import { useQueries } from "@tanstack/react-query";
@@ -15,7 +15,7 @@ export function Favorites() {
   };
 
   const favCharacters = useQueries({
-    queries: storage?.map(id => ({
+    queries: storage?.map((id) => ({
       queryKey: ["fav-id", id],
       queryFn: () => fetchCharacter(id),
     })),
@@ -55,7 +55,8 @@ export function Favorites() {
             </span>
           </div>
         )}
-        <ul className="grid place-items-stretch gap-2 sm:max-w-384 grid-cols-2 md:grid-cols-3
+        <ul
+          className="grid place-items-stretch gap-2 sm:max-w-384 grid-cols-2 md:grid-cols-3
       lg:grid-cols-4"
         >
           {[...favCharacters].reverse().map((character, i) => {
@@ -70,4 +71,3 @@ export function Favorites() {
     </div>
   );
 }
-

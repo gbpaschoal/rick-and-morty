@@ -1,6 +1,5 @@
-import React from "react";
-import { ArrowToUp } from "../assets/icons";
 import { useScroll } from "../hooks/useScroll";
+import { RiArrowUpLine as ArrowToUp } from "@remixicon/react";
 
 export function NavFooter() {
   const scroll = useScroll();

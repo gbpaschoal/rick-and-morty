@@ -16,8 +16,9 @@ function useLocalStorage<T>(key: string, initialValue: T[] | null) {
 
 export function createStorageContext<T>(key: string) {
   const Context = createContext<{
-    storage: T[], setStorage: (a: T[]) => void
-  }>({ storage: [], setStorage: (a) => { } });
+    storage: T[];
+    setStorage: (a: T[]) => void;
+  }>({ storage: [], setStorage: (a) => {} });
 
   function Provider({ children }: { children: React.ReactNode }) {
     const [storage, setStorage] = useLocalStorage(key, null);
@@ -35,4 +36,3 @@ export function createStorageContext<T>(key: string) {
 
   return { Provider, useStorage };
 }
-

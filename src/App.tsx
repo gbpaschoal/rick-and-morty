@@ -5,9 +5,9 @@ import { createStorageContext } from "./hooks/useLocalStorage";
 
 export const FavoritesStorage = createStorageContext<number>("favorites");
 
-export default function App() {
+export function App() {
   return (
-    <div className="px-2">
+    <div className="relative">
       <Header />
       <div className="my-16">
         <FavoritesStorage.Provider>
