@@ -1,7 +1,11 @@
-import { Character } from "../types/interfaces";
+import { Character } from "../types";
 import { FavoriteButton } from "./Button";
 
-export function CharacterCard({ character }: { character: Character | undefined }) {
+export function CharacterCard({
+  character,
+}: {
+  character: Character | undefined;
+}) {
   return (
     <div
       className="group flex h-full w-full max-w-[18rem] flex-col rounded-md

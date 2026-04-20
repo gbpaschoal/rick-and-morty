@@ -6,6 +6,7 @@ import { Spinner } from "./Spinner";
 import { SearchBar } from "./SearchBar";
 import { motion } from "framer-motion";
 import { Filter } from "./Filter";
+import { RiHeartLine as FavIcon } from "@remixicon/react";
 
 export function Home() {
   const { data, isFetching, isError, fetchNextPage } = useFetchCharacters();
@@ -24,14 +25,20 @@ export function Home() {
           </h1>
         </Link>
         <SearchBar />
+        <button
+          className="flex items-center gap-x-2 px-4 py-2 bg-gray-900
+        rounded-4xl cursor-pointer"
+        >
+          <FavIcon className="size-5 fill-gray-200" />
+          Favorites
+        </button>
       </div>
       <Filter />
       {isError && (
-        <span className="font-medium text-gray-400">
-          {"No founds :("}
-        </span>
+        <span className="font-medium text-gray-400">{"No founds :("}</span>
       )}
-      <ul className="grid place-items-stretch gap-2 sm:max-w-384 grid-cols-2 md:grid-cols-3
+      <ul
+        className="grid place-items-stretch gap-2 sm:max-w-384 grid-cols-2 md:grid-cols-3
       lg:grid-cols-4"
       >
         {characterList &&

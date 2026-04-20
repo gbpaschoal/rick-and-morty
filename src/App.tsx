@@ -9,7 +9,7 @@ export function App() {
   return (
     <div className="relative">
       <Header />
-      <div className="my-16">
+      <div className="my-16 px-2">
         <FavoritesStorage.Provider>
           <ScrollRestoration />
           <Outlet />

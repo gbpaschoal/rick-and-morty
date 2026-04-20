@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { Character } from "../types/interfaces";
+import { Character } from "../types";
 import { useFavorites } from "../hooks/useFavorites";
 import { RiHeartFill as FavIcon } from "@remixicon/react";
 

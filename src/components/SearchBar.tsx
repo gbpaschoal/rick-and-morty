@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import { useQueryStore } from "../store/queryStore";
 import { useQuery } from "@tanstack/react-query";
-import { CharacterResponse } from "../types/interfaces";
+import { CharacterResponse } from "../types";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { RiSearchLine as SearchIcon } from "@remixicon/react";

@@ -1,14 +1,16 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
-import type { CharactersResponse, Episode } from "../types/interfaces";
+import type { CharactersResponse, Episode } from "../types";
 
 export const useFetchCharacters = () => {
   const [searchParams] = useSearchParams();
   const params = searchParams.toString();
   const API_URL = import.meta.env.VITE_BASE_URL as string;
 
-  const fetchCharacters = async (pageUrl: string): Promise<CharactersResponse> => {
+  const fetchCharacters = async (
+    pageUrl: string,
+  ): Promise<CharactersResponse> => {
     //try-catch
     const { data: characters } = await axios.get<CharactersResponse>(
       `${pageUrl}&${params}`,
@@ -41,7 +43,7 @@ export const useFetchCharacters = () => {
     queryKey: ["characters", params],
     queryFn: ({ pageParam }) => fetchCharacters(pageParam),
     initialPageParam: API_URL,
-    getNextPageParam: lastPage => lastPage.info ? lastPage.info.next : null,
+    getNextPageParam: (lastPage) => (lastPage.info ? lastPage.info.next : null),
   });
 
   return { data, isFetching, isError, fetchNextPage };
