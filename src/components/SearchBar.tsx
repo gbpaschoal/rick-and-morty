@@ -4,7 +4,10 @@ import { useQuery } from "@tanstack/react-query";
 import { CharacterResponse } from "../types";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { RiSearchLine as SearchIcon } from "@remixicon/react";
+import {
+  RiEqualizerLine as FilterIcon,
+  RiSearchLine as SearchIcon,
+} from "@remixicon/react";
 
 export function SearchBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -85,7 +88,7 @@ export function SearchBar() {
               />
               <button className="bg-primary fill-white rounded-full py-2 px-4">
                 {/* <Search /> */}
-                Search
+                <FilterIcon />
               </button>
             </form>
           </div>

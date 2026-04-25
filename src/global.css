@@ -12,6 +12,8 @@
   --color-gray-700: #373737;
   --color-gray-800: #171717;
   --color-gray-900: #0f0f0f;
+
+  --breakpoint-xs: 25rem;
 }
 
 :root {
@@ -41,7 +43,7 @@ body {
   background: var(--background);
 }
 
-.check-input input:checked+span::before {
+.check-input input:checked + span::before {
   content: "";
   background: white;
   width: 8px;
@@ -53,7 +55,7 @@ body {
   transform: rotate(40deg);
 }
 
-.check-input input:checked+span::after {
+.check-input input:checked + span::after {
   content: "";
   background: white;
   width: 13px;
@@ -63,4 +65,12 @@ body {
   left: 5px;
   border-radius: 2222px;
   transform: rotate(-55deg);
+}
+
+@utility flex-x {
+  @apply flex items-center;
+}
+
+@utility flex-y {
+  @apply flex flex-col items-center;
 }

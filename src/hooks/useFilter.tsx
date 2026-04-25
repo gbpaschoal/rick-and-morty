@@ -2,7 +2,6 @@ import { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 
 export function useFilter() {
-  const [searchParams, setSearchParams] = useSearchParams();
   const filters = {
     status: [
       { group: "status", value: "Alive" },
@@ -24,20 +23,24 @@ export function useFilter() {
       { group: "gender", value: "Unknown" },
     ],
   };
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleFilters = useCallback((group: string, value: string) => {
-    const isSelected = searchParams.has(group, value);
+  const handleFilters = useCallback(
+    (group: string, value: string) => {
+      const isSelected = searchParams.has(group, value);
 
-    if (isSelected) {
-      searchParams.delete(group);
+      if (isSelected) {
+        searchParams.delete(group);
+        setSearchParams(searchParams);
+
+        return;
+      }
+
+      searchParams.set(group, value);
       setSearchParams(searchParams);
-
-      return;
-    }
-
-    searchParams.set(group, value);
-    setSearchParams(searchParams);
-  }, [searchParams]);
+    },
+    [searchParams],
+  );
 
   return useMemo(
     () => ({
