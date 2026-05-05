@@ -3,7 +3,6 @@ import { useSearchParams } from "react-router-dom";
 import { useFilter } from "../hooks/useFilter";
 import {
   RiEqualizerLine as FilterIcon,
-  RiCloseLine as CloseIcon,
   RiArrowDownSLine as DropDownIcon,
 } from "@remixicon/react";
 import clsx from "clsx";

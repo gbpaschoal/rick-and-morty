@@ -14,7 +14,7 @@ export function Home() {
   const characterList = data?.pages.flatMap((page) => page.results);
 
   return (
-    <>
+    <div className="flex flex-col gap-y-2">
       <div className="flex-y items-center gap-y-4">
         <h1
           className="text-gray-100 text-center text-[clamp(2.25rem,10vw,3.75rem)]
@@ -27,7 +27,7 @@ export function Home() {
         </div>
         <Link
           to={"/favorites"}
-          className="flex items-center gap-x-2 px-4 py-2 bg-gray-900
+          className="flex items-center gap-x-2 px-4 py-2 bg-primary
           hover:bg-gray-800 transition-all
           text-gray-100 rounded-4xl cursor-pointer"
         >
@@ -62,6 +62,6 @@ export function Home() {
           </ul>
         </div>
       </div>
-    </>
+    </div>
   );
 }
