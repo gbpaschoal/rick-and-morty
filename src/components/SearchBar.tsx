@@ -10,7 +10,7 @@ import { getCharactersByParams } from "../api/characters";
 export function SearchBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(searchParams.get("name") || "");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const clearQuery = () => {
