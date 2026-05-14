@@ -1,25 +1,33 @@
 import { RiArrowLeftLine as ArrowToLeft } from "@remixicon/react";
+import { RiHeartFill as FavIcon } from "@remixicon/react";
+
 import { useNavigate } from "react-router-dom";
 import { CharacterCard } from "./CharacterCard";
-import { useQueries } from "@tanstack/react-query";
-import { FavoritesStorage } from "../App";
+import { useFavoritesStore } from "../store/favorites";
+import clsx from "clsx";
+import { Character } from "../types";
+
+export function FavoriteButton({ character }: { character: Character }) {
+  const { isFavorite, toggleCharacterInFavorites } = useFavoritesStore();
+
+  return (
+    <button
+      onClick={() => toggleCharacterInFavorites(character)}
+      className={clsx(
+        "fav-btn relative top-0 ml-auto cursor-pointer rounded-full p-3",
+        character && isFavorite(character) ? "bg-red-600" : "bg-slate-800/60",
+        "grid w-max place-items-center backdrop-blur-md",
+      )}
+      aria-label="Add Character to Favorites"
+    >
+      <FavIcon size={20} className="fill-gray-100 sm:size-8" />
+    </button>
+  );
+}
 
 export function Favorites() {
-  const { storage } = FavoritesStorage.useStorage();
+  const { favorites } = useFavoritesStore();
   const navigate = useNavigate();
-
-  const fetchCharacter = async (id: number) => {
-    const res = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
-    const data = await res.json();
-    return data;
-  };
-
-  const favCharacters = useQueries({
-    queries: storage?.map((id) => ({
-      queryKey: ["fav-id", id],
-      queryFn: () => fetchCharacter(id),
-    })),
-  });
 
   return (
     <div className="grid w-full place-items-center">
@@ -48,7 +56,7 @@ export function Favorites() {
         </h1>
       </div>
       <div className="flex w-full flex-col items-center">
-        {storage.length === 0 && (
+        {favorites.length === 0 && (
           <div className="mx-auto text-center">
             <span className="font-medium text-gray-400">
               There is nothing yet
@@ -59,10 +67,10 @@ export function Favorites() {
           className="grid place-items-stretch gap-2 sm:max-w-384 grid-cols-2 md:grid-cols-3
       lg:grid-cols-4"
         >
-          {[...favCharacters].reverse().map((character, i) => {
+          {[...favorites].reverse().map((character, i) => {
             return (
               <li key={i}>
-                <CharacterCard character={character.data} />
+                <CharacterCard character={character} />
               </li>
             );
           })}

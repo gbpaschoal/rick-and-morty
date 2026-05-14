@@ -13,13 +13,10 @@ export function SearchBar() {
   const [query, setQuery] = useState(searchParams.get("name") || "");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const clearQuery = () => {
-    setQuery("");
-    searchParams.delete("name");
-    setSearchParams(searchParams);
-
-    if (isOpen) setIsOpen(false);
-  };
+  useEffect(() => {
+    const queryName = searchParams.get("name");
+    queryName ? setQuery(queryName) : "";
+  }, [searchParams]);
 
   const { data: characters } = useQuery({
     queryKey: ["search", query],
@@ -83,7 +80,13 @@ export function SearchBar() {
         {query.trim() && (
           <button
             type="button"
-            onClick={clearQuery}
+            onClick={() => {
+              setQuery("");
+              searchParams.delete("name");
+              setSearchParams(searchParams);
+
+              if (isOpen) setIsOpen(false);
+            }}
             className="group absolute right-0 bg-inherit grid place-items-center w-12
               aspect-square rounded-4xl cursor-pointer"
           >

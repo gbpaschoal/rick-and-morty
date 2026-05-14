@@ -1,5 +1,5 @@
 import { Character } from "../types";
-import { FavoriteButton } from "./Button";
+import { FavoriteButton } from "./Favorites";
 
 export function CharacterCard({
   character,
