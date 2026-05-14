@@ -40,7 +40,9 @@ function FilterDropDown({ filters }: { filters: any }) {
           onClick={() => setIsOpen((prev) => !prev)}
           className="flex w-full items-center justify-between px-4 py-2
               cursor-pointer rounded-lg bg-gray-900 hover:bg-gray-800 transition-all"
-          aria-label="Status"
+          aria-label={
+            filters.group.charAt(0).toUpperCase() + filters.group.slice(1)
+          }
           aria-expanded={isOpen}
         >
           <span className="font-medium text-gray-100">
