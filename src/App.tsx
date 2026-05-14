@@ -4,9 +4,9 @@ import { NavFooter } from "./components/NavFooter";
 
 export function App() {
   return (
-    <div className="relative">
+    <div className="relative px-2">
       <Header />
-      <main className="my-16 px-2">
+      <main className="my-16 flex-y">
         <ScrollRestoration />
         <Outlet />
       </main>

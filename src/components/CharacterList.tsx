@@ -11,7 +11,7 @@ export function CharacterList() {
   return (
     <ul
       className="grid place-items-stretch gap-2 sm:max-w-384 grid-cols-2 md:grid-cols-3
-            lg:grid-cols-4"
+            lg:grid-cols-4 lg:min-w-294"
     >
       {characterList &&
         characterList.map((character, i) => {

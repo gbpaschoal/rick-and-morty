@@ -1,7 +1,7 @@
-import React from "react";
+import { useSyncExternalStore } from "react";
 
 export function useScroll() {
-  const scroll = React.useSyncExternalStore(
+  const scroll = useSyncExternalStore(
     (cb) => {
       window.addEventListener("scroll", cb);
       return () => window.removeEventListener("scroll", cb);

@@ -8,12 +8,12 @@ import clsx from "clsx";
 import { Button } from "./ui/Button";
 
 const FILTERS = [
-  { group: "Status", values: ["Alive", "Dead", "Unknown"] },
+  { group: "status", values: ["Alive", "Dead", "Unknown"] },
   {
-    group: "Species",
+    group: "species",
     values: ["Human", "Alien", "Mythologiic", "Animal", "Robot", "Unknown"],
   },
-  { group: "Gender", values: ["Male", "Female", "Genderless", "Unknown"] },
+  { group: "gender", values: ["Male", "Female", "Genderless", "Unknown"] },
 ];
 
 function FilterDropDown({ filters }: { filters: any }) {
@@ -43,7 +43,9 @@ function FilterDropDown({ filters }: { filters: any }) {
           aria-label="Status"
           aria-expanded={isOpen}
         >
-          <span className="font-medium text-gray-100">{filters.group}</span>
+          <span className="font-medium text-gray-100">
+            {filters.group.charAt(0).toUpperCase() + filters.group.slice(1)}
+          </span>
           <FilterDropDownIcon
             size={20}
             className={clsx(
