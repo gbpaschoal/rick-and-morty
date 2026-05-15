@@ -1,30 +1,40 @@
 import axios from "axios";
-import { CharactersResponse, Episode } from "../types";
+import { CharactersResponse } from "../types";
+import { getEpisode } from "./episodes";
 
-const API_URL = import.meta.env.VITE_BASE_URL as string;
+export const API_URL = import.meta.env.VITE_BASE_URL as string;
 
-// TODO: Add try error
-export const getCharactersByURL = async (url: string) => {
+export const getCharacters = async (url: string) => {
   const { data } = await axios.get<CharactersResponse>(url);
 
   return data;
 };
 
-export const getAllCharacters = async (): Promise<CharactersResponse> => {
-  const { data } = await axios.get(API_URL);
-  return data;
-};
-
-export const getCharactersByParams = async (
-  // TODO: Type params
-  params: string,
+export const getCharactersByName = async (
+  name: string,
 ): Promise<CharactersResponse> => {
-  const { data } = await axios.get(`${API_URL}&${params}`);
+  const { data } = await axios.get<CharactersResponse>(
+    `${API_URL}&name=${name}`,
+  );
   return data;
 };
 
-export const getEpisodeByURL = async (episodeUrl: string) => {
-  const { data: episode } = await axios.get<Episode>(episodeUrl);
+export const getCharactersWithFirstEpisode = async (url: string) => {
+  const characters = await getCharacters(url);
 
-  return episode;
+  if (characters.results) {
+    await Promise.all(
+      characters.results?.map(async (res) => {
+        const firstEpisode = await getEpisode(res.episode[0]);
+        Object.assign(res, {
+          firstEpisode: {
+            name: firstEpisode.name,
+            episode: firstEpisode.episode,
+          },
+        });
+      }),
+    );
+  }
+
+  return characters;
 };

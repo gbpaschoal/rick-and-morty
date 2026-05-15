@@ -1,11 +1,7 @@
 import { Character } from "../types";
 import { FavoriteButton } from "./Favorites";
 
-export function CharacterCard({
-  character,
-}: {
-  character: Character | undefined;
-}) {
+export function CharacterCard({ character }: { character: Character }) {
   return (
     <div
       className="group flex h-full w-full max-w-[18rem] flex-col rounded-md
@@ -23,21 +19,21 @@ export function CharacterCard({
           </div>
         </div>
         <img
-          src={character?.image}
-          alt={character?.name}
+          src={character.image}
+          alt={character.name}
           loading="lazy"
           className="aspect-square w-full object-cover"
         />
       </div>
       <div className="overflow-hidden p-2">
         <h2 className="text-lg font-semibold text-gray-100 md:text-xl ">
-          {character?.name}
+          {character.name}
         </h2>
-        <span className="block pb-3 text-gray-200">{character?.species}</span>
+        <span className="block pb-3 text-gray-200">{character.species}</span>
         <span className="text-gray-400">
           First seen in:&nbsp;
           <span className="font-semibold text-gray-200">
-            {character?.firstEpisode?.name}
+            {character.firstEpisode?.name}
           </span>
         </span>
       </div>

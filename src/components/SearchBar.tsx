@@ -5,7 +5,7 @@ import {
   RiSearchLine as SearchIcon,
   RiCloseLine as CloseIcon,
 } from "@remixicon/react";
-import { getCharactersByParams } from "../api/characters";
+import { getCharactersByName } from "../api/characters";
 
 export function SearchBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +20,7 @@ export function SearchBar() {
 
   const { data: characters } = useQuery({
     queryKey: ["search", query],
-    queryFn: () => getCharactersByParams(`&name=${query}`),
+    queryFn: () => getCharactersByName(query),
     placeholderData: (previousData) => previousData,
   });
 
