@@ -21,7 +21,6 @@ export function CharacterCard({ character }: { character: Character }) {
         <img
           src={character.image}
           alt={character.name}
-          loading="lazy"
           className="aspect-square w-full object-cover"
         />
       </div>

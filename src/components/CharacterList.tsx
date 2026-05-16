@@ -4,8 +4,13 @@ import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import { motion } from "framer-motion";
 
 export function CharacterList() {
-  const { characters, fetchNextPage } = useFetchCharacters();
-  const observer = useIntersectionObserver(fetchNextPage);
+  const { characters, isFetching, fetchNextPage } = useFetchCharacters();
+  const observer = useIntersectionObserver(() => {
+    if (!isFetching) {
+      fetchNextPage();
+    }
+  });
+
   return (
     <ul
       className="grid place-items-stretch gap-2 sm:max-w-384 grid-cols-2 md:grid-cols-3
@@ -21,7 +26,7 @@ export function CharacterList() {
               key={character?.id}
               ref={isTheLastOne ? observer : null}
             >
-              <CharacterCard character={character} />
+              <CharacterCard character={character!} />
             </motion.li>
           );
         })}
