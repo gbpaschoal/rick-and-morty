@@ -17,6 +17,8 @@ const FILTERS = [
   { group: "gender", values: ["Male", "Female", "Genderless", "Unknown"] },
 ];
 
+// TODO: FIX BUT IN SEARCHPARAMS
+
 function FilterDropDown({ filters }: { filters: any }) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -92,8 +94,13 @@ function FilterDropDown({ filters }: { filters: any }) {
                             return;
                           }
 
-                          searchParams.set(filters.group, field);
-                          setSearchParams(searchParams);
+                          setSearchParams(
+                            (prev) => {
+                              prev.set(filters.group, field);
+                              return prev;
+                            },
+                            { replace: true },
+                          );
                         }}
                       />
                       <span
@@ -129,8 +136,13 @@ export function Filter() {
           <Button
             onClick={() => {
               FILTERS.map((filter) => {
-                searchParams.delete(filter.group);
-                setSearchParams(searchParams);
+                setSearchParams(
+                  (prev) => {
+                    prev.delete(filter.group);
+                    return prev;
+                  },
+                  { replace: true },
+                );
               });
             }}
             className="bg-primary"
@@ -164,11 +176,15 @@ export function Filter() {
         </Button>
       </div>
       {isFilterOpen && (
-        <div className="grid w-full gap-2 md:grid-cols-3">
-          {FILTERS.map((filter) => {
-            return <FilterDropDown filters={filter} />;
+        <ul className="grid w-full gap-2 md:grid-cols-3">
+          {FILTERS.map((filter, i) => {
+            return (
+              <li key={i}>
+                <FilterDropDown filters={filter} />
+              </li>
+            );
           })}
-        </div>
+        </ul>
       )}
     </div>
   );

@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { SearchBar } from "./SearchBar";
 import { Filter } from "./Filter";
-import { FavIcon } from "./ui/Icon";
 import { CharacterList } from "./CharacterList";
 
 export function Home() {

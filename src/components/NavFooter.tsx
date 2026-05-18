@@ -10,7 +10,7 @@ export function NavFooter() {
       className="pointer-events-none fixed inset-x-0 bottom-0 left-0 z-3
         py-4 *:pointer-events-auto flex justify-center"
     >
-      <div className="flex items-center justify-end gap-x-2 w-full max-w-xl">
+      <div className="flex items-center justify-end gap-x-2 w-full max-w-xl px-2 xl:px-0">
         {scrollY > 200 && (
           <button
             onClick={() => {
