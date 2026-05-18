@@ -4,7 +4,7 @@ import { FavoriteButton } from "./Favorites";
 export function CharacterCard({ character }: { character: Character }) {
   return (
     <div
-      className="group flex h-full w-full max-w-[18rem] flex-col rounded-md
+      className="group flex h-full w-full flex-col rounded-md
         bg-gray-900 pb-4"
     >
       <div className="relative inset-0 overflow-hidden rounded-t-md">

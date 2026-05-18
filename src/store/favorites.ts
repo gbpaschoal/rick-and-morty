@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { Character } from "../types";
+import { persist } from "zustand/middleware";
 
 type FavoriteStore = {
   favorites: Character[];
@@ -7,19 +8,26 @@ type FavoriteStore = {
   toggleCharacterInFavorites: (character: Character) => void;
 };
 
-export const useFavoritesStore = create<FavoriteStore>((set, get) => ({
-  favorites: [],
-  isFavorite: (character) => {
-    const { favorites } = get();
-    return favorites.some((elem) => elem.id === character.id);
-  },
-  toggleCharacterInFavorites: (character: Character) => {
-    const { favorites, isFavorite } = get();
-    if (isFavorite(character)) {
-      set({ favorites: favorites.filter((elem) => elem.id !== character.id) });
-      return;
-    }
+export const useFavoritesStore = create<FavoriteStore>()(
+  persist(
+    (set, get) => ({
+      favorites: [],
+      isFavorite: (character) => {
+        const { favorites } = get();
+        return favorites.some((elem) => elem.id === character.id);
+      },
+      toggleCharacterInFavorites: (character: Character) => {
+        const { favorites, isFavorite } = get();
+        if (isFavorite(character)) {
+          set({
+            favorites: favorites.filter((elem) => elem.id !== character.id),
+          });
+          return;
+        }
 
-    set({ favorites: [...favorites, character] });
-  },
-}));
+        set({ favorites: [...favorites, character] });
+      },
+    }),
+    { name: "fav-storage" },
+  ),
+);

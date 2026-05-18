@@ -8,7 +8,7 @@ export const useFetchCharacters = () => {
   const [searchParams] = useSearchParams();
   const params = searchParams.toString();
 
-  const { data, isFetching, isError, fetchNextPage } = useInfiniteQuery({
+  const query = useInfiniteQuery({
     queryKey: ["characters", params],
     queryFn: async ({ pageParam }) =>
       getCharactersWithFirstEpisode(`${pageParam}&${params}`),
@@ -17,9 +17,9 @@ export const useFetchCharacters = () => {
   });
 
   const characters = useMemo(
-    () => data?.pages.flatMap((page) => page.results),
-    [data],
+    () => query.data?.pages.flatMap((page) => page.results),
+    [query.data],
   );
 
-  return { characters, isFetching, isError, fetchNextPage };
+  return { characters, ...query };
 };

@@ -11,7 +11,7 @@ const FILTERS = [
   { group: "status", values: ["Alive", "Dead", "Unknown"] },
   {
     group: "species",
-    values: ["Human", "Alien", "Mythologiic", "Animal", "Robot", "Unknown"],
+    values: ["Human", "Alien", "Mythologic", "Animal", "Robot", "Unknown"],
   },
   { group: "gender", values: ["Male", "Female", "Genderless", "Unknown"] },
 ];

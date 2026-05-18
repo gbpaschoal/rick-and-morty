@@ -86,6 +86,8 @@ export function SearchBar() {
               setSearchParams(searchParams);
 
               if (isOpen) setIsOpen(false);
+
+              inputRef.current?.focus();
             }}
             className="group absolute right-0 bg-inherit grid place-items-center w-12
               aspect-square rounded-4xl cursor-pointer"

@@ -6,6 +6,7 @@ import { CharacterCard } from "./CharacterCard";
 import { useFavoritesStore } from "../store/favorites";
 import clsx from "clsx";
 import { Character } from "../types";
+import { useAutoGrid } from "../hooks/useAutoGrid";
 
 export function FavoriteButton({ character }: { character: Character }) {
   const { isFavorite, toggleCharacterInFavorites } = useFavoritesStore();
@@ -28,34 +29,31 @@ export function FavoriteButton({ character }: { character: Character }) {
 export function Favorites() {
   const { favorites } = useFavoritesStore();
   const navigate = useNavigate();
+  const gridRef = useAutoGrid<HTMLUListElement>();
 
   return (
-    <div className="grid w-full place-items-center">
-      <div
-        className="mb-8 grid w-full max-w-6xl
-      grid-cols-3 place-items-center
-      "
-      >
-        <button
-          onClick={() => navigate(-1)}
-          className="group cursor-pointer justify-self-start rounded-full
-          bg-white p-3 transition-colors
-          ease-linear *:transition-colors
-          *:ease-linear hover:bg-gray-900"
-        >
-          <ArrowToLeft
-            className="size-6 fill-black group-hover:fill-gray-200
+    <div className="flex flex-col gap-y-2">
+      <div className="flex justify-center">
+        <div className="max-w-xl w-full py-8 flex flex-col gap-y-2 sm:grid sm:grid-cols-[auto_1fr_3.5rem] items-center">
+          <button
+            onClick={() => navigate(-1)}
+            className="group grid size-14 place-items-center cursor-pointer rounded-full
+          bg-gray-100 p-3 transition-all hover:bg-gray-900"
+          >
+            <ArrowToLeft
+              className="size-6 fill-black group-hover:fill-gray-200 transition-all
           sm:size-8"
-          />
-        </button>
-        <h1
-          className="text-[2.2rem] font-bold tracking-tight text-gray-100
-          sm:text-[3rem] lg:text-[3.5rem]"
-        >
-          Favorites
-        </h1>
+            />
+          </button>
+          <h1
+            className="text-gray-100 text-center text-[clamp(2.25rem,10vw,3.75rem)]
+          leading-[0.8] font-bold"
+          >
+            Favorites
+          </h1>
+        </div>
       </div>
-      <div className="flex w-full flex-col items-center">
+      <div className="flex flex-col items-center">
         {favorites.length === 0 && (
           <div className="mx-auto text-center">
             <span className="font-medium text-gray-400">
@@ -64,8 +62,11 @@ export function Favorites() {
           </div>
         )}
         <ul
-          className="grid place-items-stretch gap-2 sm:max-w-384 grid-cols-2 md:grid-cols-3
-      lg:grid-cols-4"
+          ref={gridRef}
+          className="grid place-items-stretch gap-2 w-full max-w-xl"
+          style={{
+            gridTemplateColumns: `repeat(var(--cols), minmax(0, 1fr))`,
+          }}
         >
           {[...favorites].reverse().map((character, i) => {
             return (
