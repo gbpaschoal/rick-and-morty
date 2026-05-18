@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -12,6 +12,7 @@ export function SearchBar() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("name") || "");
   const inputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const queryName = searchParams.get("name");
@@ -54,6 +55,7 @@ export function SearchBar() {
           searchParams.set("name", query);
           setSearchParams(searchParams);
           setIsOpen(false);
+          navigate(`/?name=${query}`, { replace: true });
         }}
       >
         <SearchIcon size={20} className="mt-px fill-gray-400" />
@@ -109,6 +111,7 @@ export function SearchBar() {
                 onClick={() => {
                   searchParams.set("name", data.name);
                   setSearchParams(searchParams);
+                  navigate(`/?name=${data.name}`, { replace: true });
                 }}
               >
                 <span className="font-medium text-gray-200">{data.name}</span>
