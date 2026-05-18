@@ -4,6 +4,7 @@ import {
   RiEqualizerLine as FilterIcon,
   RiArrowDownSLine as FilterDropDownIcon,
 } from "@remixicon/react";
+import { CloseIconLarge } from "./ui/Icon";
 import clsx from "clsx";
 import { Button } from "./ui/Button";
 
@@ -22,7 +23,7 @@ function FilterDropDown({ filters }: { filters: any }) {
 
   useEffect(() => {
     function handleClick(e: any) {
-      if (e.target && !e.target.closest(".filters")) {
+      if (e.target && !e.target.closest(`.filter-${filters.group}`)) {
         setIsOpen(false);
       }
     }
@@ -35,7 +36,7 @@ function FilterDropDown({ filters }: { filters: any }) {
 
   return (
     <div className="w-full">
-      <div className="filters relative">
+      <div className={`filter-${filters.group} relative`}>
         <button
           onClick={() => setIsOpen((prev) => !prev)}
           className="flex w-full items-center justify-between px-4 py-2
@@ -114,7 +115,7 @@ function FilterDropDown({ filters }: { filters: any }) {
 
 export function Filter() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const filterGroups = FILTERS.map((filter) => filter.group);
 
   const selectedFilters = Object.fromEntries(
@@ -124,6 +125,25 @@ export function Filter() {
   return (
     <div className="flex flex-col gap-y-2">
       <div className="flex-x gap-x-2 justify-end">
+        {Object.keys(selectedFilters).length > 0 && (
+          <Button
+            onClick={() => {
+              FILTERS.map((filter) => {
+                searchParams.delete(filter.group);
+                setSearchParams(searchParams);
+              });
+            }}
+            className="bg-primary"
+            aria-label="Clear filters"
+          >
+            <CloseIconLarge
+              size={14}
+              className="fill-gray-100 transition-all"
+            />
+            Clear All
+          </Button>
+        )}
+
         <Button
           onClick={() => setIsFilterOpen((prev) => !prev)}
           className={clsx(isFilterOpen ? "bg-gray-800" : "bg-gray-900")}
