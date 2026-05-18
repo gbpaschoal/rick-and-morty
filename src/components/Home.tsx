@@ -18,15 +18,6 @@ export function Home() {
         <div className="w-full max-w-130">
           <SearchBar />
         </div>
-        <Link
-          to={"/favorites"}
-          className="flex items-center gap-x-2 px-4 py-2 bg-primary
-          hover:bg-gray-800 transition-all
-          text-gray-100 rounded-4xl cursor-pointer"
-        >
-          <FavIcon className="size-5 fill-gray-100" />
-          Favorites
-        </Link>
       </div>
       <div className="flex justify-center">
         <div className="flex flex-col gap-y-2 w-full max-w-xl">
