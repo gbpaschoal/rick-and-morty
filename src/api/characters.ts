@@ -4,6 +4,9 @@ import { getEpisode } from "./episodes";
 
 export const API_URL = import.meta.env.VITE_BASE_URL as string;
 
+// TODO: ADD ERROR CLASSES
+// TODO: ADD TYPE VALIDATORS
+
 export const getCharacters = async (url: string) => {
   const { data } = await axios.get<CharactersResponse>(url);
 
@@ -16,6 +19,7 @@ export const getCharactersByName = async (
   const { data } = await axios.get<CharactersResponse>(
     `${API_URL}&name=${name}`,
   );
+
   return data;
 };
 

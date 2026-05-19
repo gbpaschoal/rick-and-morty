@@ -42,7 +42,7 @@ export function SearchBar() {
     <div className="relative z-2">
       <form
         className="flex items-center gap-x-2
-          rounded-4xl bg-gray-900 px-4"
+          rounded-4xl bg-gray-800 px-4"
         aria-expanded={isOpen}
         onSubmit={(e) => {
           e.preventDefault();
@@ -102,7 +102,8 @@ export function SearchBar() {
         )}
       </form>
       {isOpen && characters && (
-        <div className="absolute inset-x-0 top-0 -z-1 pb-8 rounded-4xl bg-gray-900">
+        // TODO: STYLE SCROLLBAR
+        <div className="absolute inset-x-0 top-0 -z-1 pb-8 rounded-4xl bg-gray-800">
           <ul className="mt-12 flex flex-col overflow-y-scroll h-55 ">
             {characters.results?.map((data: any) => (
               <li

@@ -42,7 +42,7 @@ function FilterDropDown({ filters }: { filters: any }) {
         <button
           onClick={() => setIsOpen((prev) => !prev)}
           className="flex w-full items-center justify-between px-4 py-2
-              cursor-pointer rounded-lg bg-gray-900 hover:bg-gray-800 transition-all"
+              cursor-pointer rounded-lg bg-gray-800 hover:bg-gray-700 transition-all"
           aria-label={
             filters.group.charAt(0).toUpperCase() + filters.group.slice(1)
           }
@@ -63,7 +63,7 @@ function FilterDropDown({ filters }: { filters: any }) {
         {isOpen && (
           <div
             className="absolute inset-x-0 top-[112%] z-3 rounded-lg
-                  bg-gray-900 py-4"
+                  bg-gray-800 py-4"
             role="group"
             aria-label="Status Filters"
           >
@@ -76,7 +76,7 @@ function FilterDropDown({ filters }: { filters: any }) {
                     <label
                       htmlFor={id}
                       className="check-input flex w-full cursor-pointer
-                        justify-between px-4 py-2 font-medium text-gray-200 hover:bg-gray-800"
+                        justify-between px-4 py-2 font-medium text-gray-200 hover:bg-gray-700"
                     >
                       {field}
                       <input
@@ -158,7 +158,7 @@ export function Filter() {
 
         <Button
           onClick={() => setIsFilterOpen((prev) => !prev)}
-          className={clsx(isFilterOpen ? "bg-gray-800" : "bg-gray-900")}
+          className={clsx(isFilterOpen ? "bg-gray-700" : "bg-gray-800")}
           aria-label="Apply filters"
         >
           {Object.keys(selectedFilters).length > 0 && (
