@@ -19,7 +19,7 @@ export function SearchBar() {
     queryName ? setQuery(queryName) : "";
   }, [searchParams]);
 
-  const { data: characters } = useQuery({
+  const { data: characters, error } = useQuery({
     queryKey: ["search", query],
     queryFn: () => getCharactersByName(query),
     placeholderData: (previousData) => previousData,
@@ -104,7 +104,7 @@ export function SearchBar() {
       {isOpen && characters && (
         // TODO: STYLE SCROLLBAR
         <div className="absolute inset-x-0 top-0 -z-1 pb-8 rounded-4xl bg-gray-800">
-          <ul className="mt-12 flex flex-col overflow-y-scroll h-55 ">
+          <ul className="mt-12 flex flex-col h-55">
             {characters.results?.map((data: any) => (
               <li
                 key={data.id}

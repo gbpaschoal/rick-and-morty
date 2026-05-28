@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useAutoGrid } from "../hooks/useAutoGrid";
 
 export function CharacterList() {
-  const { characters, isFetching, fetchNextPage } = useFetchCharacters();
+  const { characters, isFetching, error, fetchNextPage } = useFetchCharacters();
   const observer = useIntersectionObserver(() => {
     if (!isFetching) {
       fetchNextPage();
@@ -24,20 +24,22 @@ export function CharacterList() {
       {characters &&
         characters.map((character, i) => {
           const isTheLastOne = characters.length - 1 === i;
-          return (
-            <motion.li
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{
-                duration: 0.5,
-                ease: "linear",
-              }}
-              key={character?.id}
-              ref={isTheLastOne ? observer : null}
-            >
-              <CharacterCard character={character!} />
-            </motion.li>
-          );
+          if (character) {
+            return (
+              <motion.li
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  duration: 0.5,
+                  ease: "linear",
+                }}
+                key={character.id}
+                ref={isTheLastOne ? observer : null}
+              >
+                <CharacterCard character={character} />
+              </motion.li>
+            );
+          }
         })}
     </ul>
   );

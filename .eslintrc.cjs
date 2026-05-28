@@ -6,6 +6,7 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   rules: {
     "object-curly-spacing": ["error", "always"],
+    "no-unset-vars": false,
     "key-spacing": ["error", { beforeColon: false, afterColon: true }],
     "arrow-spacing": ["error", { before: true, after: true }],
     "comma-dangle": ["error", "always-multiline"],

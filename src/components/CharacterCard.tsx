@@ -31,8 +31,11 @@ export function CharacterCard({ character }: { character: Character }) {
         <span className="block pb-3 text-gray-200">{character.species}</span>
         <span className="text-gray-400">
           First seen in:&nbsp;
+          {/* TODO: NEW SPAN TREATMENT */}
           <span className="font-semibold text-gray-200">
-            {character.firstEpisode?.name}
+            {character.firstEpisode
+              ? character.firstEpisode.name
+              : "Not found :("}
           </span>
         </span>
       </div>
