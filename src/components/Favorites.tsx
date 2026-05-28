@@ -7,22 +7,28 @@ import { useFavoritesStore } from "../store/favorites";
 import clsx from "clsx";
 import { Character } from "../types";
 import { useAutoGrid } from "../hooks/useAutoGrid";
+import { motion } from "framer-motion";
 
 export function FavoriteButton({ character }: { character: Character }) {
   const { isFavorite, toggleCharacterInFavorites } = useFavoritesStore();
 
   return (
-    <button
+    <motion.button
       onClick={() => toggleCharacterInFavorites(character)}
       className={clsx(
-        "fav-btn relative top-0 ml-auto cursor-pointer rounded-full p-3",
+        "fav-btn relative top-0 ml-auto cursor-pointer rounded-full p-3 grid place-items-center",
         character && isFavorite(character) ? "bg-red-600" : "bg-slate-800/60",
         "grid w-max place-items-center backdrop-blur-md",
       )}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.98 }}
+      onHoverEnd={() => ({
+        scale: 1,
+      })}
       aria-label="Add Character to Favorites"
     >
-      <FavIcon size={20} className="fill-gray-100 sm:size-8" />
-    </button>
+      <FavIcon className="fill-gray-100 sm:size-7" />
+    </motion.button>
   );
 }
 

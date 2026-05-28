@@ -1,46 +1,66 @@
 import { useFetchCharacters } from "../hooks/useFetchCharacters";
 import { CharacterCard } from "./CharacterCard";
-import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import { motion } from "framer-motion";
 import { useAutoGrid } from "../hooks/useAutoGrid";
+import { useInView } from "react-intersection-observer";
+import { useEffect, useRef } from "react";
+import { Spinner } from "./ui/Spinner";
 
 export function CharacterList() {
-  const { characters, isFetching, error, fetchNextPage } = useFetchCharacters();
-  const observer = useIntersectionObserver(() => {
-    if (!isFetching) {
-      fetchNextPage();
-    }
+  const {
+    characters,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useFetchCharacters();
+  const { ref, inView } = useInView({
+    rootMargin: "200px",
   });
   const gridRef = useAutoGrid<HTMLUListElement>();
 
+  const requestedRef = useRef(false);
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage && !requestedRef.current) {
+      requestedRef.current = true;
+
+      fetchNextPage().finally(() => {
+        requestedRef.current = false;
+      });
+    }
+  }, [inView, hasNextPage, isFetchingNextPage]);
+
   return (
-    <ul
-      ref={gridRef}
-      className="grid place-items-stretch gap-2"
-      style={{
-        gridTemplateColumns: `repeat(var(--cols), minmax(0, 1fr))`,
-      }}
-    >
-      {characters &&
-        characters.map((character, i) => {
-          const isTheLastOne = characters.length - 1 === i;
-          if (character) {
-            return (
-              <motion.li
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{
-                  duration: 0.5,
-                  ease: "linear",
-                }}
-                key={character.id}
-                ref={isTheLastOne ? observer : null}
-              >
-                <CharacterCard character={character} />
-              </motion.li>
-            );
-          }
-        })}
-    </ul>
+    <>
+      <motion.ul
+        ref={gridRef}
+        className="grid place-items-stretch gap-2"
+        style={{
+          gridTemplateColumns: `repeat(var(--cols), minmax(0, 1fr))`,
+        }}
+      >
+        {characters &&
+          characters.map((character, i) => {
+            if (character) {
+              return (
+                <motion.li
+                  key={character.id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{
+                    duration: 0.75,
+                  }}
+                >
+                  <CharacterCard character={character} />
+                </motion.li>
+              );
+            }
+          })}
+      </motion.ul>
+      <div ref={ref} className="flex-x justify-center">
+        <Spinner enabled={isFetching} />
+      </div>
+    </>
   );
 }

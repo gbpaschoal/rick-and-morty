@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { SearchBar } from "./SearchBar";
+import { SearchBar } from "./Search";
 import { Filter } from "./Filter";
 import { CharacterList } from "./CharacterList";
 

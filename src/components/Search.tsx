@@ -19,11 +19,14 @@ export function SearchBar() {
     queryName ? setQuery(queryName) : "";
   }, [searchParams]);
 
-  const { data: characters, error } = useQuery({
+  const { data: characters } = useQuery({
     queryKey: ["search", query],
     queryFn: () => getCharactersByName(query),
     placeholderData: (previousData) => previousData,
   });
+
+  const firstCharacters =
+    characters?.results && characters?.results.slice(0, 6);
 
   useEffect(() => {
     function handleClick(e: any) {
@@ -101,14 +104,13 @@ export function SearchBar() {
           </button>
         )}
       </form>
-      {isOpen && characters && (
-        // TODO: STYLE SCROLLBAR
+      {isOpen && (
         <div className="absolute inset-x-0 top-0 -z-1 pb-8 rounded-4xl bg-gray-800">
-          <ul className="mt-12 flex flex-col h-55">
-            {characters.results?.map((data: any) => (
+          <ul className="mt-12 flex flex-col min-h-35 overflow-hidden">
+            {firstCharacters!.map((data: any) => (
               <li
                 key={data.id}
-                className="cursor-pointer px-4 py-2 hover:bg-gray-800"
+                className="cursor-pointer px-4 py-2 hover:bg-gray-700"
                 onClick={() => {
                   searchParams.set("name", data.name);
                   setSearchParams(searchParams);
