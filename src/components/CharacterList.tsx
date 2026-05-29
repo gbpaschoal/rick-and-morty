@@ -33,7 +33,8 @@ export function CharacterList() {
 
   return (
     <>
-      <motion.ul
+      {/* BUG: REF LOSE ELEMENT */}
+      <ul
         ref={gridRef}
         className="grid place-items-stretch gap-2"
         style={{
@@ -41,7 +42,7 @@ export function CharacterList() {
         }}
       >
         {characters &&
-          characters.map((character, i) => {
+          characters.map((character) => {
             if (character) {
               return (
                 <motion.li
@@ -57,7 +58,7 @@ export function CharacterList() {
               );
             }
           })}
-      </motion.ul>
+      </ul>
       <div ref={ref} className="flex-x justify-center">
         <Spinner enabled={isFetching} />
       </div>

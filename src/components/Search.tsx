@@ -25,8 +25,7 @@ export function SearchBar() {
     placeholderData: (previousData) => previousData,
   });
 
-  const firstCharacters =
-    characters?.results && characters?.results.slice(0, 6);
+  const firstCharacters = characters && characters.results.slice(0, 6);
 
   useEffect(() => {
     function handleClick(e: any) {

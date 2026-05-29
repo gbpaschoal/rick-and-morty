@@ -76,9 +76,16 @@ export function Favorites() {
         >
           {[...favorites].reverse().map((character, i) => {
             return (
-              <li key={i}>
+              <motion.li
+                key={character.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  duration: 0.75,
+                }}
+              >
                 <CharacterCard character={character} />
-              </li>
+              </motion.li>
             );
           })}
         </ul>

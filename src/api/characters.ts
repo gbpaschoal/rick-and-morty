@@ -17,10 +17,8 @@ export const getCharactersByName = (
 
 export const getCharactersWithFirstEpisode = async (
   url: string,
-): Promise<any> => {
+): Promise<CharactersResponse> => {
   const characters = await getCharacters(url);
-
-  if (!characters.results) return null;
 
   await Promise.all(
     characters.results.map(async (res) => {

@@ -28,7 +28,7 @@ export interface Character extends ResourceBase {
   firstEpisode?: Episode;
 }
 
-export type CharactersResponse = Info<Character[]>;
+export type CharactersResponse = Required<Info<Character[]>>;
 
 export interface CharacterLocation {
   name: string;

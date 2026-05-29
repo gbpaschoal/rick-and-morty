@@ -1,23 +1,6 @@
 import { SpinnerCircularFixed } from "spinners-react";
-import { useEffect, useState } from "react";
 
 export function Spinner({ enabled }: { enabled: boolean }) {
-  // const [visible, setVisible] = useState(false);
-
-  // useEffect(() => {
-  //   let timeout: any;
-
-  //   if (enabled) {
-  //     timeout = setTimeout(() => {
-  //       setVisible(true);
-  //     }, 1900);
-  //   } else {
-  //     setVisible(false);
-  //   }
-
-  //   return () => clearTimeout(timeout);
-  // }, [enabled]);
-
   return (
     <SpinnerCircularFixed
       size={30}
