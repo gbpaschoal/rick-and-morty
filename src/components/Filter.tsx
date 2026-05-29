@@ -88,16 +88,23 @@ function FilterDropDown({ filters }: { filters: any }) {
                         checked={isChecked}
                         onChange={() => {
                           if (isChecked) {
-                            searchParams.delete(filters.group);
-                            setSearchParams(searchParams);
+                            setSearchParams((prev) => {
+                              const params = new URLSearchParams(prev);
+
+                              params.delete(filters.group);
+
+                              return params;
+                            });
 
                             return;
                           }
-
                           setSearchParams(
                             (prev) => {
-                              prev.set(filters.group, field);
-                              return prev;
+                              const params = new URLSearchParams(prev);
+
+                              params.set(filters.group, field);
+
+                              return params;
                             },
                             { replace: true },
                           );

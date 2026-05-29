@@ -54,8 +54,16 @@ export function SearchBar() {
             return;
           }
 
-          searchParams.set("name", query);
-          setSearchParams(searchParams);
+          setSearchParams(
+            (prev) => {
+              const params = new URLSearchParams(prev);
+
+              params.set("name", query);
+
+              return params;
+            },
+            { replace: true },
+          );
           setIsOpen(false);
           navigate(`/?name=${query}`, { replace: true });
         }}
@@ -86,8 +94,16 @@ export function SearchBar() {
             type="button"
             onClick={() => {
               setQuery("");
-              searchParams.delete("name");
-              setSearchParams(searchParams);
+              setSearchParams(
+                (prev) => {
+                  const params = new URLSearchParams(prev);
+
+                  params.delete("name");
+
+                  return params;
+                },
+                { replace: true },
+              );
 
               if (isOpen) setIsOpen(false);
 
@@ -111,8 +127,16 @@ export function SearchBar() {
                 key={data.id}
                 className="cursor-pointer px-4 py-2 hover:bg-gray-700"
                 onClick={() => {
-                  searchParams.set("name", data.name);
-                  setSearchParams(searchParams);
+                  setSearchParams(
+                    (prev) => {
+                      const params = new URLSearchParams(prev);
+
+                      params.set("name", data.name);
+
+                      return params;
+                    },
+                    { replace: true },
+                  );
                   navigate(`/?name=${data.name}`, { replace: true });
                 }}
               >
