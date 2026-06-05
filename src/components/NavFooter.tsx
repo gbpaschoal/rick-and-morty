@@ -2,6 +2,7 @@ import { RiArrowUpLine as ArrowToUp } from "@remixicon/react";
 import { useScrollY } from "../hooks/useScroll";
 import { FavIconFill } from "./ui/Icon";
 import { Link } from "react-router-dom";
+import { Button } from "./ui/Button";
 
 export function NavFooter() {
   const scrollY = useScrollY();
@@ -13,27 +14,20 @@ export function NavFooter() {
     >
       <div className="*:pointer-events-auto flex max-sm:flex-col max-sm:items-end items-center justify-end gap-2 w-full max-w-xl px-2">
         {scrollY > 200 && (
-          <button
+          <Button
+            as="button"
+            variant="secondary"
             onClick={() => {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            className="group grid size-14 place-items-center cursor-pointer rounded-full
-        bg-white transition-all hover:bg-gray-900"
           >
-            <ArrowToUp
-              className="size-6 fill-black transition-all
-          group-hover:fill-gray-200 sm:size-8"
-            />
-          </button>
+            <ArrowToUp className="size-6 sm:size-8" />
+          </Button>
         )}
 
-        <Link
-          to="favorites"
-          className="group grid size-14 place-items-center cursor-pointer rounded-full
-      bg-primary"
-        >
-          <FavIconFill className="size-6 fill-gray-100 sm:size-8" />
-        </Link>
+        <Button as={Link} to="favorites">
+          <FavIconFill className="size-6 sm:size-8" />
+        </Button>
       </div>
     </div>
   );

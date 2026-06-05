@@ -1,7 +1,30 @@
+import { useQuery } from "@tanstack/react-query";
 import { Character } from "../types";
 import { FavoriteButton } from "./Favorites";
 
+function useImage(url: string) {
+  return useQuery({
+    queryKey: ["image", url],
+
+    queryFn: async () => {
+      const res = await fetch(url);
+
+      if (!res.ok) {
+        throw new Error("failed");
+      }
+
+      const blob = await res.blob();
+
+      return URL.createObjectURL(blob);
+    },
+  });
+}
+
 export function CharacterCard({ character }: { character: Character }) {
+  const { data } = useImage(character.image);
+
+  if (!data) return null;
+
   return (
     <div
       className="group flex h-full w-full flex-col rounded-md
@@ -19,7 +42,7 @@ export function CharacterCard({ character }: { character: Character }) {
           </div>
         </div>
         <img
-          src={character.image}
+          src={data}
           alt={character.name}
           className="aspect-square w-full object-cover"
         />

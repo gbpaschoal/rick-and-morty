@@ -8,6 +8,7 @@ import clsx from "clsx";
 import { Character } from "../types";
 import { useAutoGrid } from "../hooks/useAutoGrid";
 import { motion } from "framer-motion";
+import { Button } from "./ui/Button";
 
 export function FavoriteButton({ character }: { character: Character }) {
   const { isFavorite, toggleCharacterInFavorites } = useFavoritesStore();
@@ -41,16 +42,12 @@ export function Favorites() {
     <div className="flex flex-col gap-y-2">
       <div className="flex justify-center">
         <div className="max-w-xl w-full py-8 flex flex-col gap-y-2 sm:grid sm:grid-cols-[auto_1fr_3.5rem] items-center">
-          <button
-            onClick={() => navigate(-1)}
-            className="group grid size-14 place-items-center cursor-pointer rounded-full
-          bg-gray-100 p-3 transition-all hover:bg-gray-900"
-          >
+          <Button as="button" onClick={() => navigate(-1)} variant="secondary">
             <ArrowToLeft
               className="size-6 fill-black group-hover:fill-gray-200 transition-all
           sm:size-8"
             />
-          </button>
+          </Button>
           <h1
             className="text-gray-100 text-center text-[clamp(2.25rem,10vw,3.75rem)]
           leading-[0.8] font-bold"

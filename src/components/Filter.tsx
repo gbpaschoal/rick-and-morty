@@ -7,6 +7,7 @@ import {
 import { CloseIconLarge } from "./ui/Icon";
 import clsx from "clsx";
 import { Button } from "./ui/Button";
+import { useClickOutside } from "../hooks/useClickOutside";
 
 const FILTERS = [
   { group: "status", values: ["Alive", "Dead", "Unknown"] },
@@ -22,23 +23,15 @@ const FILTERS = [
 function FilterDropDown({ filters }: { filters: any }) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const dropDownRef = useClickOutside<HTMLDivElement>(isOpen, () =>
+    setIsOpen(false),
+  );
 
-  useEffect(() => {
-    function handleClick(e: any) {
-      if (e.target && !e.target.closest(`.filter-${filters.group}`)) {
-        setIsOpen(false);
-      }
-    }
-
-    document.addEventListener("click", handleClick);
-    return () => {
-      document.removeEventListener("click", handleClick);
-    };
-  }, []);
+  //ADD MOTION ON DROPDOWN
 
   return (
     <div className="w-full">
-      <div className={`filter-${filters.group} relative`}>
+      <div ref={dropDownRef} className="relative">
         <button
           onClick={() => setIsOpen((prev) => !prev)}
           className="flex w-full items-center justify-between px-4 py-2
@@ -137,9 +130,9 @@ export function Filter() {
   );
 
   return (
-    <div className="flex flex-col gap-y-2">
-      <div className="flex-x gap-x-2 justify-end">
-        {Object.keys(selectedFilters).length > 0 && (
+    <div className="stack-2">
+      <div className="inline-stack-2 justify-end">
+        {/* {Object.keys(selectedFilters).length > 0 && (
           <Button
             onClick={() => {
               FILTERS.map((filter) => {
@@ -161,11 +154,14 @@ export function Filter() {
             />
             Clear All
           </Button>
-        )}
+        )} */}
 
-        <Button
+        <button
           onClick={() => setIsFilterOpen((prev) => !prev)}
-          className={clsx(isFilterOpen ? "bg-gray-700" : "bg-gray-800")}
+          className={clsx(
+            "relative flex-x cursor-pointer gap-x-2 rounded-4xl px-4 py-2 text-gray-100",
+            isFilterOpen ? "bg-gray-700" : "bg-gray-800",
+          )}
           aria-label="Apply filters"
         >
           {Object.keys(selectedFilters).length > 0 && (
@@ -180,8 +176,10 @@ export function Filter() {
             className="mt-px fill-gray-100 transition-all"
           />
           Filter
-        </Button>
+        </button>
       </div>
+      {/* ADD: SELECTED DROPDOWN  */}
+
       {isFilterOpen && (
         <ul className="grid w-full gap-2 md:grid-cols-3">
           {FILTERS.map((filter, i) => {

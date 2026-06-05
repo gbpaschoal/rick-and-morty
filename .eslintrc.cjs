@@ -10,16 +10,5 @@ module.exports = {
     "key-spacing": ["error", { beforeColon: false, afterColon: true }],
     "arrow-spacing": ["error", { before: true, after: true }],
     "comma-dangle": ["error", "always-multiline"],
-    "max-len": [
-      "warn",
-      {
-        code: 80,
-        ignoreComments: true,
-        ignoreUrls: true,
-        ignoreStrings: true,
-        ignoreTemplateLiterals: true,
-        ignoreRegExpLiterals: true,
-      },
-    ],
   },
 };

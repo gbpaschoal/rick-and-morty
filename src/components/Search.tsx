@@ -6,6 +6,7 @@ import {
   RiCloseLine as CloseIcon,
 } from "@remixicon/react";
 import { getCharactersByName } from "../api/characters";
+import { useClickOutside } from "../hooks/useClickOutside";
 
 export function SearchBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,11 +14,15 @@ export function SearchBar() {
   const [query, setQuery] = useState(searchParams.get("name") || "");
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
-
+  const searchModalRef = useClickOutside<HTMLDivElement>(isOpen, () =>
+    setIsOpen(false),
+  );
   useEffect(() => {
     const queryName = searchParams.get("name");
     queryName ? setQuery(queryName) : "";
   }, [searchParams]);
+
+  //CREATE CHARACTERS RESULTS
 
   const { data: characters } = useQuery({
     queryKey: ["search", query],
@@ -27,21 +32,10 @@ export function SearchBar() {
 
   const firstCharacters = characters && characters.results.slice(0, 6);
 
-  useEffect(() => {
-    function handleClick(e: any) {
-      if (e.target && !e.target.closest(".search-bar")) {
-        setIsOpen(false);
-      }
-    }
-
-    document.addEventListener("click", handleClick);
-    return () => {
-      document.removeEventListener("click", handleClick);
-    };
-  }, []);
+  //ADD MOTION ON SEARCH MODAL
 
   return (
-    <div className="relative z-2">
+    <div ref={searchModalRef} className="relative z-2">
       <form
         className="flex items-center gap-x-2
           rounded-4xl bg-gray-800 px-4"
@@ -54,17 +48,10 @@ export function SearchBar() {
             return;
           }
 
-          setSearchParams(
-            (prev) => {
-              const params = new URLSearchParams(prev);
-
-              params.set("name", query);
-
-              return params;
-            },
-            { replace: true },
-          );
+          searchParams.set("name", query);
+          setSearchParams(searchParams, { replace: true });
           setIsOpen(false);
+
           navigate(`/?name=${query}`, { replace: true });
         }}
       >
@@ -94,16 +81,8 @@ export function SearchBar() {
             type="button"
             onClick={() => {
               setQuery("");
-              setSearchParams(
-                (prev) => {
-                  const params = new URLSearchParams(prev);
-
-                  params.delete("name");
-
-                  return params;
-                },
-                { replace: true },
-              );
+              searchParams.delete("name");
+              setSearchParams(searchParams, { replace: true });
 
               if (isOpen) setIsOpen(false);
 
@@ -127,16 +106,10 @@ export function SearchBar() {
                 key={data.id}
                 className="cursor-pointer px-4 py-2 hover:bg-gray-700"
                 onClick={() => {
-                  setSearchParams(
-                    (prev) => {
-                      const params = new URLSearchParams(prev);
+                  searchParams.set("name", data.name);
+                  setSearchParams(searchParams, { replace: true });
+                  setIsOpen(false);
 
-                      params.set("name", data.name);
-
-                      return params;
-                    },
-                    { replace: true },
-                  );
                   navigate(`/?name=${data.name}`, { replace: true });
                 }}
               >

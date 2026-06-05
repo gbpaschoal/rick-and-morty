@@ -68,3 +68,23 @@ body {
 @utility max-w-* {
   max-width: --value(--breakpoint-*);
 }
+
+@utility debug {
+  outline: 1px solid red;
+
+  & > * {
+    outline: 1px solid blue;
+  }
+}
+
+@utility stack-* {
+  display: flex;
+  flex-direction: column;
+  row-gap: calc(var(--spacing) * --value(integer));
+}
+
+@utility inline-stack-* {
+  display: flex;
+  align-items: center;
+  column-gap: calc(var(--spacing) * --value(integer));
+}

@@ -5,8 +5,8 @@ import { CharacterList } from "./CharacterList";
 
 export function Home() {
   return (
-    <div className="flex flex-col gap-y-2">
-      <div className="flex-y gap-y-4">
+    <div className="stack-2">
+      <div className="stack-4 items-center">
         <Link
           to="/"
           className="text-gray-100 text-center text-[clamp(2.25rem,10vw,3.75rem)]
@@ -18,11 +18,9 @@ export function Home() {
           <SearchBar />
         </div>
       </div>
-      <div className="flex justify-center">
-        <div className="flex flex-col gap-y-2 w-full max-w-xl">
-          <Filter />
-          <CharacterList />
-        </div>
+      <div className="mx-auto stack-2 w-full max-w-xl">
+        <Filter />
+        <CharacterList />
       </div>
     </div>
   );

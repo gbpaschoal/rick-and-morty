@@ -31,6 +31,8 @@ export function CharacterList() {
     }
   }, [inView, hasNextPage, isFetchingNextPage]);
 
+  //API FALLS IN EVERY PAGE LOAD
+
   return (
     <>
       {/* BUG: REF LOSE ELEMENT */}
