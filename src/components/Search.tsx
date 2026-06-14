@@ -7,6 +7,7 @@ import {
 } from "@remixicon/react";
 import { getCharactersByName } from "../api/characters";
 import { useClickOutside } from "../hooks/useClickOutside";
+import { motion } from "framer-motion";
 
 export function SearchBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,8 +32,6 @@ export function SearchBar() {
   });
 
   const firstCharacters = characters && characters.results.slice(0, 6);
-
-  //ADD MOTION ON SEARCH MODAL
 
   return (
     <div ref={searchModalRef} className="relative z-2">

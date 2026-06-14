@@ -4,9 +4,7 @@ import {
   RiEqualizerLine as FilterIcon,
   RiArrowDownSLine as FilterDropDownIcon,
 } from "@remixicon/react";
-import { CloseIconLarge } from "./ui/Icon";
 import clsx from "clsx";
-import { Button } from "./ui/Button";
 import { useClickOutside } from "../hooks/useClickOutside";
 
 const FILTERS = [
@@ -159,7 +157,7 @@ export function Filter() {
         <button
           onClick={() => setIsFilterOpen((prev) => !prev)}
           className={clsx(
-            "relative flex-x cursor-pointer gap-x-2 rounded-4xl px-4 py-2 text-gray-100",
+            "relative inline-stack-2 cursor-pointer gap-x-2 rounded-4xl px-4 py-2 text-gray-100",
             isFilterOpen ? "bg-gray-700" : "bg-gray-800",
           )}
           aria-label="Apply filters"

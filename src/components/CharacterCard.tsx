@@ -52,7 +52,7 @@ export function CharacterCard({ character }: { character: Character }) {
           {character.name}
         </h2>
         <span className="block pb-3 text-gray-200">{character.species}</span>
-        <span className="text-gray-400">
+        <span className="text-gray-300">
           First seen in:&nbsp;
           <span className="font-semibold text-gray-200">
             {character.firstEpisode ? (
