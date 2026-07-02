@@ -1,11 +1,11 @@
-import React from "react";
+import type React from "react";
+import { createElement } from "react";
 import { twMerge } from "tailwind-merge";
 
 type ButtonOwnProps<T extends React.ElementType = "button"> = {
   as?: T;
   children: React.ReactNode;
   variant?: "primary" | "secondary";
-  clasName: string;
 };
 
 type ButtonProps<T extends React.ElementType = "button"> = ButtonOwnProps<T> &
@@ -19,15 +19,15 @@ const variantsStyles = {
 const baseStyles =
   "group grid size-14 place-items-center cursor-pointer rounded-full transition-all";
 
-export function Button({
+export function Button<T extends React.ElementType = "button">({
   as,
   variant = "primary",
   className,
   children,
   ...props
-}: ButtonProps) {
+}: ButtonProps<T>) {
   const Component = as || "button";
-  return React.createElement(
+  return createElement(
     Component,
     {
       className: twMerge(baseStyles, variantsStyles[variant], className),

@@ -1,41 +1,26 @@
+import { useEffect } from "react";
+import { useAutoGrid } from "../hooks/useAutoGrid";
 import { useFetchCharacters } from "../hooks/useFetchCharacters";
 import { CharacterCard } from "./CharacterCard";
-import { motion } from "framer-motion";
-import { useAutoGrid } from "../hooks/useAutoGrid";
 import { useInView } from "react-intersection-observer";
-import { useEffect, useRef } from "react";
 import { Spinner } from "./ui/Spinner";
 
 export function CharacterList() {
-  const {
-    characters,
-    hasNextPage,
-    isFetching,
-    isFetchingNextPage,
-    fetchNextPage,
-  } = useFetchCharacters();
+  const gridRef = useAutoGrid<HTMLUListElement>();
   const { ref, inView } = useInView({
     rootMargin: "200px",
   });
-  const gridRef = useAutoGrid<HTMLUListElement>();
-
-  const requestedRef = useRef(false);
+  const { characters, fetchNextPage, isFetchingNextPage } =
+    useFetchCharacters();
 
   useEffect(() => {
-    if (inView && hasNextPage && !isFetchingNextPage && !requestedRef.current) {
-      requestedRef.current = true;
-
-      fetchNextPage().finally(() => {
-        requestedRef.current = false;
-      });
+    if (inView) {
+      fetchNextPage();
     }
-  }, [inView, hasNextPage, isFetchingNextPage]);
-
-  //API FALLS IN EVERY PAGE LOAD
+  }, [inView]);
 
   return (
     <>
-      {/* BUG: REF LOSE ELEMENT */}
       <ul
         ref={gridRef}
         className="grid place-items-stretch gap-2"
@@ -44,25 +29,14 @@ export function CharacterList() {
         }}
       >
         {characters &&
-          characters.map((character) => {
-            if (character) {
-              return (
-                <motion.li
-                  key={character.id}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{
-                    duration: 0.75,
-                  }}
-                >
-                  <CharacterCard character={character} />
-                </motion.li>
-              );
-            }
-          })}
+          characters.map((character) => (
+            <li key={character.id}>
+              <CharacterCard character={character} />
+            </li>
+          ))}
       </ul>
-      <div ref={ref} className="flex-x justify-center">
-        <Spinner enabled={isFetching} />
+      <div ref={ref} className="flex justify-center">
+        <Spinner enabled={isFetchingNextPage} />
       </div>
     </>
   );

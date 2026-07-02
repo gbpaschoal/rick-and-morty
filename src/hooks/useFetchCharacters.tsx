@@ -1,8 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useSearchParams } from "react-router-dom";
-import { getCharactersWithFirstEpisode } from "../api/characters";
-import { useMemo } from "react";
-import { API_URL } from "../api/characters";
+import { useSearchParams } from "react-router";
+import { getCharactersWithFirstEpisode } from "../api";
+import { API_URL } from "../api";
 
 export const useFetchCharacters = () => {
   const [searchParams] = useSearchParams();
@@ -10,16 +9,17 @@ export const useFetchCharacters = () => {
 
   const query = useInfiniteQuery({
     queryKey: ["characters", params],
-    queryFn: async ({ pageParam }) =>
-      getCharactersWithFirstEpisode(`${pageParam}&${params}`),
+    queryFn: async ({ pageParam }) => {
+      console.log(`page param: ${pageParam}`);
+      return getCharactersWithFirstEpisode(`${pageParam}&${params}`);
+    },
     initialPageParam: API_URL,
+    // staleTime: 1000 * 60 * 30,
     getNextPageParam: (lastPage) => (lastPage.info ? lastPage.info.next : null),
   });
 
-  const characters = useMemo(
-    () => query.data?.pages.flatMap((page) => page.results),
-    [query.data],
-  );
+  // PRECISA DO USEMEMO?
+  const characters = query.data?.pages.flatMap((page) => page.results);
 
   return { characters, ...query };
 };

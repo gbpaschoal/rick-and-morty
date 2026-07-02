@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #1b56fd;
+
+  --color-gray-100: #f3f3f3;
+  --color-gray-200: #d4d4d4;
+  --color-gray-300: #a2a2a2;
+  --color-gray-400: #909090;
+  --color-gray-500: #727272;
+  --color-gray-600: #525252;
+  --color-gray-700: #141414;
+  --color-gray-800: #0f0f0f;
+  --color-gray-900: #0a0a0a;
+}
+
+:root {
+  --background: #000;
+}
+
+html {
+  @apply font-mono;
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--background);
+  color: var(--color-gray-100);
+}
+
+@utility flex-y-* {
+  display: flex;
+  flex-direction: column;
+  row-gap: calc(var(--spacing) * --value(integer));
+}
+
+@utility flex-x-* {
+  display: flex;
+  align-items: center;
+  column-gap: calc(var(--spacing) * --value(integer));
+}
+
+@utility max-w-* {
+  max-width: --value(--breakpoint-*);
+}
+
+@utility debug {
+  outline: 1px solid red;
+
+  & > * {
+    outline: 1px solid blue;
+  }
+}
+
+.check-input input:checked + span::before {
+  content: "";
+  background: white;
+  width: 8px;
+  height: 2px;
+  position: absolute;
+  top: 10px;
+  left: 1px;
+  border-radius: 2222px;
+  transform: rotate(40deg);
+}
+
+.check-input input:checked + span::after {
+  content: "";
+  background: white;
+  width: 13px;
+  height: 2px;
+  position: absolute;
+  top: 7px;
+  left: 5px;
+  border-radius: 2222px;
+  transform: rotate(-55deg);
+}
